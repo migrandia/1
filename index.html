@@ -3,410 +3,254 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Boda | Mi Gran Día</title>
+    <title>Boda Real | Mi Gran Día</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300;400;600;700&family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/scrollreveal"></script>
 
     <style>
         :root {
-            /* NUEVA PALETA DE COLORES: Rosa Champagne, Oro Rosa y Blanco Marfil */
-            --color-principal: #a67c52; /* Oro Viejo/Bronce */
-            --color-acentos: #e6c7b0;   /* Rosa Champagne */
-            --color-oro-rosa: #d4a373;   /* Oro Rosa Solido */
-            --color-texto: #4a4a4a;
-            --fondo-marfil: #fdfaf6;
-            --blanco: #ffffff;
-            --borde: 1px solid rgba(166, 124, 82, 0.3);
+            --oro-rosa: #d4a373;
+            --champagne: #f3e5d8;
+            --gris-seda: #f8f9fa;
+            --texto: #333;
+            --marmol: url('https://www.transparenttextures.com/patterns/marble-white.png');
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
-        img { -webkit-user-drag: none; pointer-events: none; max-width: 100%; height: auto; }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--fondo-marfil);
-            color: var(--color-texto);
-            line-height: 1.7;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--texto); 
+            background-color: #fff;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Cormorant Infant', serif;
-            color: var(--color-principal);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 700;
+        /* --- MÚSICA INVISIBLE (BOCINA CHICA) --- */
+        .music-control {
+            position: fixed; top: 20px; right: 20px; z-index: 9999;
+            background: rgba(255,255,255,0.8);
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: 1px solid var(--oro-rosa);
         }
 
-        /* --- PORTADA HERO CON TU FOTO --- */
+        /* --- PORTADA CON TEXTURA --- */
         .hero {
             height: 100vh;
-            /* 👇 PEGA AQUÍ TU FOTO DE PORTADA EN DROPBOX (con &raw=1 al final) 👇 */
-            background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), 
-                              url('https://www.dropbox.com/scl/fi/f0to_p0rtada.jpg?rlkey=xyz&raw=1');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 20px;
-            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; color: white;
         }
 
-        .hero p { font-size: 1.2rem; letter-spacing: 5px; text-transform: uppercase; }
-        .hero h1 { font-size: 4.5rem; color: white; margin: 15px 0; text-shadow: 2px 2px 15px rgba(0,0,0,0.4); }
+        .hero h1 { 
+            font-family: 'Playfair Display', serif; font-size: 4rem; 
+            font-style: italic; margin: 20px 0;
+        }
 
-        /* --- CONTADOR --- */
-        .countdown {
-            display: flex;
-            gap: 20px;
-            margin-top: 30px;
-            background: rgba(255,255,255,0.2);
-            padding: 15px 30px;
-            border-radius: 50px;
-            backdrop-filter: blur(5px);
-        }
-        .countdown-item { text-align: center; }
-        .countdown-item span { font-size: 2rem; font-weight: 700; display: block; }
-        .countdown-item label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+        /* --- SECCIONES ALTERNADAS --- */
+        .sec-blanca { background-image: var(--marmol); background-color: #fff; }
+        .sec-color { background-color: var(--champagne); }
+        .sec-gris { background-color: var(--gris-seda); border-top: 1px solid #eee; }
 
-        /* --- SECCIONES GENERALES --- */
-        .seccion { padding: 100px 20px; max-width: 1100px; margin: auto; text-align: center; }
-        .divider { width: 100px; height: 2px; background: var(--color-acentos); margin: 25px auto; }
-        
-        /* --- HISTORIA CON FOTOS --- */
-        .historia-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 50px;
-        }
-        .historia-grid img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 15px;
-            border: 5px solid white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
-        .historia-grid img:hover { transform: scale(1.03) rotate(2deg); }
+        .seccion { padding: 80px 20px; text-align: center; }
 
-        /* --- TARJETAS ELEGANTES (Padres, Padrinos, Eventos) --- */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+        h2 { 
+            font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; 
+            color: var(--oro-rosa); margin-bottom: 30px; letter-spacing: 2px;
         }
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            border: var(--borde);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            transition: 0.3s;
-        }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(166,124,82,0.1); }
-        .card h4 { font-size: 1.4rem; color: var(--color-oro-rosa); margin-bottom: 10px; }
-        .card p { margin-bottom: 5px; color: #777; }
-        .card strong { color: var(--color-texto); font-size: 1.1rem; }
 
-        /* --- BOTONES ORO ROSA --- */
-        .btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 15px 40px;
-            background: linear-gradient(45deg, var(--color-oro-rosa), var(--color-acentos));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            border: none;
-            box-shadow: 0 5px 15px rgba(212,163,115,0.3);
+        /* --- CONTADOR ELEGANTE --- */
+        .contador-wrap {
+            display: flex; gap: 15px; margin-top: 20px;
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212,163,115,0.5); }
+        .time-box { background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; min-width: 70px; }
+        .time-box span { display: block; font-size: 1.5rem; font-weight: bold; }
 
-        /* --- ITINERARIO CON FIGURAS (Línea de Tiempo) --- */
-        .itinerario { margin-top: 50px; position: relative; padding-left: 50px; text-align: left; }
-        .itinerario::before {
-            content: '';
-            position: absolute;
-            left: 15px; top: 0;
-            width: 2px; height: 100%;
-            background: var(--color-acentos);
+        /* --- REGALOS DESPLAZABLES (NO CARUSEL) --- */
+        .regalos-scroll {
+            display: flex; overflow-x: auto; gap: 20px; padding: 20px;
+            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
         }
-        .itinerario-item { position: relative; margin-bottom: 40px; }
+        .regalo-card {
+            flex: 0 0 280px; scroll-snap-align: center;
+            background: white; padding: 30px; border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid var(--champagne);
+        }
+
+        /* --- ITINERARIO (CON ANIMACIÓN) --- */
+        .itinerario-list { max-width: 600px; margin: auto; text-align: left; border-left: 2px solid var(--oro-rosa); padding-left: 30px; }
+        .itinerario-item { margin-bottom: 40px; position: relative; opacity: 0; }
         .itinerario-item::before {
-            content: '♦'; /* Figura elegante */
-            position: absolute;
-            left: -48px; top: 0;
-            width: 35px; height: 35px;
-            background: var(--color-oro-rosa);
-            color: white;
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.2rem;
-            box-shadow: 0 0 10px rgba(212,163,115,0.5);
+            content: ''; position: absolute; left: -41px; top: 0;
+            width: 20px; height: 20px; background: var(--oro-rosa); border-radius: 50%;
         }
-        .itinerario-item h4 { font-size: 1.2rem; color: var(--color-principal); text-transform: none; letter-spacing: 1px; }
-        .itinerario-item p { color: #888; font-size: 0.9rem; }
+        .itinerario-item h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; }
 
-        /* --- CARUSEL SIMPLIFICADO (Mesa de Regalos) --- */
-        .carousel-container {
-            overflow: hidden;
-            width: 100%;
-            margin-top: 50px;
-            padding: 20px 0;
+        /* --- HOTELES --- */
+        .hotel-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin-top: 30px;
         }
-        .carousel-track {
-            display: flex;
-            gap: 30px;
-            animation: scroll 20s linear infinite;
-            width: calc(250px * 8); /* Ancho total de los items */
-        }
-        .carousel-track:hover { animation-play-state: paused; }
-        .carousel-item {
-            width: 250px;
-            height: 150px;
-            background: white;
-            border-radius: 15px;
-            border: var(--borde);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Pacifico', cursive;
-            font-size: 1.5rem;
-            color: var(--color-oro-rosa);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        .hotel-card { background: white; border-radius: 15px; overflow: hidden; border: 1px solid #ddd; }
+        .hotel-card img { width: 100%; height: 180px; object-fit: cover; }
+        .hotel-info { padding: 20px; }
+
+        .btn {
+            display: inline-block; padding: 12px 25px; background: var(--oro-rosa);
+            color: white; text-decoration: none; border-radius: 30px; font-size: 0.8rem;
+            margin-top: 15px; transition: 0.3s;
         }
 
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-250px * 4)); }
+        /* --- CLIMA --- */
+        .clima-box {
+            max-width: 400px; margin: auto; background: white;
+            padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
-
-        /* --- CLIMA Y SPOTIFY --- */
-        .widgets-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        .widget-box { background: white; padding: 20px; border-radius: 20px; border: var(--borde); }
-
-        /* --- FOOTER --- */
-        footer {
-            padding: 60px 20px;
-            background: var(--color-principal);
-            color: white;
-            text-align: center;
-        }
-        footer .brand-final { font-family: 'Pacifico', cursive; font-size: 2.5rem; color: var(--color-acentos); margin-bottom: 10px; }
-
-        /* --- WHATSAPP FLOTANTE --- */
-        .whatsapp { position: fixed; bottom: 35px; right: 35px; background: #25D366; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2000; box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: 0.3s; }
-        .whatsapp:hover { transform: scale(1.1); }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
-            .seccion { padding: 60px 20px; }
-            .hero p { font-size: 0.9rem; }
-            .countdown { gap: 10px; padding: 10px 20px; }
-            .countdown-item span { font-size: 1.5rem; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
+
+    <div class="music-control" onclick="toggleMusic()">
+        <span id="music-icon">🔇</span>
+    </div>
+    <audio id="bg-music" loop>
+        <source src="TU_LINK_DE_MUSICA_DIRECTO.mp3" type="audio/mpeg">
+    </audio>
 
     <section class="hero">
-        <p>Nuestra Boda</p>
+        <p style="letter-spacing: 4px;">NUESTRA BODA</p>
         <h1>Nombre & Nombre</h1>
-        <div class="divider" style="background: white;"></div>
-        <p>25 . OCTUBRE . 2026</p>
+        <div class="contador-wrap" id="timer">
+            <div class="time-box"><span id="days">00</span><label>Días</label></div>
+            <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
+            <div class="time-box"><span id="mins">00</span><label>Min</label></div>
+        </div>
+        <p style="margin-top: 20px;">25 . OCTUBRE . 2026</p>
+    </section>
 
-        <div class="countdown" id="countdown">
-            <div class="countdown-item"><span id="days">00</span><label>Días</label></div>
-            <div class="countdown-item"><span id="hours">00</span><label>Horas</label></div>
-            <div class="countdown-item"><span id="minutes">00</span><label>Min</label></div>
-            <div class="countdown-item"><span id="seconds">00</span><label>Seg</label></div>
+    <section class="seccion sec-blanca">
+        <div class="reveal">
+            <h2>Nuestra Historia</h2>
+            <p style="font-family: 'Cormorant Garamond'; font-size: 1.5rem; font-style: italic;">
+                "El amor es el camino, y tú mi destino favorito."
+            </p>
         </div>
     </section>
 
-    <section class="seccion">
-        <h2>Nuestra Historia</h2>
-        <div class="divider"></div>
-        <p style="font-style: italic; font-size: 1.2rem; font-family: 'Cormorant Infant'; max-width: 700px; margin: auto;">
-            "Un viaje que comenzó con una mirada y hoy se convierte en un 'para siempre'."
-        </p>
-        <div class="historia-grid">
-            <img src="https://www.dropbox.com/scl/fi/f0to_historia1.jpg?rlkey=xyz&raw=1" alt="Historia 1">
-            <img src="https://www.dropbox.com/scl/fi/f0to_historia2.jpg?rlkey=xyz&raw=1" alt="Historia 2">
-            <img src="https://www.dropbox.com/scl/fi/f0to_historia3.jpg?rlkey=xyz&raw=1" alt="Historia 3">
-        </div>
-    </section>
-
-    <section class="seccion" style="background: #fff; border-radius: 50px;">
-        <h2>Con la bendición de nuestros padres</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <h4>Padres de la Novia</h4>
-                <p>Strong>Nombre del Padre</strong></p>
-                <p>Strong>Nombre de la Madre</strong></p>
-            </div>
-            <div class="card">
-                <h4>Padres del Novio</h4>
-                <p>Strong>Nombre del Padre</strong></p>
-                <p>Strong>Nombre de la Madre</strong></p>
-            </div>
-        </div>
-        <h2 style="margin-top: 80px;">Nuestros Padrinos</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <h4>Padrinos de Velación</h4>
-                <p>Strong>Nombre del Padrino</strong></p>
-                <p>Strong>Nombre de la Madrina</strong></p>
-            </div>
-            <div class="card">
-                <h4>Padrinos de Anillos</h4>
-                <p>Strong>Nombre del Padrino</strong></p>
-                <p>Strong>Nombre de la Madrina</strong></p>
-            </div>
-        </div>
-    </section>
-
-    <section class="seccion">
-        <h2>Dónde y Cuándo</h2>
-        <div class="divider"></div>
-        <div class="cards-grid">
-            <div class="card">
-                <h4>Ceremonia Religiosa</h4>
-                <p>Strong>17:00 HRS</strong></p>
-                <p>Nombre de la Iglesia o Lugar</p>
-                <p>Dirección Completa, Ciudad</p>
-                <a href="https://maps.google.com" target="_blank" class="btn">Ver Mapa</a>
-            </div>
-            <div class="card">
-                <h4>Recepción</h4>
-                <p>Strong>19:30 HRS</strong></p>
-                <p>Nombre del Salón o Quinta</p>
-                <p>Dirección Completa, Ciudad</p>
-                <a href="https://maps.google.com" target="_blank" class="btn">Ver Mapa</a>
-            </div>
-        </div>
-
-        <h3 style="margin-top: 80px; font-size: 2rem;">Itinerario del Gran Día</h3>
-        <div class="itinerario">
+    <section class="seccion sec-color">
+        <h2>Itinerario</h2>
+        <div class="itinerario-list">
             <div class="itinerario-item">
                 <h4>17:00 HRS - Ceremonia</h4>
-                <p>Unión religiosa en la Iglesia.</p>
+                <p>Iglesia del Sagrado Corazón</p>
             </div>
             <div class="itinerario-item">
-                <h4>18:30 HRS - Sesión de Fotos</h4>
-                <p>Cóctel de bienvenida para invitados.</p>
+                <h4>19:00 HRS - Recepción</h4>
+                <p>Hacienda Los Laureles</p>
             </div>
             <div class="itinerario-item">
-                <h4>19:30 HRS - Entrada de los Novios</h4>
-                <p>Gran inicio de la recepción en el Salón.</p>
-            </div>
-            <div class="itinerario-item">
-                <h4>21:00 HRS - La Cena</h4>
-                <p>Banquete y brindis de honor.</p>
-            </div>
-            <div class="itinerario-item">
-                <h4>22:30 HRS - Primer Baile y Fiesta</h4>
-                <p>¡Empieza la celebración!</p>
+                <h4>21:00 HRS - Banquete</h4>
+                <p>Cena de Gala y Brindis</p>
             </div>
         </div>
     </section>
 
-    <section class="seccion" style="background: #fff; border-radius: 50px;">
+    <section class="seccion sec-gris">
         <h2>Mesa de Regalos</h2>
-        <div class="divider"></div>
-        <p>Tu presencia es nuestro mejor regalo, pero si deseas tener un detalle, te compartimos nuestras opciones.</p>
-        
-        <div class="carousel-container">
-            <div class="carousel-track">
-                <div class="carousel-item">Amazon</div>
-                <div class="carousel-item">Liverpool</div>
-                <div class="carousel-item">Datos Bancarios</div>
-                <div class="carousel-item">Lluvia de Sobres</div>
-                <div class="carousel-item">Amazon</div>
-                <div class="carousel-item">Liverpool</div>
-                <div class="carousel-item">Datos Bancarios</div>
-                <div class="carousel-item">Lluvia de Sobres</div>
+        <p>Desliza para ver las opciones:</p>
+        <div class="regalos-scroll">
+            <div class="regalo-card">
+                <h3>Amazon</h3>
+                <p>Lista de deseos online.</p>
+                <a href="#" class="btn">Ver Lista</a>
             </div>
-        </div>
-        <p style="margin-top: 30px; font-size: 0.9rem; color: #888;">Strong>Nota bancaria:</strong> Banco XYZ | Cuenta: 0000 0000 0000 | Clabe: 000000000000</p>
-    </section>
-
-    <section class="seccion">
-        <h2>Detalles Importantes</h2>
-        <div class="divider"></div>
-        <div class="widgets-grid">
-            <div class="widget-box">
-                <h4>El Clima</h4>
-                <p style="margin-bottom: 15px;">Pronóstico para Ciudad, Estado.</p>
-                <iframe src="https://www.eltiempo.es/widget/weather/v1/ciudad?size=medium&type=forecast" frameborder="0" scrolling="no" width="100%" height="150px" style="border:none; border-radius:10px;"></iframe>
+            <div class="regalo-card">
+                <h3>Liverpool</h3>
+                <p>Código: 50493821</p>
+                <a href="#" class="btn">Ver Mesa</a>
             </div>
-            
-            <div class="widget-box">
-                <h4>Música de Fondo</h4>
-                <p style="margin-bottom: 15px;">Dale play para ambientar tu lectura.</p>
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX56wN6D1XU8X?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <div class="regalo-card">
+                <h3>Efectivo</h3>
+                <p>Transferencia Bancaria</p>
+                <p style="font-size: 0.8rem;">Clabe: 000 000 000</p>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="brand-final">Mi Gran Día</div>
-        <h2 id="laFrase" style="color: white; font-size: 2rem;"></h2>
-        <p id="elPie" style="color: var(--color-acentos); letter-spacing:3px; text-transform:uppercase; font-weight:600; font-size: 1rem;"></p>
-        <div style="margin-top:40px; color: rgba(255,255,255,0.5); font-size: 0.8rem;">© 2026 Mi Gran Día • Todos los derechos reservados.</div>
+    <section class="seccion sec-blanca">
+        <h2>Sugerencia de Hospedaje</h2>
+        <div class="hotel-grid">
+            <div class="hotel-card reveal">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop" alt="Hotel 1">
+                <div class="hotel-info">
+                    <h4>Hotel Royal</h4>
+                    <p>Tarifa especial para invitados.</p>
+                    <a href="#" class="btn">Reservar</a>
+                </div>
+            </div>
+            <div class="hotel-card reveal">
+                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop" alt="Hotel 2">
+                <div class="hotel-info">
+                    <h4>Quinta Real</h4>
+                    <p>A 5 minutos del evento.</p>
+                    <a href="#" class="btn">Reservar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion sec-color">
+        <h2>El Clima del Evento</h2>
+        <div class="clima-box reveal">
+            <div id="ww_65902b3780373" v='1.3' loc='auto' a='{"t":"horizontal","lang":"es","sl_lcap":"false","sl_sbox":"false","fa":"true","font":"Arial","deg":"c","shade":"white"}'>Más predicciones: <a href="https://oneweather.org/es/" aria-label="One weather" target="_blank">oneweather.org/es/</a></div><script async src="https://app2.weatherwidget.org/js/?id=ww_65902b3780373"></script>
+        </div>
+    </section>
+
+    <footer style="padding: 50px; background: #333; color: #fff; text-align: center;">
+        <p>MI GRAN DÍA © 2026</p>
     </footer>
 
-    <a href="https://wa.me/520000000000?text=Hola! Confirmo mi asistencia a la boda" class="whatsapp" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="38" alt="Confirmar">
-    </a>
-
     <script>
-        // 👇 CONFIGURA TU FECHA DE BODA AQUÍ (Formato: Año, Mes-1, Día, Hora, Min) 👇
-        // Ejem: 2026, 9, 25 (Octubre es mes 9 en JS porque enero es 0)
-        const weddingDate = new Date(2026, 9, 25, 17, 0, 0).getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-
-            if (distance < 0) {
-                clearInterval(interval);
-                document.getElementById("countdown").innerHTML = "<p>¡Hoy es el Gran Día!</p>";
+        // --- CONTROL DE MÚSICA ---
+        const music = document.getElementById('bg-music');
+        const icon = document.getElementById('music-icon');
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                icon.innerText = "🔊";
+            } else {
+                music.pause();
+                icon.innerText = "🔇";
             }
         }
 
-        const interval = setInterval(updateCountdown, 1000);
-        updateCountdown(); // Ejecutar una vez al inicio
+        // --- ANIMACIONES DE APARICIÓN ---
+        ScrollReveal().reveal('.reveal', { delay: 300, distance: '50px', duration: 1000 });
+        ScrollReveal().reveal('.itinerario-item', { 
+            delay: 200, 
+            distance: '30px', 
+            interval: 300, 
+            origin: 'left',
+            opacity: 0
+        });
 
-        // Textos del Footer
-        document.getElementById('laFrase').innerText = '"Porque los mejores momentos de la vida merecen ser anunciados con elegancia."';
-        document.getElementById('elPie').innerText = "Mi Gran Día | Experiencias Digitales";
+        // --- CONTADOR ---
+        const targetDate = new Date("Oct 25, 2026 17:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        }, 1000);
     </script>
+
 </body>
 </html>
