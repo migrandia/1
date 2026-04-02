@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda | Alejandro & Sofía</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300;400;600;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* NUEVA PALETA DE COLORES: Azul Noche, Plata y Blanco */
+            --color-principal: #1a2a6c; /* Azul Noche */
+            --color-secundario: #4b6cb7; /* Azul Intermedio */
+            --color-plata: #c0c0c0;      /* Plata */
+            --color-texto: #2c3e50;
+            --blanco-fondo: #fdfdfd;
+            --borde-acento: 1px solid rgba(192, 192, 192, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--blanco-fondo);
+            color: var(--color-texto);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Infant', serif;
+            color: var(--color-principal);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* PORTADA HERO */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(26, 42, 108, 0.4), rgba(26, 42, 108, 0.4)), 
+                        url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        /* SECCIÓN DE DATOS */
+        .seccion {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .divider {
+            width: 80px;
+            height: 2px;
+            background: var(--color-plata);
+            margin: 20px auto;
+        }
+
+        /* TARJETAS DE EVENTOS */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border: var(--borde-acento);
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: var(--color-principal);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--color-secundario);
+            box-shadow: 0 5px 15px rgba(26, 42, 108, 0.3);
+        }
+
+        /* MESA DE REGALOS */
+        .regalos {
+            background-color: #f4f7f9;
+            border-radius: 20px;
+            padding: 60px 20px;
+        }
+
+        /* PIE DE PÁGINA */
+        footer {
+            padding: 40px;
+            background: var(--color-principal);
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <p>Nuestra Boda</p>
+        <h1>Alejandro & Sofía</h1>
+        <div class="divider" style="background: white;"></div>
+        <p>25 . OCTUBRE . 2026</p>
+    </section>
+
+    <section class="seccion">
+        <h2>Nuestra Historia</h2>
+        <div class="divider"></div>
+        <p style="font-style: italic; font-size: 1.2rem; font-family: 'Cormorant Infant';">
+            "El amor no consiste en mirarse el uno al otro, sino en mirar juntos en la misma dirección."
+        </p>
+    </section>
+
+    <section class="seccion">
+        <div class="event-grid">
+            <div class="card">
+                <h3>Ceremonia Religiosa</h3>
+                <div class="divider"></div>
+                <p><strong>17:00 HRS</strong></p>
+                <p>Catedral de Nuestra Señora</p>
+                <p>Calle Principal #123, Centro Histórico</p>
+                <a href="https://maps.google.com" target="_blank" class="btn">Ver Mapa</a>
+            </div>
+
+            <div class="card">
+                <h3>Recepción</h3>
+                <div class="divider"></div>
+                <p><strong>19:30 HRS</strong></p>
+                <p>Quinta "Los Olivos"</p>
+                <p>Av. de los Viñedos #45, Zona Campestre</p>
+                <a href="https://maps.google.com" target="_blank" class="btn">Ver Mapa</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion regalos">
+        <h2>Mesa de Regalos</h2>
+        <div class="divider"></div>
+        <p>Tu presencia es nuestro mejor regalo, pero si deseas tener un detalle con nosotros, te compartimos nuestras opciones:</p>
+        <div style="margin-top: 30px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            <a href="#" class="btn" style="background: #fff; color: var(--color-principal); border: 1px solid var(--color-principal);">Amazon</a>
+            <a href="#" class="btn" style="background: #fff; color: var(--color-principal); border: 1px solid var(--color-principal);">Liverpool</a>
+        </div>
+    </section>
+
+    <section class="seccion">
+        <h2>Confirmar Asistencia</h2>
+        <div class="divider"></div>
+        <p>Por favor, confírmanos tu asistencia antes del 30 de Septiembre.</p>
+        <a href="https://wa.me/525500000000?text=Hola! Confirmo mi asistencia a la boda de Alejandro y Sofia" class="btn">Confirmar por WhatsApp</a>
+    </section>
+
+    <footer>
+        <p>Alejandro & Sofía | 2026</p>
+        <p style="font-size: 0.7rem; margin-top: 10px; opacity: 0.7;">Creado con amor para nuestro Gran Día</p>
+    </footer>
+
+</body>
+</html>
