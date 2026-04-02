@@ -3,243 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Real | Mi Gran Día</title>
+    <title>Invitación Premium | Mi Gran Día</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     
     <script src="https://unpkg.com/scrollreveal"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
-            --oro: #c5a059;
-            --oro-suave: #e6c7b0;
-            --texto: #2c2c2c;
-            --blanco-marmol: #ffffff;
-            --gris-seda: #f4f4f4;
-            --marmol-img: url('https://www.transparenttextures.com/patterns/marble-white.png');
+            --oro: #b8926a;
+            --negro: #1a1a1a;
+            --marmol: url('https://www.transparenttextures.com/patterns/marble-white.png');
+            --gris-seda: #f9f9f9;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; color: var(--texto); background-color: #fff; overflow-x: hidden; }
+        body { font-family: 'Montserrat', sans-serif; color: #333; background-color: #fff; overflow-x: hidden; }
 
-        /* BOCINA MÚSICA */
-        .music-btn {
-            position: fixed; top: 25px; right: 25px; z-index: 1000;
-            background: rgba(255,255,255,0.9); width: 40px; height: 40px;
+        /* BOCINA MÚSICA DISCRETA */
+        .music-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: rgba(255,255,255,0.9); width: 45px; height: 45px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            border: 1px solid var(--oro); cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 1px solid var(--negro); cursor: pointer;
         }
 
-        /* HERO & CONTADOR */
+        /* 1. PORTADA */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80');
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;
         }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 15px 0; font-style: italic; }
-        .timer-grid { display: flex; gap: 15px; margin-top: 20px; }
-        .t-box { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); padding: 15px; border-radius: 10px; min-width: 75px; }
-        .t-box span { display: block; font-size: 1.8rem; font-weight: 700; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-style: italic; margin: 15px 0; }
+        
+        /* CONTADOR */
+        .timer { display: flex; gap: 15px; margin-top: 20px; }
+        .t-box { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 5px; min-width: 65px; }
+        .t-box span { display: block; font-size: 1.5rem; font-weight: bold; }
+
+        /* SECCIONES Y TEXTURAS */
+        .sec { padding: 80px 20px; text-align: center; }
+        .marmol-bg { background-image: var(--marmol); background-color: #fff; }
+        .gris-bg { background-color: var(--gris-seda); border-top: 1px solid #eee; }
+
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--negro); margin-bottom: 25px; letter-spacing: 2px; }
+        .mensaje { max-width: 700px; margin: auto; font-size: 1.1rem; line-height: 1.8; font-style: italic; color: #444; }
 
         /* SLIDER DE FOTOS */
-        .swiper { width: 100%; height: 500px; margin-top: 50px; }
+        .swiper { width: 100%; height: 450px; margin: 40px 0; }
         .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* SECCIONES */
-        .sec { padding: 80px 20px; text-align: center; position: relative; }
-        .marmol { background-image: var(--marmol-img); background-color: var(--blanco-marmol); }
-        .champagne { background-color: var(--oro-suave); }
-        .gris { background-color: var(--gris-seda); }
+        /* ITINERARIO ANIMADO */
+        .it-container { max-width: 500px; margin: 40px auto; text-align: left; border-left: 1px solid var(--negro); padding-left: 30px; }
+        .it-item { position: relative; margin-bottom: 45px; opacity: 0; }
+        .it-item::before { 
+            content: '●'; position: absolute; left: -37px; top: -2px; 
+            background: #fff; color: var(--negro); font-size: 1.2rem; 
+        }
+        .it-item h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 5px; }
 
-        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--oro); margin-bottom: 25px; }
-        .mensaje-largo { max-width: 800px; margin: auto; font-size: 1.2rem; font-style: italic; line-height: 2; color: #555; }
+        /* UBICACIONES CON FOTO PEQUEÑA */
+        .loc-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 40px; }
+        .loc-card { background: #fff; border-radius: 15px; overflow: hidden; width: 320px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .loc-img-mini { width: 100%; height: 150px; object-fit: cover; }
+        .loc-info { padding: 20px; }
+        .btn { 
+            display: inline-block; padding: 12px 25px; background: var(--negro); color: #fff; 
+            text-decoration: none; border-radius: 5px; margin-top: 15px; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px;
+        }
 
-        /* ITINERARIO */
-        .it-wrap { max-width: 600px; margin: 40px auto; text-align: left; border-left: 2px solid var(--oro); padding-left: 30px; }
-        .it-item { position: relative; margin-bottom: 50px; opacity: 0; }
-        .it-item::before { content: '◈'; position: absolute; left: -43px; top: 0; background: #fff; color: var(--oro); font-size: 1.5rem; }
-        .it-item h4 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--oro); }
+        /* VESTIMENTA FIGURAS NEGRAS */
+        .dress-code-box { margin-top: 30px; }
+        .dress-icons { font-size: 4rem; color: var(--negro); filter: grayscale(1); margin-bottom: 10px; }
 
-        /* BOTONES UBICACIÓN */
-        .btn-flex { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
-        .card-loc { background: #fff; padding: 30px; border-radius: 15px; border: 1px solid #ddd; width: 300px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .btn { display: inline-block; padding: 12px 30px; background: var(--oro); color: #fff; text-decoration: none; border-radius: 25px; margin-top: 15px; font-weight: bold; transition: 0.3s; }
-        .btn:hover { background: #000; transform: translateY(-3px); }
+        /* REGALOS DESPLAZABLES */
+        .regalos-flex { display: flex; overflow-x: auto; gap: 20px; padding: 20px; scroll-snap-type: x mandatory; justify-content: center; }
+        .regalo-card { flex: 0 0 260px; background: #fff; padding: 30px; border-radius: 10px; border: 1px solid #ddd; scroll-snap-align: center; }
 
-        /* REGALOS & SOBRES */
-        .regalos-container { display: flex; overflow-x: auto; gap: 20px; padding: 20px; justify-content: center; }
-        .regalo-item { min-width: 250px; background: #fff; padding: 30px; border-radius: 15px; border: 1px solid var(--oro-suave); }
+        /* BOTÓN CONFIRMACIÓN FINAL */
+        .confirm-sec { padding: 100px 20px; background: var(--negro); color: #fff; text-align: center; }
+        .btn-confirm { 
+            display: inline-block; padding: 20px 50px; background: #fff; color: var(--negro); 
+            text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; margin-top: 30px;
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1); transition: 0.3s;
+        }
+        .btn-confirm:hover { transform: scale(1.05); background: var(--oro); color: white; }
 
-        /* DRESS CODE ICONOS */
-        .dress-icon { font-size: 3rem; color: var(--oro); margin-bottom: 10px; }
-
-        /* CLIMA WIDGET */
-        .clima-container { max-width: 450px; margin: 30px auto; background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-
-        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .regalos-container { justify-content: flex-start; }
-            .card-loc { width: 100%; }
+            .hero h1 { font-size: 2.5rem; }
+            .regalos-flex { justify-content: flex-start; }
         }
     </style>
 </head>
 <body>
 
-    <div class="music-btn" onclick="togglePlay()"> <span id="m-icon">🔇</span> </div>
-    <audio id="miMusica" loop> <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"> </audio>
+    <div class="music-toggle" onclick="toggleMusic()"> <span id="m-status">🔇</span> </div>
+    <audio id="bg-audio" loop> <source src="TU_LINK_DE_AUDIO.mp3" type="audio/mpeg"> </audio>
 
-    <header class="hero">
-        <p style="letter-spacing: 5px;">ESTAMOS POR CASARNOS</p>
-        <h1>Alejandro & Sofía</h1>
-        <div class="timer-grid">
-            <div class="t-box"><span id="d">00</span><small>Días</small></div>
-            <div class="t-box"><span id="h">00</span><small>Horas</small></div>
-            <div class="t-box"><span id="m">00</span><small>Min</small></div>
+    <section class="hero">
+        <p style="letter-spacing: 3px;">NUESTRA BODA</p>
+        <h1>Nombre & Nombre</h1>
+        <div class="timer">
+            <div class="t-box"><span id="days">00</span><small>Días</small></div>
+            <div class="t-box"><span id="hours">00</span><small>Hrs</small></div>
+            <div class="t-box"><span id="mins">00</span><small>Min</small></div>
         </div>
-        <p style="margin-top: 25px; font-weight: bold;">25 DE OCTUBRE, 2026</p>
-    </header>
+    </section>
 
-    <section class="sec marmol">
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80"></div>
-                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80"></div>
-                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1465495910483-345749586056?auto=format&fit=crop&w=800&q=80"></div>
-                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80"></div>
-            </div>
-        </div>
-        <div class="reveal" style="margin-top: 50px;">
+    <section class="sec marmol-bg">
+        <div class="reveal">
             <h2>Nuestra Unión</h2>
-            <p class="mensaje-largo">
-                "Hoy comenzamos el capítulo más hermoso de nuestras vidas. Queremos que seas testigo de esta promesa de amor eterno, compartiendo risas, bailes y momentos que guardaremos por siempre en el corazón. Porque la felicidad solo es real cuando se comparte."
+            <p class="mensaje">
+                "Hay momentos en la vida que son especiales por sí solos, pero compartirlos con las personas que más queremos los hace inolvidables. Gracias por ser parte de nuestra historia."
             </p>
         </div>
     </section>
 
-    <section class="sec champagne">
-        <h2>Itinerario del Día</h2>
-        <div class="it-wrap">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800"></div>
+            <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800"></div>
+            <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1465495910483-345749586056?q=80&w=800"></div>
+            <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800"></div>
+        </div>
+    </div>
+
+    <section class="sec gris-bg">
+        <div class="reveal">
+            <h2>Unidos para siempre</h2>
+            <p class="mensaje">
+                "Después de tantos sueños juntos, hoy por fin diremos 'Sí, acepto'. Tu compañía en este día significa el mundo para nosotros."
+            </p>
+        </div>
+    </section>
+
+    <section class="sec marmol-bg">
+        <h2>Itinerario</h2>
+        <div class="it-container">
             <div class="it-item">
-                <h4>17:00 HRS - Ceremonia Religiosa</h4>
-                <p>Momento de nuestra unión ante Dios.</p>
+                <h4>17:00 HRS - Ceremonia</h4>
+                <p>Iglesia Central de la Ciudad</p>
             </div>
             <div class="it-item">
-                <h4>18:30 HRS - Cóctel de Bienvenida</h4>
-                <p>Bebidas y canapés mientras cae el sol.</p>
+                <h4>18:30 HRS - Cóctel</h4>
+                <p>Jardín de la Hacienda</p>
             </div>
             <div class="it-item">
-                <h4>19:30 HRS - Entrada y Cena</h4>
-                <p>Banquete especial en honor a los novios.</p>
-            </div>
-            <div class="it-item">
-                <h4>21:00 HRS - ¡A Bailar!</h4>
-                <p>Apertura de pista y fiesta total.</p>
+                <h4>19:30 HRS - Recepción</h4>
+                <p>Cena, Brindis y Baile</p>
             </div>
         </div>
     </section>
 
-    <section class="sec marmol">
-        <h2>¿Dónde será?</h2>
-        <div class="btn-flex">
-            <div class="card-loc reveal">
-                <h3>Ceremonia</h3>
-                <p>Catedral de San Idelfonso</p>
-                <p>Centro de la Ciudad</p>
-                <a href="https://maps.google.com" target="_blank" class="btn">VER IGLESIA</a>
+    <section class="sec gris-bg">
+        <h2>¿Cómo llegar?</h2>
+        <div class="loc-grid">
+            <div class="loc-card reveal">
+                <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b?q=80&w=400" class="loc-img-mini">
+                <div class="loc-info">
+                    <h3>La Iglesia</h3>
+                    <p>Calle Principal #123, Centro</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn">VER MAPA</a>
+                </div>
             </div>
-            <div class="card-loc reveal">
-                <h3>Recepción</h3>
-                <p>Hacienda Los Laureles</p>
-                <p>Km 5 Carretera Federal</p>
-                <a href="https://maps.google.com" target="_blank" class="btn">VER SALÓN</a>
+            <div class="loc-card reveal">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=400" class="loc-img-mini">
+                <div class="loc-info">
+                    <h3>El Salón</h3>
+                    <p>Hacienda Los Olivos, Km 12</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn">VER MAPA</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="sec gris">
-        <h2>Mesa de Regalos</h2>
-        <div class="regalos-container">
+    <section class="sec marmol-bg">
+        <div class="reveal">
+            <h2>Código de Vestimenta</h2>
+            <div class="dress-icons">🤵👰</div>
+            <h3>FORMAL RIGUROSO</h3>
+            <p>Hombres: Traje Oscuro | Mujeres: Vestido Largo</p>
+        </div>
+
+        <h2 style="margin-top: 60px;">Mesa de Regalos</h2>
+        <div class="regalos-flex">
+            <div class="regalo-item">
+                <h3>Lluvia de Sobres</h3>
+                <p>Tendremos un buzón para sobres en la recepción.</p>
+            </div>
             <div class="regalo-item">
                 <h3>Amazon</h3>
                 <p>Código: BODA-2026</p>
-                <a href="#" class="btn">IR A MESA</a>
-            </div>
-            <div class="regalo-item">
-                <h3>Lluvia de Sobres</h3>
-                <p>Su presencia es el mejor regalo, pero si desean tener un detalle, tendremos un buzón para sobres.</p>
+                <a href="#" class="btn">VER LISTA</a>
             </div>
             <div class="regalo-item">
                 <h3>Transferencia</h3>
-                <p>Banco: Mi Banco</p>
-                <p>CLABE: 000 000 0000 00</p>
+                <p>Banco: XYZ | CLABE: 000 000 000</p>
             </div>
         </div>
     </section>
 
-    <section class="sec champagne">
+    <section class="sec gris-bg">
+        <h2>Detalles Finales</h2>
+        <div style="max-width: 450px; margin: auto; background: #fff; padding: 20px; border-radius: 15px;">
+            <h4>El Clima</h4>
+            <div id="ww_clima" v='1.3' loc='auto' a='{"t":"horizontal","lang":"es","fa":"true","font":"Arial","deg":"c","shade":"white"}'></div><script async src="https://app2.weatherwidget.org/js/?id=ww_clima"></script>
+        </div>
+    </section>
+
+    <section class="confirm-sec">
         <div class="reveal">
-            <h2>Código de Vestimenta</h2>
-            <div class="dress-icon">👔👗</div>
-            <h3>FORMAL / ELEGANTE</h3>
-            <p>Hombres: Traje Completo | Mujeres: Vestido Largo</p>
-        </div>
-        <div style="margin-top: 60px;">
-            <h2>Sugerencias de Hospedaje</h2>
-            <div class="btn-flex">
-                <div class="card-loc">
-                    <h4>Hotel Plaza Real</h4>
-                    <p>Habitación desde $1,500 MXN</p>
-                    <a href="#" class="btn">RESERVAR</a>
-                </div>
-                <div class="card-loc">
-                    <h4>Quinta Boutique</h4>
-                    <p>Descuento código: BODA26</p>
-                    <a href="#" class="btn">RESERVAR</a>
-                </div>
-            </div>
+            <h2>¿Contamos con tu presencia?</h2>
+            <p>Favor de confirmar antes del 1 de Octubre</p>
+            <a href="https://wa.me/529911001238?text=Hola! Confirmo mi asistencia" class="btn-confirm">CONFIRMAR POR WHATSAPP</a>
         </div>
     </section>
-
-    <section class="sec marmol">
-        <h2>El Clima para ese día</h2>
-        <div class="clima-container reveal">
-            <div id="ww_58b688d070119" v='1.3' loc='auto' a='{"t":"horizontal","lang":"es","sl_lcap":"false","sl_sbox":"false","fa":"true","font":"Arial","deg":"c","shade":"white"}'></div><script async src="https://app2.weatherwidget.org/js/?id=ww_58b688d070119"></script>
-        </div>
-    </section>
-
-    <footer style="padding: 60px; background: #222; color: #fff;">
-        <h2 style="color: #fff;">Mi Gran Día</h2>
-        <p>© 2026 - Diseñando momentos eternos</p>
-    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // SLIDER
-        const swiper = new Swiper(".mySwiper", { effect: "fade", autoplay: { delay: 3000 }, loop: true });
+        new Swiper(".mySwiper", { effect: "fade", autoplay: { delay: 3500 }, loop: true });
 
-        // ANIMACIÓN SCROLL
-        ScrollReveal().reveal('.reveal', { distance: '50px', duration: 1200, delay: 200 });
-        ScrollReveal().reveal('.it-item', { distance: '30px', interval: 400, origin: 'left' });
+        // REVELAR AL HACER SCROLL
+        ScrollReveal().reveal('.reveal', { distance: '50px', duration: 1000, delay: 200 });
+        ScrollReveal().reveal('.it-item', { distance: '30px', interval: 300, origin: 'left' });
 
         // MÚSICA
-        const a = document.getElementById("miMusica");
-        const b = document.getElementById("m-icon");
-        function togglePlay() {
-            if(a.paused){ a.play(); b.innerText="🔊"; }
-            else { a.pause(); b.innerText="🔇"; }
+        const audio = document.getElementById("bg-audio");
+        const status = document.getElementById("m-status");
+        function toggleMusic() {
+            if(audio.paused) { audio.play(); status.innerText = "🔊"; }
+            else { audio.pause(); status.innerText = "🔇"; }
         }
 
         // CONTADOR
-        const date = new Date("Oct 25, 2026 17:00:00").getTime();
+        const weddingDate = new Date("Oct 25, 2026 17:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
-            const d = date - now;
-            document.getElementById("d").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
-            document.getElementById("h").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("m").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+            const d = weddingDate - now;
+            document.getElementById("days").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("mins").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
         }, 1000);
     </script>
 </body>
