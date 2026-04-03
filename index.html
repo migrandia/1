@@ -68,7 +68,7 @@
         .c-white { background: white; } .c-black { background: black; } .c-red { background: red; }
 
         /* CLIMA WIDGET */
-        .weather-box { background: white; padding: 20px; border-radius: 15px; border: 1px solid var(--oro); margin-top: 10px; }
+        .weather-box { background: white; border-radius: 15px; border: 1px solid var(--oro); margin-top: 10px; overflow: hidden; }
 
         /* CONFIRMACIÓN */
         .confirm-sec { background: var(--crema); padding: 50px 20px; border-top: 1px solid #eee; }
@@ -181,7 +181,7 @@
                     <h4>Hotel Gran Plaza</h4>
                     <p>Ubicado a 10 min del evento.<br><small>Menciona nuestra boda para tarifa especial.</small></p>
                     <div class="btn-container">
-                        <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/MDI2MDMzMS4wIKXMDSoASAFQA" target="_blank" class="btn" style="padding:10px 20px;">RESERVAR</a>
+                        <a href="#" target="_blank" class="btn" style="padding:10px 20px;">RESERVAR</a>
                     </div>
                 </div>
                 <div class="card-family">
@@ -189,7 +189,7 @@
                     <h4>Quinta del Sol</h4>
                     <p>Hotel boutique con encanto colonial.<br><small>Ideal para familias y grupos.</small></p>
                     <div class="btn-container">
-                        <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/MDI2MDMzMS4wIKXMDSoASAFQA" target="_blank" class="btn" style="padding:10px 20px;">RESERVAR</a>
+                        <a href="#" target="_blank" class="btn" style="padding:10px 20px;">RESERVAR</a>
                     </div>
                 </div>
             </div>
@@ -225,9 +225,12 @@
         <div class="reveal">
             <h2>El Clima</h2>
             <div class="weather-box">
-                <p>Estado de México</p>
-                <a href="https://weather.com/es-MX/tiempo/hoy/l/74935867ee1b5916520fa8741409d149d9028f8c583dac168653eee7e1fdd1fe" target="_blank" class="btn" style="background:white; color:black;">VER CLIMA EN VIVO</a>
+                <div id="ww_659029705886d" v='1.3' loc='id' a='{"t":"horizontal","lang":"es","sl_lct":"i","sl_id":"74935867ee1b5916520fa8741409d149d9028f8c583dac168653eee7e1fdd1fe","mc_mw":"400","font":"Montserrat","el_cb":"20","el_ph":"20","el_pbc":"#FFFFFF","el_pfc":"#333333","el_phc":"#B8926A","el_uic":"#B8926A","el_vmc":"#B8926A"}'>
+                    <a href="https://weatherwidget.org/es/" id="ww_659029705886d_u" target="_blank">Widget de tiempo para sitio web</a>
+                </div>
+                <script async src="https://app3.weatherwidget.org/js/?id=ww_659029705886d"></script>
             </div>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: var(--oro);">ESTADO DE MÉXICO</p>
         </div>
     </section>
 
@@ -254,7 +257,6 @@
         const mStatus = document.getElementById("m-status");
         let hasPlayed = false;
 
-        // Función para que la música empiece al tocar cualquier parte la primera vez
         function playFirstTime() {
             if (!hasPlayed) {
                 music.play();
@@ -263,9 +265,8 @@
             }
         }
 
-        // Función exclusiva del botón para pausar/reproducir
         function toggleMusica(event) {
-            event.stopPropagation(); // Evita que el click llegue al body
+            event.stopPropagation();
             if (music.paused) { 
                 music.play(); 
                 mStatus.innerText = "🔊"; 
