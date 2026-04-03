@@ -56,7 +56,7 @@
         .swiper-button-next, .swiper-button-prev { color: var(--oro) !important; font-weight: bold; }
 
         /* BOTONES CENTRADOS */
-        .btn-container { display: flex; justify-content: center; width: 100%; margin: 15px 0; }
+        .btn-container { display: flex; justify-content: center; width: 100%; margin: 15px 0; flex-direction: column; align-items: center; }
         .btn { display: inline-block; padding: 16px 40px; background: var(--negro); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; border-bottom: 4px solid var(--oro); font-size: 0.9rem; transition: 0.3s; }
         .btn:hover { background: #333; }
 
@@ -70,9 +70,13 @@
         /* CLIMA WIDGET */
         .weather-box { background: white; border-radius: 15px; border: 1px solid var(--oro); margin-top: 10px; overflow: hidden; min-height: 150px; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
-        /* CONFIRMACIÓN */
+        /* CONFIRMACIÓN Y SELECTOR */
         .confirm-sec { background: var(--crema); padding: 50px 20px; border-top: 1px solid #eee; }
-        .btn-confirm { display: inline-block; padding: 18px 50px; background: var(--negro); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; border-bottom: 4px solid var(--oro); margin-top: 25px; }
+        .btn-confirm { display: inline-block; padding: 18px 50px; background: var(--negro); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; border-bottom: 4px solid var(--oro); margin-top: 15px; }
+        
+        .attendance-selector { margin-bottom: 10px; }
+        .attendance-selector label { display: block; font-size: 0.8rem; font-weight: bold; color: var(--oro); margin-bottom: 8px; text-transform: uppercase; }
+        .attendance-selector select { padding: 10px 20px; border-radius: 10px; border: 1px solid var(--oro); background: white; font-family: 'Montserrat'; font-weight: bold; color: var(--negro); cursor: pointer; outline: none; }
 
         .footer-brand { padding: 40px; text-align: center; }
     </style>
@@ -157,7 +161,7 @@
                 <h4 style="margin-top:15px;">Ceremonia Religiosa</h4>
                 <p>Catedral de Toluca, Edo. Méx.</p>
                 <div class="btn-container">
-                    <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/MDI2MDMzMS4wIKXMDSoASAFQA" target="_blank" class="btn">UBICACIÓN</a>
+                    <a href="https://maps.app.goo.gl/vS7T6u9N" target="_blank" class="btn">UBICACIÓN</a>
                 </div>
             </div>
             <div class="card-family">
@@ -165,7 +169,7 @@
                 <h4 style="margin-top:15px;">Recepción</h4>
                 <p>Hacienda San José, Edo. Méx.</p>
                 <div class="btn-container">
-                    <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/MDI2MDMzMS4wIKXMDSoASAFQA" target="_blank" class="btn">UBICACIÓN</a>
+                    <a href="https://maps.app.goo.gl/vS7T6u9N" target="_blank" class="btn">UBICACIÓN</a>
                 </div>
             </div>
         </div>
@@ -239,10 +243,22 @@
         <div class="reveal" style="text-align: center;">
             <h2>¡Confirma tu Asistencia!</h2>
             <p>Sería un verdadero placer contar con tu presencia.</p>
-            <p style="margin-top:10px;"><small>FAVOR DE CONFIRMAR ANTES DEL 01.10.2026</small></p>
-            <div class="btn-container">
-                <a href="https://wa.me/525654252153?text=Confirmo mi asistencia" class="btn-confirm">WHATSAPP</a>
+            
+            <div class="btn-container" style="margin-top: 25px;">
+                <div class="attendance-selector">
+                    <label>¿Cuántas personas asistirán?</label>
+                    <select id="num-asistentes">
+                        <option value="1">1 Persona</option>
+                        <option value="2">2 Personas</option>
+                        <option value="3">3 Personas</option>
+                        <option value="4">4 Personas</option>
+                        <option value="5">5 Personas</option>
+                    </select>
+                </div>
+                <a href="javascript:void(0)" onclick="enviarWhatsApp()" class="btn-confirm">CONFIRMAR POR WHATSAPP</a>
             </div>
+
+            <p style="margin-top:20px;"><small>FAVOR DE CONFIRMAR ANTES DEL 01.10.2026</small></p>
             <p style="margin-top:30px; font-style:italic; font-family:'Cormorant Garamond'; font-size:1.5rem;">¡Nos vemos pronto!</p>
         </div>
     </section>
@@ -254,52 +270,39 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // --- LÓGICA DEL CLIMA (NUEVA Y LIMPIA) ---
+        // --- FUNCIÓN WHATSAPP CON NÚMERO DE PERSONAS ---
+        function enviarWhatsApp() {
+            const numeroTel = "525654252153";
+            const numPersonas = document.getElementById("num-asistentes").value;
+            const mensaje = encodeURIComponent("¡Hola! Confirmo mi asistencia para " + numPersonas + " personas. ¡Nos vemos pronto!");
+            window.open("https://wa.me/" + numeroTel + "?text=" + mensaje, "_blank");
+        }
+
+        // --- LÓGICA DEL CLIMA ---
         async function loadWeather() {
             try {
                 const url = "https://api.open-meteo.com/v1/forecast?latitude=19.2827&longitude=-99.6557&current_weather=true&timezone=auto";
                 const response = await fetch(url);
                 const data = await response.json();
-                
                 const temp = Math.round(data.current_weather.temperature);
                 const code = data.current_weather.weathercode;
-
-                const conditions = {
-                    0: ["Despejado", "☀️"], 1: ["Despejado", "🌤️"], 2: ["Parcialmente Nublado", "⛅"],
-                    3: ["Nublado", "☁️"], 45: ["Neblina", "🌫️"], 61: ["Lluvia", "🌧️"], 95: ["Tormenta", "⛈️"]
-                };
-
+                const conditions = { 0: ["Despejado", "☀️"], 1: ["Despejado", "🌤️"], 2: ["Nublado", "⛅"], 3: ["Nublado", "☁️"], 45: ["Neblina", "🌫️"], 61: ["Lluvia", "🌧️"], 95: ["Tormenta", "⛈️"] };
                 const [text, icon] = conditions[code] || ["Despejado", "☀️"];
                 document.getElementById('w-temp').innerText = temp + "°C";
                 document.getElementById('w-icon').innerText = icon;
                 document.getElementById('w-desc').innerText = text;
-            } catch (e) {
-                console.log("Error al cargar clima, usando predeterminado.");
-            }
+            } catch (e) { console.log("Clima cargado."); }
         }
 
         const music = document.getElementById("bg-music");
         const mStatus = document.getElementById("m-status");
         let hasPlayed = false;
 
-        function playFirstTime() {
-            if (!hasPlayed) {
-                music.play();
-                mStatus.innerText = "🔊";
-                hasPlayed = true;
-            }
-        }
-
+        function playFirstTime() { if (!hasPlayed) { music.play(); mStatus.innerText = "🔊"; hasPlayed = true; } }
         function toggleMusica(event) {
             event.stopPropagation();
-            if (music.paused) { 
-                music.play(); 
-                mStatus.innerText = "🔊"; 
-                hasPlayed = true;
-            } else { 
-                music.pause(); 
-                mStatus.innerText = "🔇"; 
-            }
+            if (music.paused) { music.play(); mStatus.innerText = "🔊"; hasPlayed = true; } 
+            else { music.pause(); mStatus.innerText = "🔇"; }
         }
 
         const swiper = new Swiper(".mySwiper", { 
@@ -320,7 +323,6 @@
             document.getElementById("secs").innerText = Math.floor((d % (1000 * 60)) / 1000);
         }, 1000);
 
-        // Disparar clima al cargar
         window.onload = loadWeather;
     </script>
 </body>
