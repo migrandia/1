@@ -77,9 +77,9 @@
         .footer-brand { padding: 40px; text-align: center; }
     </style>
 </head>
-<body onclick="toggleMusica()">
+<body onclick="playFirstTime()">
 
-    <div class="music-btn" id="music-trigger"><span id="m-status">▶️</span></div>
+    <div class="music-btn" id="music-trigger" onclick="toggleMusica(event)"><span id="m-status">▶️</span></div>
     <audio id="bg-music" loop>
         <source src="https://www.dropbox.com/scl/fi/80hypdxkg24wx6x7oael2/En-Tus-Manos-Se-or.mp3?rlkey=j4di62c9sgj4txgwbpikcngp3&raw=1" type="audio/mpeg">
     </audio>
@@ -157,7 +157,7 @@
                 <h4 style="margin-top:15px;">Ceremonia Religiosa</h4>
                 <p>Catedral de Toluca, Edo. Méx.</p>
                 <div class="btn-container">
-                    <a href="https://www.google.com/maps/place/State+of+Mexico/MDI2MDMzMS4wIKXMDS" target="_blank" class="btn">UBICACIÓN</a>
+                    <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/MDI2MDMzMS4wIKXMDSoASAFQA" target="_blank" class="btn">UBICACIÓN</a>
                 </div>
             </div>
             <div class="card-family">
@@ -165,7 +165,7 @@
                 <h4 style="margin-top:15px;">Recepción</h4>
                 <p>Hacienda San José, Edo. Méx.</p>
                 <div class="btn-container">
-                    <a href="https://www.google.com/maps/place/State+of+Mexico/MDI2MDMzMS4wIKXMDS" target="_blank" class="btn">UBICACIÓN</a>
+                    <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/MDI2MDMzMS4wIKXMDSoASAFQA" target="_blank" class="btn">UBICACIÓN</a>
                 </div>
             </div>
         </div>
@@ -181,7 +181,7 @@
                     <h4>Hotel Gran Plaza</h4>
                     <p>Ubicado a 10 min del evento.<br><small>Menciona nuestra boda para tarifa especial.</small></p>
                     <div class="btn-container">
-                        <a href="#" class="btn" style="padding:10px 20px;">RESERVAR</a>
+                        <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/MDI2MDMzMS4wIKXMDSoASAFQA" target="_blank" class="btn" style="padding:10px 20px;">RESERVAR</a>
                     </div>
                 </div>
                 <div class="card-family">
@@ -189,7 +189,7 @@
                     <h4>Quinta del Sol</h4>
                     <p>Hotel boutique con encanto colonial.<br><small>Ideal para familias y grupos.</small></p>
                     <div class="btn-container">
-                        <a href="#" class="btn" style="padding:10px 20px;">RESERVAR</a>
+                        <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/MDI2MDMzMS4wIKXMDSoASAFQA" target="_blank" class="btn" style="padding:10px 20px;">RESERVAR</a>
                     </div>
                 </div>
             </div>
@@ -252,10 +252,28 @@
     <script>
         const music = document.getElementById("bg-music");
         const mStatus = document.getElementById("m-status");
+        let hasPlayed = false;
 
-        function toggleMusica() {
-            if (music.paused) { music.play(); mStatus.innerText = "🔊"; } 
-            else { music.pause(); mStatus.innerText = "🔇"; }
+        // Función para que la música empiece al tocar cualquier parte la primera vez
+        function playFirstTime() {
+            if (!hasPlayed) {
+                music.play();
+                mStatus.innerText = "🔊";
+                hasPlayed = true;
+            }
+        }
+
+        // Función exclusiva del botón para pausar/reproducir
+        function toggleMusica(event) {
+            event.stopPropagation(); // Evita que el click llegue al body
+            if (music.paused) { 
+                music.play(); 
+                mStatus.innerText = "🔊"; 
+                hasPlayed = true;
+            } else { 
+                music.pause(); 
+                mStatus.innerText = "🔇"; 
+            }
         }
 
         const swiper = new Swiper(".mySwiper", { 
