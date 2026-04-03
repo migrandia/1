@@ -224,34 +224,16 @@
     <section class="sec">
         <div class="reveal">
             <h2>El Clima</h2>
-            <div class="weather-box">
-                <div class="tomorrow"
-                   data-location-id="063231"
-                   data-language="ES"
-                   data-unit-system="METRIC"
-                   data-skin="light"
-                   data-widget-type="upcoming"
-                   style="padding-bottom:22px;position:relative;"
-                >
-                  <a
-                    href="https://www.tomorrow.io/weather-api/"
-                    rel="nofollow noopener noreferrer"
-                    target="_blank"
-                    style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;"
-                  >
-                    <img
-                      alt="Powered by the Tomorrow.io Weather API"
-                      src="https://weather-static.tomorrow.io/img/powered-by.svg"
-                      width="140"
-                      height="15"
-                    />
-                  </a>
+            <div class="weather-box" style="padding: 30px; background: white;">
+                <div id="weather-custom">
+                    <div style="font-size: 3rem; color: var(--oro);" id="w-icon">☀️</div>
+                    <div style="font-size: 2.5rem; font-weight: bold; color: var(--negro);" id="w-temp">--°C</div>
+                    <p style="text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;" id="w-desc">Cargando clima...</p>
                 </div>
             </div>
-            <p style="margin-top: 10px;"><small>TOLUCA, ESTADO DE MÉXICO</small></p>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: var(--oro); font-weight: bold;">TOLUCA, ESTADO DE MÉXICO</p>
         </div>
     </section>
-
     <section class="confirm-sec">
         <div class="reveal" style="text-align: center;">
             <h2>¡Confirma tu Asistencia!</h2>
