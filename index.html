@@ -3,233 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boda VIP | Mi Gran Día</title>
+    <title>Boda VIP | Estado de México</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Pacifico&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
             --oro: #b8926a;
             --negro: #1a1a1a;
             --fondo-papel: url('https://www.dropbox.com/scl/fi/v1i7m0j4jubo8w8bpyd29/fondo-textura-papel-blanco_23-2148171221.jpg?rlkey=1spniqjgkcur44hfdi9o18jid&raw=1');
-            --fondo-floral: url('https://www.dropbox.com/scl/fi/hbq4c0hok86xt8qlni4v4/8bfd264098445fbcca8157fc25374abc.png?rlkey=bi9wld1494kqpbv5r8m5h3tnr&raw=1');
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
         body { font-family: 'Montserrat', sans-serif; background-image: var(--fondo-papel); background-attachment: fixed; color: #333; overflow-x: hidden; }
         
-        /* PROTECCIÓN IMÁGENES */
         img { -webkit-user-drag: none; pointer-events: none; max-width: 100%; }
 
-        /* MÚSICA DISCRETA */
-        .music-player { position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 50%; border: 1px solid var(--oro); cursor: pointer; }
+        /* BOTÓN DE MÚSICA FLOTANTE */
+        .music-control {
+            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+            background: white; border: 2px solid var(--oro); width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
 
-        /* 1. PORTADA VIP */
+        /* HERO */
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://www.dropbox.com/scl/fi/379btmuabvlok9b7ioshb/file_00000000219871fd9cc6e8b8540ad9eb.png?rlkey=g74qqufgozuh07rqjgpqrmfy7&raw=1');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;
         }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; font-style: italic; margin-bottom: 10px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-style: italic; }
 
-        /* 2. CONTADOR */
-        .timer { display: flex; gap: 15px; margin-top: 20px; }
-        .t-box { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); padding: 15px; border-radius: 8px; min-width: 70px; }
-        .t-box span { display: block; font-size: 1.8rem; font-weight: bold; }
+        /* CONTADOR */
+        .timer { display: flex; gap: 10px; margin-top: 20px; }
+        .t-box { background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px; min-width: 60px; }
+        .t-box span { display: block; font-size: 1.4rem; font-weight: bold; color: var(--oro); }
+        .t-box small { font-size: 0.6rem; text-transform: uppercase; }
 
         /* SECCIONES */
-        .sec { padding: 100px 20px; text-align: center; max-width: 900px; margin: auto; }
-        .floral-divider { background-image: var(--fondo-floral); background-size: contain; background-repeat: no-repeat; background-position: center; height: 150px; width: 100%; margin: 40px 0; }
-        
-        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--oro); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 3px; }
-        .mensaje-novios { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; line-height: 2; color: #444; }
+        .sec { padding: 80px 20px; text-align: center; max-width: 800px; margin: auto; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--negro); margin-bottom: 25px; letter-spacing: 2px; }
 
-        /* 4 & 5. PADRES Y PADRINOS */
-        .family-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-        .family-card { background: white; padding: 30px; border: 1px solid #eee; border-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
-        .family-card h4 { color: var(--oro); margin-bottom: 15px; font-family: 'Playfair Display', serif; }
+        /* GALERIA CLICK & NEXT */
+        .swiper { width: 100%; height: 450px; margin: 30px 0; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 8. ITINERARIO FOTO */
-        .it-img { width: 100%; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        /* ITINERARIO */
+        .it-img { mix-blend-mode: multiply; width: 100%; max-width: 500px; margin-top: 20px; }
 
-        /* 9. GALERÍA DE FOTOS */
-        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px; }
-        .gallery img { height: 300px; object-fit: cover; border-radius: 5px; }
-
-        /* 10 & 11. UBICACIONES */
-        .loc-card { background: white; border-radius: 15px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .loc-card img { width: 100%; height: 200px; object-fit: cover; }
-        .loc-btn-area { padding: 25px; background: #fdfaf5; }
-        .btn { display: inline-block; padding: 15px 40px; background: var(--negro); color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; border-bottom: 4px solid var(--oro); }
-
-        /* 14. DRESS CODE */
-        .forbidden-circles { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
-        .circle { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #ddd; }
+        /* VESTIMENTA */
+        .forbidden-area { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+        .circle { width: 45px; height: 45px; border-radius: 50%; border: 1px solid #ccc; position: relative; }
+        .circle::after { content: ''; position: absolute; width: 100%; height: 2px; background: red; top: 50%; left: 0; transform: rotate(-45deg); }
         .c-white { background: white; } .c-black { background: black; } .c-red { background: red; }
 
-        /* 15. CLIMA */
-        .clima-box { background: white; padding: 30px; border-radius: 20px; margin-top: 30px; border: 1px solid var(--oro); }
+        /* UBICACIONES */
+        .loc-card { background: white; border-radius: 15px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .btn { display: inline-block; padding: 15px 30px; background: var(--negro); color: white; text-decoration: none; border-radius: 5px; margin: 15px 0; border-bottom: 4px solid var(--oro); font-weight: bold; }
 
-        /* 19. BOTÓN CONFIRMACIÓN */
-        .confirm-sec { background: var(--negro); color: #fff; padding: 80px 20px; }
-        .btn-confirm { display: inline-block; padding: 20px 50px; background: #fff; color: var(--negro); text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; border-bottom: 4px solid var(--oro); margin-top: 20px; }
+        /* REGALOS LOGOS */
+        .gift-logo { width: 130px; height: auto; margin-bottom: 10px; display: block; margin: 0 auto; }
 
-        /* INICIALES FINALES */
-        .initials { font-family: 'Pacifico', cursive; font-size: 3rem; color: var(--oro); margin-top: 50px; }
+        /* CONFIRMACION */
+        .confirm-sec { background: var(--negro); color: white; padding: 100px 20px; text-align: center; }
+        .btn-wa { display: inline-block; padding: 20px 40px; background: white; color: var(--negro); text-decoration: none; border-radius: 50px; font-weight: bold; border-bottom: 4px solid var(--oro); margin-top: 20px; }
     </style>
 </head>
-<body onclick="playMusic()">
+<body>
 
-    <div class="music-player"> <span id="m-icon">▶️</span> </div>
-    <audio id="miMusica" loop> <source src="https://www.dropbox.com/scl/fi/80hypdxkg24wx6x7oael2/En-Tus-Manos-Se-or.mp3?rlkey=j4di62c9sgj4txgwbpikcngp3&raw=1" type="audio/mpeg"> </audio>
+    <div class="music-control" onclick="toggleMusic()">
+        <span id="music-icon" style="font-size: 24px;">🎵</span>
+    </div>
+
+    <audio id="musica" loop>
+        <source src="https://www.dropbox.com/scl/fi/80hypdxkg24wx6x7oael2/En-Tus-Manos-Se-or.mp3?rlkey=j4di62c9sgj4txgwbpikcngp3&raw=1" type="audio/mpeg">
+    </audio>
 
     <header class="hero">
-        <p style="letter-spacing: 5px;">NUESTRA BODA</p>
-        <h1>Alejandro & Sofía</h1>
-        <p>25 DE OCTUBRE, 2026</p>
+        <h1>Nuestra Boda</h1>
+        <p>EDO. DE MÉXICO | 25.10.2026</p>
         <div class="timer">
-            <div class="t-box"><span id="days">00</span><small>Días</small></div>
-            <div class="t-box"><span id="hours">00</span><small>Hrs</small></div>
-            <div class="t-box"><span id="mins">00</span><small>Min</small></div>
+            <div class="t-box"><span id="d">00</span><small>Días</small></div>
+            <div class="t-box"><span id="h">00</span><small>Hrs</small></div>
+            <div class="t-box"><span id="m">00</span><small>Min</small></div>
+            <div class="t-box"><span id="s">00</span><small>Seg</small></div>
         </div>
     </header>
 
     <section class="sec">
         <div class="reveal">
             <h2>Nuestra Historia</h2>
-            <p class="mensaje-novios">
-                "Desde el primer día supimos que nuestras vidas estaban destinadas a cruzarse. Hemos caminado juntos superando retos, riendo en cada aventura y construyendo un hogar en el corazón del otro. Hoy, frente a ustedes, reafirmamos que este es solo el inicio de nuestra mayor bendición."
+            <p style="font-style: italic; line-height: 1.8; font-size: 1.2rem;">
+                "El amor es un viaje que comienza por siempre. Hemos decidido unir nuestras vidas en el hermoso Estado de México, rodeados de naturaleza y el cariño de quienes más amamos. Cada paso que hemos dado nos ha traído a este momento, y no hay nada que deseemos más que compartirlo contigo."
             </p>
         </div>
     </section>
 
     <section class="sec">
-        <div class="reveal">
-            <h2>Nuestros Padres</h2>
-            <div class="family-grid">
-                <div class="family-card"><h4>De la Novia</h4><p>Sr. Juan Pérez<br>Sra. María García</p></div>
-                <div class="family-card"><h4>Del Novio</h4><p>Sr. Roberto López<br>Sra. Elena Martínez</p></div>
+        <p style="margin-bottom: 10px; color: var(--oro);">Toca la imagen para avanzar</p>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/gpf7arkczi5v3y9hxfjte/file_00000000189c71fdbc7b6ac47bb70337.png?rlkey=p8jpnwypfniwf7lxj25wiq4w2&raw=1"></div>
+                <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/ld6s2fdqhmb71fxehdb0k/file_00000000928871fdb8f65567b022409a.png?rlkey=vcl3logvk7fd3yfysmjx0ge6j&raw=1"></div>
+                <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/1hgcl93ka69i3fflmyxl3/file_0000000009b471f89a2eae6e6e70937b.png?rlkey=4t37xj2vxayedrv5szm2rjz9y&raw=1"></div>
+                <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/379btmuabvlok9b7ioshb/file_00000000219871fd9cc6e8b8540ad9eb.png?rlkey=g74qqufgozuh07rqjgpqrmfy7&raw=1"></div>
             </div>
-            <h2 style="margin-top: 50px;">Nuestros Padrinos</h2>
-            <div class="family-card" style="max-width: 400px; margin: auto;"><p>Sr. Fernando Ruiz & Sra. Lucía Méndez</p></div>
         </div>
     </section>
 
     <section class="sec">
-        <img src="https://www.dropbox.com/scl/fi/zs85m423lx4i76daw0uxj/file_00000000530471fdbb445bac178e63e1.png?rlkey=o0bu5uv9cvvmyl7lj3er8hbfg&raw=1" class="reveal" style="border-radius: 20px;">
-        <h3 class="reveal" style="font-family: 'Pacifico', cursive; color: var(--oro); font-size: 2rem; margin-top: 30px;">"El amor no tiene cura, pero es la única cura para todos los males."</h3>
+        <h2>Itinerario</h2>
+        <img src="https://www.dropbox.com/scl/fi/mthl7e5g1pyj1v59y8b91/itinerario.png?rlkey=0cuce3zi0u9sde22k7u6w26hg&raw=1" class="it-img">
     </section>
 
     <section class="sec">
-        <div class="reveal">
-            <h2>Itinerario</h2>
-            <img src="https://www.dropbox.com/scl/fi/mthl7e5g1pyj1v59y8b91/itinerario.png?rlkey=0cuce3zi0u9sde22k7u6w26hg&raw=1" class="it-img">
+        <img src="https://www.dropbox.com/scl/fi/nxipemge4c2ls0gzqvrqm/codigovestimenta.png?rlkey=h6dkdy0gxhy54gsszz9baitj5&raw=1" style="width: 140px; margin-bottom: 10px;">
+        <h2>Código de Vestimenta</h2>
+        <p>FORMAL RIGUROSO</p>
+        <div class="forbidden-area">
+            <div class="circle c-white"></div><div class="circle c-black"></div><div class="circle c-red"></div>
         </div>
-    </section>
-
-    <section class="sec">
-        <h2>Momentos Inolvidables</h2>
-        <div class="gallery">
-            <img src="https://www.dropbox.com/scl/fi/gpf7arkczi5v3y9hxfjte/file_00000000189c71fdbc7b6ac47bb70337.png?rlkey=p8jpnwypfniwf7lxj25wiq4w2&raw=1" class="reveal">
-            <img src="https://www.dropbox.com/scl/fi/ld6s2fdqhmb71fxehdb0k/file_00000000928871fdb8f65567b022409a.png?rlkey=vcl3logvk7fd3yfysmjx0ge6j&raw=1" class="reveal">
-            <img src="https://www.dropbox.com/scl/fi/1hgcl93ka69i3fflmyxl3/file_0000000009b471f89a2eae6e6e70937b.png?rlkey=4t37xj2vxayedrv5szm2rjz9y&raw=1" class="reveal">
-            <img src="https://www.dropbox.com/scl/fi/379btmuabvlok9b7ioshb/file_00000000219871fd9cc6e8b8540ad9eb.png?rlkey=g74qqufgozuh07rqjgpqrmfy7&raw=1" class="reveal">
-        </div>
+        <p><small>Agradecemos evitar estos colores en su vestimenta.</small></p>
     </section>
 
     <section class="sec">
         <h2>Ubicaciones</h2>
         <div class="loc-card reveal">
-            <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b?q=80&w=400">
-            <div class="loc-btn-area">
+            <img src="https://images.unsplash.com/photo-1590059510108-727878696803?q=80&w=400" style="width:100%; height:200px; object-fit:cover;">
+            <div style="padding: 25px;">
                 <h4>Ceremonia Religiosa</h4>
-                <a href="https://maps.google.com" class="btn">VER UBICACIÓN IGLESIA</a>
+                <p>Catedral de Toluca, Estado de México</p>
+                <a href="https://maps.app.goo.gl/uX9zN" class="btn">VER MAPA</a>
             </div>
         </div>
         <div class="loc-card reveal">
-            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=400">
-            <div class="loc-btn-area">
+            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=400" style="width:100%; height:200px; object-fit:cover;">
+            <div style="padding: 25px;">
                 <h4>Recepción</h4>
-                <a href="https://maps.google.com" class="btn">VER UBICACIÓN SALÓN</a>
+                <p>Hacienda Valle de Bravo, Edo. Méx.</p>
+                <a href="https://maps.app.goo.gl/uX9zN" class="btn">VER MAPA</a>
             </div>
         </div>
     </section>
 
     <section class="sec">
-        <div class="reveal">
-            <h2>Mesa de Regalos</h2>
-            <img src="https://www.dropbox.com/scl/fi/nxipemge4c2ls0gzqvrqm/codigovestimenta.png?rlkey=h6dkdy0gxhy54gsszz9baitj5&raw=1" style="width: 150px; margin-bottom: 20px;">
-            <p>Su presencia es nuestro mayor regalo, pero si desean tener un detalle:</p>
-            <div class="family-grid">
-                <div class="family-card"><h4>Liverpool</h4><p>Código: 5049382</p></div>
-                <div class="family-card"><h4>Amazon</h4><p>Link en bio</p></div>
+        <h2>Mesa de Regalos</h2>
+        <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px;">
+            <div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Liverpool_Mexico_logo.svg" class="gift-logo">
+                <p>Evento: 504938</p>
             </div>
-            <h3 style="margin-top: 40px;">Lluvia de Sobres</h3>
-            <p>Contaremos con un buzón el día del evento.<br><strong>Cuenta:</strong> 1234 5678 9012 (BBVA)</p>
+            <div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="gift-logo">
+                <p>Mesa de Regalos Online</p>
+            </div>
         </div>
-
-        <div class="reveal" style="margin-top: 80px;">
-            <h2>Código de Vestimenta</h2>
-            <p><strong>FORMAL RIGUROSO</strong></p>
-            <p>Colores no permitidos:</p>
-            <div class="forbidden-circles">
-                <div class="circle c-white"></div><div class="circle c-black"></div><div class="circle c-red"></div>
-            </div>
+        <div style="margin-top: 50px; border: 1px solid #ddd; padding: 30px; border-radius: 15px;">
+            <h4>Lluvia de Sobres</h4>
+            <p>Contaremos con un buzón en la entrada del evento.</p>
+            <p><strong>BBVA:</strong> 0123 4567 8901</p>
         </div>
     </section>
 
     <section class="sec">
-        <h2>Clima</h2>
-        <div class="clima-box reveal">
-            <div id="ww_clima" v='1.3' loc='auto' a='{"t":"horizontal","lang":"es","fa":"true","font":"Arial","deg":"c","shade":"white"}'></div><script async src="https://app2.weatherwidget.org/js/?id=ww_clima"></script>
-        </div>
-    </section>
-
-    <section class="sec">
-        <h2>Hospedaje Sugerido</h2>
-        <div class="family-grid">
-            <div class="family-card reveal">
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400" style="height: 100px; border-radius: 50%; width: 100px; object-fit: cover;">
-                <h4>Hotel Plaza Real</h4>
-                <a href="#" class="btn" style="padding: 10px 20px;">RESERVAR</a>
-            </div>
-            <div class="family-card reveal">
-                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=400" style="height: 100px; border-radius: 50%; width: 100px; object-fit: cover;">
-                <h4>Boutique Suites</h4>
-                <a href="#" class="btn" style="padding: 10px 20px;">RESERVAR</a>
-            </div>
+        <h2>El Tiempo</h2>
+        <div style="margin-top: 20px;">
+            <a href="https://weather.com/es-MX/tiempo/hoy/l/74935867ee1b5916520fa8741409d149d9028f8c583dac168653eee7e1fdd1fe" target="_blank" class="btn">VER CLIMA EN VIVO</a>
         </div>
     </section>
 
     <section class="confirm-sec">
-        <div class="reveal">
-            <h2>¡Nos vemos pronto!</h2>
-            <p>No faltes a este gran día que hemos preparado con tanto amor.</p>
-            <p style="margin-top: 20px;">CONFIRMAR ANTES DEL 1 DE OCTUBRE</p>
-            <a href="https://wa.me/525654252153?text=Hola! Confirmo mi asistencia" class="btn-confirm">CONFIRMA TU ASISTENCIA AQUÍ</a>
-        </div>
-        <div class="initials">A & S</div>
+        <h2>Confirmación</h2>
+        <p>Tu presencia es lo más importante para nosotros.</p>
+        <p style="margin-top: 15px;"><strong>POR FAVOR CONFIRMAR ANTES DEL 01.10.2026</strong></p>
+        <a href="https://wa.me/525654252153?text=Hola! Confirmo mi asistencia" class="btn-wa">CONFIRMAR ASISTENCIA</a>
+        <h3 style="margin-top: 50px; font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--oro);">A & S</h3>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // MÚSICA
-        const audio = document.getElementById("miMusica");
-        function playMusic() { audio.play(); document.getElementById("m-icon").innerText="🔊"; }
+        // MÚSICA CON PLAY/PAUSE
+        const audio = document.getElementById("musica");
+        const icon = document.getElementById("music-icon");
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                icon.innerText = "🔊";
+            } else {
+                audio.pause();
+                icon.innerText = "🔇";
+            }
+        }
+
+        // GALERIA
+        const swiper = new Swiper(".mySwiper", { 
+            loop: true, 
+            on: { click: function() { this.slideNext(); } }
+        });
 
         // REVEAL
-        ScrollReveal().reveal('.reveal', { distance: '50px', duration: 1000, delay: 200, origin: 'bottom' });
+        ScrollReveal().reveal('.reveal', { delay: 300, distance: '40px', duration: 1000 });
 
         // CONTADOR
-        const date = new Date("Oct 25, 2026 17:00:00").getTime();
+        const targetDate = new Date("Oct 25, 2026 17:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
-            const d = date - now;
-            document.getElementById("days").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("mins").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+            const d = targetDate - now;
+            document.getElementById("d").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
+            document.getElementById("h").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("m").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("s").innerText = Math.floor((d % (1000 * 60)) / 1000);
         }, 1000);
     </script>
 </body>
