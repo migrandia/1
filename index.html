@@ -68,7 +68,7 @@
         .c-white { background: white; } .c-black { background: black; } .c-red { background: red; }
 
         /* CLIMA WIDGET */
-        .weather-box { background: white; border-radius: 15px; border: 1px solid var(--oro); margin-top: 10px; overflow: hidden; }
+        .weather-box { background: white; border-radius: 15px; border: 1px solid var(--oro); margin-top: 10px; overflow: hidden; min-height: 150px; }
 
         /* CONFIRMACIÓN */
         .confirm-sec { background: var(--crema); padding: 50px 20px; border-top: 1px solid #eee; }
@@ -225,12 +225,30 @@
         <div class="reveal">
             <h2>El Clima</h2>
             <div class="weather-box">
-                <div id="ww_659029705886d" v='1.3' loc='id' a='{"t":"horizontal","lang":"es","sl_lct":"i","sl_id":"74935867ee1b5916520fa8741409d149d9028f8c583dac168653eee7e1fdd1fe","mc_mw":"400","font":"Montserrat","el_cb":"20","el_ph":"20","el_pbc":"#FFFFFF","el_pfc":"#333333","el_phc":"#B8926A","el_uic":"#B8926A","el_vmc":"#B8926A"}'>
-                    <a href="https://weatherwidget.org/es/" id="ww_659029705886d_u" target="_blank">Widget de tiempo para sitio web</a>
+                <div class="tomorrow"
+                   data-location-id="063231"
+                   data-language="ES"
+                   data-unit-system="METRIC"
+                   data-skin="light"
+                   data-widget-type="upcoming"
+                   style="padding-bottom:22px;position:relative;"
+                >
+                  <a
+                    href="https://www.tomorrow.io/weather-api/"
+                    rel="nofollow noopener noreferrer"
+                    target="_blank"
+                    style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;"
+                  >
+                    <img
+                      alt="Powered by the Tomorrow.io Weather API"
+                      src="https://weather-static.tomorrow.io/img/powered-by.svg"
+                      width="140"
+                      height="15"
+                    />
+                  </a>
                 </div>
-                <script async src="https://app3.weatherwidget.org/js/?id=ww_659029705886d"></script>
             </div>
-            <p style="margin-top: 15px; font-size: 0.8rem; color: var(--oro);">ESTADO DE MÉXICO</p>
+            <p style="margin-top: 10px;"><small>TOLUCA, ESTADO DE MÉXICO</small></p>
         </div>
     </section>
 
@@ -252,6 +270,23 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        (function(d, s, id) {
+            if (d.getElementById(id)) {
+                if (window.__TOMORROW__) {
+                    window.__TOMORROW__.renderWidget();
+                }
+                return;
+            }
+            const fjs = d.getElementsByTagName(s)[0];
+            const js = d.createElement(s);
+            js.id = id;
+            js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'tomorrow-sdk'));
+    </script>
+
     <script>
         const music = document.getElementById("bg-music");
         const mStatus = document.getElementById("m-status");
