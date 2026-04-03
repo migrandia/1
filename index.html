@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -248,8 +247,8 @@
 
     <section class="confirm-sec">
         <div class="reveal" style="text-align: center;">
-            <h2>¡Confirma tu Asistencia!</h2>
-            <p>Sería un verdadero placer contar con tu presencia.</p>
+            <h2 id="saludo-familia">¡Confirma tu Asistencia!</h2>
+            <p id="texto-reserva">Sería un verdadero placer contar con tu presencia.</p>
             
             <div class="btn-container" style="margin-top: 25px;">
                 <div class="attendance-selector">
@@ -280,10 +279,38 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        // FUNCIÓN DE PERSONALIZACIÓN POR URL
+        function aplicarPersonalizacion() {
+            const params = new URLSearchParams(window.location.search);
+            const familia = params.get('n'); // 'n' para nombre/familia
+            const cupo = parseInt(params.get('c')); // 'c' para cantidad de personas
+
+            if (familia) {
+                document.getElementById('saludo-familia').innerText = "Familia " + familia;
+                
+                if (cupo) {
+                    document.getElementById('texto-reserva').innerHTML = 
+                        "Hemos reservado <strong>" + cupo + (cupo === 1 ? " lugar" : " lugares") + "</strong> para ustedes.";
+                    
+                    const selector = document.getElementById('num-asistentes');
+                    selector.innerHTML = ""; 
+                    for (let i = 1; i <= cupo; i++) {
+                        let opt = document.createElement('option');
+                        opt.value = i;
+                        opt.text = i + (i === 1 ? " Persona" : " Personas");
+                        if (i === cupo) opt.selected = true;
+                        selector.appendChild(opt);
+                    }
+                }
+            }
+        }
+
         function enviarWhatsApp() {
+            const params = new URLSearchParams(window.location.search);
+            const familia = params.get('n') || "Invitado";
             const numeroTel = "525654252153";
             const numPersonas = document.getElementById("num-asistentes").value;
-            const mensaje = encodeURIComponent("¡Hola! Confirmo mi asistencia para " + numPersonas + " personas. ¡Nos vemos pronto!");
+            const mensaje = encodeURIComponent("¡Hola! Soy de la Familia " + familia + ". Confirmo mi asistencia para " + numPersonas + " personas. ¡Nos vemos pronto!");
             window.open("https://wa.me/" + numeroTel + "?text=" + mensaje, "_blank");
         }
 
@@ -331,7 +358,10 @@
             document.getElementById("secs").innerText = Math.floor((d % (1000 * 60)) / 1000);
         }, 1000);
 
-        window.onload = loadWeather;
+        window.onload = function() {
+            loadWeather();
+            aplicarPersonalizacion();
+        };
     </script>
 </body>
 </html>
