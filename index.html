@@ -81,7 +81,9 @@
         .attendance-selector label { display: block; font-size: 0.8rem; font-weight: bold; color: var(--oro); margin-bottom: 8px; text-transform: uppercase; }
         .attendance-selector select { padding: 10px 20px; border-radius: 10px; border: 1px solid var(--oro); background: white; font-family: 'Montserrat'; font-weight: bold; color: var(--negro); cursor: pointer; outline: none; }
 
-        .footer-brand { padding: 40px; text-align: center; }
+        .footer-brand { padding: 50px 20px; text-align: center; }
+        .footer-link { text-decoration: none; color: #999; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; margin-top: 5px; display: inline-block; }
+        .footer-link:hover { color: var(--oro); }
     </style>
 </head>
 <body onclick="playFirstTime()">
@@ -164,7 +166,7 @@
                 <h4 style="margin-top:15px;">Ceremonia Religiosa</h4>
                 <p>Catedral de Toluca, Edo. Méx.</p>
                 <div class="btn-container">
-                    <a href="https://maps.app.goo.gl/vS7T6u9N" target="_blank" class="btn">UBICACIÓN</a>
+                    <a href="https://maps.app.goo.gl/..." target="_blank" class="btn">UBICACIÓN</a>
                     <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+de+Ariel+%26+Samanta&dates=20261025T230000Z/20261026T040000Z&details=¡Acompáñanos+en+nuestro+gran+día!&location=Catedral+de+Toluca,+Edo.+Méx.&sf=true&output=xml" target="_blank" class="btn btn-cal">AGREGAR A GOOGLE CALENDAR</a>
                 </div>
             </div>
@@ -173,7 +175,7 @@
                 <h4 style="margin-top:15px;">Recepción</h4>
                 <p>Hacienda San José, Edo. Méx.</p>
                 <div class="btn-container">
-                    <a href="https://maps.app.goo.gl/vS7T6u9N" target="_blank" class="btn">UBICACIÓN</a>
+                    <a href="https://maps.app.goo.gl/..." target="_blank" class="btn">UBICACIÓN</a>
                 </div>
             </div>
         </div>
@@ -269,7 +271,10 @@
 
     <footer class="footer-brand">
         <div style="font-family:'Playfair Display'; font-size: 2.5rem; color: var(--oro);">A & S</div>
-        <p style="letter-spacing:3px; font-weight:bold;">MI GRAN DIA COLECCION</p>
+        <p style="letter-spacing:3px; font-weight:bold;">MI GRAN DÍA COLECCIÓN</p>
+        <a href="https://migrandia.mx" target="_blank" class="footer-link">
+            creado por migrandia.mx
+        </a>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -293,7 +298,7 @@
                 document.getElementById('w-temp').innerText = temp + "°C";
                 document.getElementById('w-icon').innerText = icon;
                 document.getElementById('w-desc').innerText = text;
-            } catch (e) { console.log("Clima cargado."); }
+            } catch (e) { console.log("Error cargando clima."); }
         }
 
         const music = document.getElementById("bg-music");
