@@ -25,37 +25,62 @@
         /* MÚSICA */
         .music-btn { position: fixed; top: 20px; right: 20px; z-index: 1000; background: white; border: 1px solid var(--oro); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 
-        /* --- PORTADA OPTIMIZADA (AJUSTE PC Y MÓVIL) --- */
+        /* --- PORTADA RE-ESTRUCTURADA --- */
         .hero {
             height: 100vh;
             width: 100%;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('https://www.dropbox.com/scl/fi/379btmuabvlok9b7ioshb/file_00000000219871fd9cc6e8b8540ad9eb.png?rlkey=g74qqufgozuh07rqjgpqrmfy7&raw=1');
-            background-size: cover; 
-            background-position: center 20%; /* Foco ligeramente arriba para móviles */
-            background-repeat: no-repeat;
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center; 
-            color: white;
-            padding: 0 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: var(--fondo-papel); /* El fondo base es el papel */
+            background-size: cover;
+            overflow: hidden;
         }
 
-        /* Ajuste para ordenadores y tablets horizontales */
+        /* La foto es una capa separada */
+        .hero-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.dropbox.com/scl/fi/379btmuabvlok9b7ioshb/file_00000000219871fd9cc6e8b8540ad9eb.png?rlkey=g74qqufgozuh07rqjgpqrmfy7&raw=1');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover; /* Llena en móvil */
+            z-index: 1;
+        }
+
+        /* En PC la foto se muestra completa sin cortes */
         @media (min-width: 1024px) {
-            .hero {
-                background-size: contain; /* Muestra la foto completa sin cortes en PC */
-                background-color: #111; /* Fondo oscuro por si sobran lados */
-                background-attachment: scroll;
+            .hero-photo {
+                background-size: contain;
+                height: 90vh;
+                top: 5vh;
             }
+        }
+
+        /* Capa de texto sobre la foto */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: rgba(0,0,0,0.2); /* Sombra sutil para lectura */
+            padding: 20px;
         }
 
         .hero h1 { 
             font-family: 'Playfair Display', serif; 
             font-size: clamp(2.5rem, 8vw, 4.5rem); 
             font-style: italic; 
+            color: white;
             margin-bottom: 10px; 
             text-shadow: 2px 2px 15px rgba(0,0,0,0.8); 
         }
@@ -63,54 +88,43 @@
             letter-spacing: 4px; 
             font-size: clamp(0.7rem, 2vw, 1rem);
             font-weight: 300; 
+            color: white;
             margin-bottom: 30px; 
             text-transform: uppercase;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
         }
 
         /* CONTADOR */
         .timer { display: flex; gap: 8px; }
-        .t-box { background: rgba(0,0,0,0.5); padding: 12px; border-radius: 5px; min-width: 65px; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); }
+        .t-box { background: rgba(0,0,0,0.6); padding: 12px; border-radius: 5px; min-width: 65px; border: 1px solid var(--oro); backdrop-filter: blur(5px); color: white; }
         .t-box span { display: block; font-size: 1.6rem; font-weight: bold; color: var(--oro); }
         .t-box small { font-size: 0.6rem; text-transform: uppercase; }
 
         /* SECCIONES */
-        .sec { padding: 50px 20px; text-align: center; max-width: 800px; margin: auto; }
+        .sec { padding: 50px 20px; text-align: center; max-width: 800px; margin: auto; position: relative; z-index: 5; }
         h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--negro); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* PADRES Y PADRINOS */
+        /* RESTO DE ESTILOS MANTENIDOS */
         .grid-family { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
         .card-family { background: rgba(255,255,255,0.6); padding: 25px; border-radius: 8px; border: 1px solid #eee; }
         .card-family h4 { color: var(--oro); margin-bottom: 10px; font-family: 'Playfair Display', serif; }
-
-        /* GALERÍA */
         .swiper { width: 100%; max-width: 450px; height: 450px; border-radius: 15px; margin-top: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
         .swiper-button-next, .swiper-button-prev { color: var(--oro) !important; font-weight: bold; }
-
-        /* BOTONES */
         .btn-container { display: flex; justify-content: center; width: 100%; margin: 15px 0; flex-direction: column; align-items: center; }
         .btn { display: inline-block; padding: 16px 40px; background: var(--negro); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; border-bottom: 4px solid var(--oro); font-size: 0.9rem; transition: 0.3s; }
         .btn:hover { background: #333; }
-        .btn-cal { background: #4285F4; border-bottom-color: #357ae8; padding: 12px 25px; font-size: 0.8rem; margin-top: 10px; }
-
-        /* VESTIMENTA */
         .vestimenta-img { width: 120px; mix-blend-mode: multiply; margin-bottom: -10px; }
         .forbidden-circles { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
         .circle { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ddd; position: relative; }
         .circle::after { content: ''; position: absolute; width: 100%; height: 2px; background: red; top: 50%; left: 0; transform: rotate(-45deg); }
         .c-white { background: white; } .c-black { background: black; } .c-red { background: red; }
-
-        /* CLIMA WIDGET */
         .weather-box { background: white; border-radius: 15px; border: 1px solid var(--oro); margin-top: 10px; overflow: hidden; min-height: 150px; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-
-        /* CONFIRMACIÓN */
-        .confirm-sec { background: var(--crema); padding: 50px 20px; border-top: 1px solid #eee; }
+        .confirm-sec { background: var(--crema); padding: 50px 20px; border-top: 1px solid #eee; position: relative; z-index: 5;}
         .btn-confirm { display: inline-block; padding: 18px 50px; background: var(--negro); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; border-bottom: 4px solid var(--oro); margin-top: 15px; }
         .attendance-selector { margin-bottom: 10px; }
         .attendance-selector label { display: block; font-size: 0.8rem; font-weight: bold; color: var(--oro); margin-bottom: 8px; text-transform: uppercase; }
         .attendance-selector select { padding: 10px 20px; border-radius: 10px; border: 1px solid var(--oro); background: white; font-family: 'Montserrat'; font-weight: bold; color: var(--negro); cursor: pointer; outline: none; }
-
         .footer-brand { padding: 50px 20px; text-align: center; }
         .footer-link { text-decoration: none; color: #999; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; margin-top: 5px; display: inline-block; }
         .footer-link:hover { color: var(--oro); }
@@ -124,14 +138,17 @@
     </audio>
 
     <header class="hero">
-        <div class="reveal">
-            <h1>Ariel & Samanta</h1>
-            <p>NUESTRA BODA | 25.10.2026</p>
-            <div class="timer">
-                <div class="t-box"><span id="days">00</span><small>Días</small></div>
-                <div class="t-box"><span id="hours">00</span><small>Hrs</small></div>
-                <div class="t-box"><span id="mins">00</span><small>Min</small></div>
-                <div class="t-box"><span id="secs">00</span><small>Seg</small></div>
+        <div class="hero-photo"></div>
+        <div class="hero-content">
+            <div class="reveal">
+                <h1>Ariel & Samanta</h1>
+                <p>NUESTRA BODA | 25.10.2026</p>
+                <div class="timer">
+                    <div class="t-box"><span id="days">00</span><small>Días</small></div>
+                    <div class="t-box"><span id="hours">00</span><small>Hrs</small></div>
+                    <div class="t-box"><span id="mins">00</span><small>Min</small></div>
+                    <div class="t-box"><span id="secs">00</span><small>Seg</small></div>
+                </div>
             </div>
         </div>
     </header>
