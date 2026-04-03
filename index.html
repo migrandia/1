@@ -25,13 +25,14 @@
         /* MÚSICA */
         .music-btn { position: fixed; top: 20px; right: 20px; z-index: 1000; background: white; border: 1px solid var(--oro); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 
-        /* PORTADA OPTIMIZADA */
+        /* --- PORTADA OPTIMIZADA (AJUSTE PC Y MÓVIL) --- */
         .hero {
             height: 100vh;
+            width: 100%;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
                         url('https://www.dropbox.com/scl/fi/379btmuabvlok9b7ioshb/file_00000000219871fd9cc6e8b8540ad9eb.png?rlkey=g74qqufgozuh07rqjgpqrmfy7&raw=1');
             background-size: cover; 
-            background-position: center center;
+            background-position: center 20%; /* Foco ligeramente arriba para móviles */
             background-repeat: no-repeat;
             display: flex; 
             flex-direction: column; 
@@ -41,24 +42,35 @@
             color: white;
             padding: 0 20px;
         }
+
+        /* Ajuste para ordenadores y tablets horizontales */
+        @media (min-width: 1024px) {
+            .hero {
+                background-size: contain; /* Muestra la foto completa sin cortes en PC */
+                background-color: #111; /* Fondo oscuro por si sobran lados */
+                background-attachment: scroll;
+            }
+        }
+
         .hero h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: clamp(2.5rem, 8vw, 4rem); 
+            font-size: clamp(2.5rem, 8vw, 4.5rem); 
             font-style: italic; 
             margin-bottom: 10px; 
-            text-shadow: 2px 2px 15px rgba(0,0,0,0.6); 
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.8); 
         }
         .hero p { 
-            letter-spacing: 3px; 
-            font-size: 0.9rem;
+            letter-spacing: 4px; 
+            font-size: clamp(0.7rem, 2vw, 1rem);
             font-weight: 300; 
             margin-bottom: 30px; 
             text-transform: uppercase;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
         }
 
         /* CONTADOR */
         .timer { display: flex; gap: 8px; }
-        .t-box { background: rgba(0,0,0,0.5); padding: 12px; border-radius: 5px; min-width: 65px; border: 1px solid rgba(255,255,255,0.2); }
+        .t-box { background: rgba(0,0,0,0.5); padding: 12px; border-radius: 5px; min-width: 65px; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); }
         .t-box span { display: block; font-size: 1.6rem; font-weight: bold; color: var(--oro); }
         .t-box small { font-size: 0.6rem; text-transform: uppercase; }
 
@@ -76,7 +88,7 @@
         .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
         .swiper-button-next, .swiper-button-prev { color: var(--oro) !important; font-weight: bold; }
 
-        /* BOTONES CENTRADOS */
+        /* BOTONES */
         .btn-container { display: flex; justify-content: center; width: 100%; margin: 15px 0; flex-direction: column; align-items: center; }
         .btn { display: inline-block; padding: 16px 40px; background: var(--negro); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; border-bottom: 4px solid var(--oro); font-size: 0.9rem; transition: 0.3s; }
         .btn:hover { background: #333; }
@@ -128,10 +140,9 @@
         <div class="reveal">
             <h2>Nuestra Historia</h2>
             <p style="font-family:'Cormorant Garamond'; font-size:1.4rem; font-style:italic; margin-bottom:30px;">
-                "Nuestra aventura comenzó como un sueño y hoy se convierte en nuestra más hermosa realidad. A lo largo de este tiempo, hemos aprendido que el amor no es solo mirarse el uno al otro, sino mirar juntos en la misma dirección."
+                "Nuestra aventura comenzó como un sueño y hoy se convierte en nuestra más hermosa realidad."
             </p>
             <img src="https://www.dropbox.com/scl/fi/zs85m423lx4i76daw0uxj/file_00000000530471fdbb445bac178e63e1.png?rlkey=o0bu5uv9cvvmyl7lj3er8hbfg&raw=1" style="border-radius:15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-            <h3 style="font-family:'Cormorant Garamond'; font-style:italic; color:var(--oro); margin-top:20px;">"Donde hay amor, hay vida."</h3>
         </div>
     </section>
 
@@ -147,10 +158,6 @@
                     <h4>Padres del Novio</h4>
                     <p>Sr. Nombre del Padre<br>Sra. Nombre de la Madre</p>
                 </div>
-            </div>
-            <div class="card-family" style="margin-top:20px;">
-                <h4>Nuestros Padrinos</h4>
-                <p>Sr. Padrino de Honor & Sra. Madrina de Honor</p>
             </div>
         </div>
     </section>
@@ -169,8 +176,6 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/gpf7arkczi5v3y9hxfjte/file_00000000189c71fdbc7b6ac47bb70337.png?rlkey=p8jpnwypfniwf7lxj25wiq4w2&raw=1"></div>
                     <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/ld6s2fdqhmb71fxehdb0k/file_00000000928871fdb8f65567b022409a.png?rlkey=vcl3logvk7fd3yfysmjx0ge6j&raw=1"></div>
-                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/1hgcl93ka69i3fflmyxl3/file_0000000009b471f89a2eae6e6e70937b.png?rlkey=4t37xj2vxayedrv5szm2rjz9y&raw=1"></div>
-                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/379btmuabvlok9b7ioshb/file_00000000219871fd9cc6e8b8540ad9eb.png?rlkey=g74qqufgozuh07rqjgprmfy7&raw=1"></div>
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -182,35 +187,11 @@
         <div class="reveal">
             <h2>Ubicaciones</h2>
             <div class="card-family" style="margin-bottom:30px;">
-                <img src="https://www.dropbox.com/scl/fi/yg63x0ndbs8xdkvhtw944/Catedral-Toluca-1200x800.png?rlkey=hyhvjs8bhtk9ks9ftuil12j1e&raw=1" style="width:100%; height:180px; object-fit:cover; border-radius:10px;">
                 <h4 style="margin-top:15px;">Ceremonia Religiosa</h4>
                 <p>Catedral de Toluca, Edo. Méx.</p>
                 <div class="btn-container">
-                    <a href="https://maps.app.goo.gl/..." target="_blank" class="btn">UBICACIÓN</a>
-                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+de+Ariel+%26+Samanta&dates=20261025T230000Z/20261026T040000Z&details=¡Acompáñanos+en+nuestro+gran+día!&location=Catedral+de+Toluca,+Edo.+Méx.&sf=true&output=xml" target="_blank" class="btn btn-cal">AGREGAR AL CALENDARIO</a>
+                    <a href="#" target="_blank" class="btn">UBICACIÓN</a>
                 </div>
-            </div>
-            <div class="card-family">
-                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=400" style="width:100%; height:180px; object-fit:cover; border-radius:10px;">
-                <h4 style="margin-top:15px;">Recepción</h4>
-                <p>Hacienda San José, Edo. Méx.</p>
-                <div class="btn-container">
-                    <a href="https://maps.app.goo.gl/..." target="_blank" class="btn">UBICACIÓN</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="sec">
-        <div class="reveal">
-            <h2>Mesa de Regalos</h2>
-            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
-                <a href="https://www.liverpool.com.mx" target="_blank"><img src="https://websinergia.com.mx/blog/wp-content/uploads/2016/07/liverpool-face.png" style="width:120px;"></a>
-                <a href="https://www.amazon.com.mx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" style="width:120px;"></a>
-            </div>
-            <div style="margin-top:30px; padding:20px; border:1px solid var(--oro); border-radius:10px;">
-                <h4>Lluvia de Sobres</h4>
-                <p>Su presencia es nuestro regalo, pero si desean tener un detalle, contaremos con un buzón o transferencia:<br><strong>BBVA: 0123 4567 8901</strong></p>
             </div>
         </div>
     </section>
@@ -236,7 +217,6 @@
                     <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; color: #666;" id="w-desc">Despejado</p>
                 </div>
             </div>
-            <p style="margin-top: 15px; font-size: 0.8rem; color: var(--oro); font-weight: bold; letter-spacing: 2px;">TOLUCA, ESTADO DE MÉXICO</p>
         </div>
     </section>
 
@@ -250,14 +230,10 @@
                         <option value="1">1 Persona</option>
                         <option value="2">2 Personas</option>
                         <option value="3">3 Personas</option>
-                        <option value="4">4 Personas</option>
-                        <option value="5">5 Personas</option>
                     </select>
                 </div>
                 <a href="javascript:void(0)" onclick="enviarWhatsApp()" class="btn-confirm">CONFIRMAR POR WHATSAPP</a>
             </div>
-            <p style="margin-top:20px;"><small>FAVOR DE CONFIRMAR ANTES DEL 01.10.2026</small></p>
-            <p style="margin-top:30px; font-style:italic; font-family:'Cormorant Garamond'; font-size:1.5rem;">¡Nos vemos pronto!</p>
         </div>
     </section>
 
@@ -283,7 +259,7 @@
                 const data = await response.json();
                 const temp = Math.round(data.current_weather.temperature);
                 const code = data.current_weather.weathercode;
-                const conditions = { 0: ["Despejado", "☀️"], 1: ["Despejado", "🌤️"], 2: ["Nublado", "⛅"], 3: ["Nublado", "☁️"], 45: ["Neblina", "🌫️"], 61: ["Lluvia", "🌧️"], 95: ["Tormenta", "⛈️"] };
+                const conditions = { 0: ["Despejado", "☀️"], 1: ["Despejado", "🌤️"], 2: ["Nublado", "⛅"], 3: ["Nublado", "☁️"] };
                 const [text, icon] = conditions[code] || ["Despejado", "☀️"];
                 document.getElementById('w-temp').innerText = temp + "°C";
                 document.getElementById('w-icon').innerText = icon;
