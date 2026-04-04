@@ -117,7 +117,8 @@
     <section class="hero" id="bg-portada">
         <div class="hero-content">
             <p style="letter-spacing: 5px;">NUESTRA BODA</p>
-            <h1 style="font-family: 'Playfair Display', serif; font-size: 3.2rem; font-style: italic; margin: 15px 0;">Marcos y Lucia</h1>
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3.2rem; font-style: italic; margin: 15px 0 5px 0;">Marcos y Lucia</h1>
+            <p id="hero-fecha" style="letter-spacing: 3px; font-size: 1.1rem; margin-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.4); display: inline-block; padding: 5px 20px;"></p>
             <div class="countdown">
                 <div class="count-box"><span id="d">00</span><small>DÍAS</small></div>
                 <div class="count-box"><span id="h">00</span><small>HRS</small></div>
@@ -196,6 +197,11 @@
         document.getElementById('audioSrc').src = CONFIG.url_musica;
         document.getElementById('msg-novios').innerText = CONFIG.mensaje_novios;
         
+        // Mostrar fecha en Hero
+        const dateObj = new Date(CONFIG.fecha_boda);
+        const opciones = { day: '2-digit', month: 'long', year: 'numeric' };
+        document.getElementById('hero-fecha').innerText = dateObj.toLocaleDateString('es-ES', opciones).toUpperCase();
+
         // Galería e Itinerario
         document.getElementById('g1').src = CONFIG.foto_1;
         document.getElementById('g2').src = CONFIG.foto_2;
