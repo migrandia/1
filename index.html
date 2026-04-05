@@ -3,229 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Boda | Mario y Ester</title>
+    
+    <title>Mis XV | Isabella VIP</title>
+    <meta property="og:title" content="Mis XV | Isabella">
+    <meta property="og:description" content="Te invito a mi sueño mágico. ¡Acompáñame a celebrar mis XV años!">
+    <meta property="og:image" content="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1">
+    <meta property="og:type" content="website">
 
-    <script>
-        /* ==========================================
-           PANEL DE CONTROL TOTAL - EDITA TUS URLS
-           ========================================== */
-        const CONFIG = {
-            url_pagina_principal: "https://migrandia.mx/boda-catalogo/",
-            
-            // FONDOS (URLs)
-            url_fondo_global: "https://www.dropbox.com/scl/fi/fcgqk5mscou0534kw00c8/Fondo-de-Pantalla-Blanco-Minimalista_20260405_030125_0000.png?rlkey=wlv8vqgafm0btsjcazr3rwc29&raw=1",
-            url_fondo_portada: "https://www.dropbox.com/scl/fi/zhmq4cw2wj2ejc0pifxz4/BODA-ESTANDAR-2.png?rlkey=mtb10bo0chbe1no8lxv1bzf7i&raw=1",
-            
-            // FOTO ÚNICA DE LA HISTORIA
-            foto_historia: "https://www.dropbox.com/scl/fi/jshcr7unkkzutw9oqrl5s/BODA-ESTANDAR-3.jpg?rlkey=0jcxch6to6sljwe4xxrpvc5lk&raw=1",
-
-            // IMAGEN DEL SOBRE (Lluvia de Regalos)
-            url_imagen_sobre: "https://www.dropbox.com/scl/fi/o42d0wgeb2so41w6nz18a/mo-o-lluvia.png?rlkey=s7uryk85xgwpvncastuj87h5n&raw=1", 
-
-            fecha_boda: "October 24, 2026 17:00:00",
-            
-            mensaje_novios: "Hoy comenzamos el viaje más importante de nuestras vidas. Un camino que decidimos recorrer juntos, tomados de la mano y con el corazón lleno de ilusiones. Agradecemos a Dios y a la vida por habernos encontrado, y a ustedes por ser los testigos de este amor que no deja de crecer día con día. Gracias por ser parte fundamental de nuestra historia y por acompañarnos en este día tan especial.",
-            
-            padres_novia: "Roberto Méndez & Elena Solís",
-            padres_novio: "Ricardo Vera & Martha León",
-            padrinos: "Juan Carlos Sosa & María del Carmen",
-
-            texto_ubicacion_iglesia: "Parroquia de San Francisco de Asís, Centro Histórico.",
-            texto_ubicacion_recepcion: "Hacienda El Recuerdo, Carretera Federal Km 4.5.",
-
-            banco: "BBVA México",
-            clabe: "0123 4567 8901 2345 67",
-            titular: "Mario y Ester",
-
-            url_whatsapp_rsvp: "https://wa.me/525654252153?text=Hola!%20Confirmo mi asistencia"
-        };
-    </script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Dancing+Script:wght@600&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --verde-bosque: #1b3022;
-            --dorado: #c5a059;
-            --texto: #444;
+            --emerald: #064e3b;
+            --dark-garden: #020617;
+            --gold-glow: #fbbf24;
+            --glass: rgba(255, 255, 255, 0.07);
+            --ancho-max: 480px;
         }
 
-        body { 
-            margin: 0; font-family: 'Montserrat', sans-serif; color: var(--texto);
-            -webkit-user-select: none; user-select: none; background-color: #f9f7f2;
-            line-height: 1.6;
+        body {
+            margin: 0; padding: 0; background-color: #000; color: #e2e8f0;
+            font-family: 'Montserrat', sans-serif; text-align: center;
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+            -webkit-touch-callout: none;
         }
 
-        img { pointer-events: none; -webkit-user-drag: none; }
-
-        /* BOTÓN VOLVER */
-        .btn-back {
-            position: fixed; top: 20px; left: 20px; z-index: 1000;
-            background: var(--dorado); padding: 10px 18px; border-radius: 30px; 
-            text-decoration: none; color: white; font-size: 0.75rem; font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: 0.3s;
+        .btn-back-vip {
+            position: fixed; top: 20px; left: 20px; z-index: 1001;
+            background: rgba(2, 6, 23, 0.5); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(251, 191, 36, 0.4);
+            color: white; padding: 10px 18px; border-radius: 50px;
+            text-decoration: none; font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 2px; display: flex; align-items: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4); transition: 0.3s ease;
         }
 
-        /* PORTADA */
-        .hero {
-            height: 100vh; background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            color: white; text-align: center; position: relative;
+        .app-wrapper {
+            max-width: var(--ancho-max); margin: 0 auto;
+            background-color: var(--dark-garden); position: relative;
+            min-height: 100vh; overflow: hidden; border: 1px solid #1e293b;
         }
-        .hero::before { content: ""; position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); }
-        .hero-content { z-index: 2; padding: 20px; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 10px 0; font-weight: 400; }
 
-        /* CONTADOR */
-        .countdown { display: flex; gap: 15px; margin-top: 30px; justify-content: center; }
-        .count-box { border-bottom: 2px solid var(--dorado); padding: 10px; min-width: 60px; }
-        .count-box span { display: block; font-size: 1.5rem; font-weight: 300; }
-        .count-box small { letter-spacing: 2px; font-size: 0.6rem; opacity: 0.8; }
+        .secure-layer { position: relative; display: inline-block; width: 100%; }
+        .secure-layer::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10; background: rgba(0,0,0,0);
+        }
 
-        .section { padding: 80px 25px; text-align: center; max-width: 700px; margin: auto; }
-        .title { font-family: 'Playfair Display', serif; color: var(--verde-bosque); font-size: 2rem; margin-bottom: 30px; font-style: italic; position: relative; display: inline-block; }
-        .title::after { content: ""; width: 50%; height: 1px; background: var(--dorado); position: absolute; bottom: -5px; left: 25%; }
+        .glow {
+            position: absolute; width: 150px; height: 150px;
+            background: var(--emerald); filter: blur(100px);
+            border-radius: 50%; z-index: 1; opacity: 0.4; pointer-events: none;
+        }
 
-        .single-photo { width: 100%; height: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 8px solid white; margin-top: 30px; box-sizing: border-box; }
-        .info-box { background: white; padding: 40px; border: 1px solid #eee; margin: 25px 0; }
+        #music-pill {
+            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+            background: rgba(6, 78, 59, 0.6); backdrop-filter: blur(15px);
+            border: 1px solid var(--gold-glow); padding: 10px 20px; border-radius: 50px;
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+        }
 
-        /* SOBRE IMAGEN */
-        .sobre-img { width: 60px; height: auto; margin-bottom: 20px; opacity: 0.8; }
+        .hero-v3 {
+            height: 80vh;
+            background: url('https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1') center center no-repeat;
+            background-size: cover; clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+            position: relative;
+        }
 
-        /* BOTÓN DE CONFIRMACIÓN REAL */
+        .hero-info {
+            position: absolute; bottom: 15%; width: 100%; padding: 20px;
+            box-sizing: border-box; background: linear-gradient(to top, var(--dark-garden), transparent);
+            z-index: 2;
+        }
+
+        .xv-tag {
+            background: var(--gold-glow); color: black; padding: 5px 15px;
+            border-radius: 20px; font-size: 0.7rem; font-weight: bold; letter-spacing: 2px;
+        }
+
+        h1.main-name { font-family: 'Cinzel', serif; font-size: 2.8rem; margin: 15px 0 0; color: white; }
+
+        .glass-card {
+            background: var(--glass); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1); margin: 20px;
+            padding: 30px 20px; border-radius: 24px; position: relative; z-index: 2;
+        }
+
+        .section-title { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--gold-glow); margin-bottom: 20px; }
+        .img-rounded { width: 100%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); display: block; -webkit-user-drag: none; }
+
+        .person-tag { border-left: 3px solid var(--gold-glow); padding-left: 15px; text-align: left; margin-bottom: 15px; }
+        .role { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8; }
+        .p-name { font-size: 1.1rem; font-weight: 600; color: white; margin: 5px 0; }
+
+        .btn-emerald {
+            display: block; background: var(--emerald); color: white; padding: 18px;
+            border-radius: 16px; text-decoration: none; font-weight: bold;
+            margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .timer-v3 { display: flex; justify-content: center; gap: 10px; }
+        .t-unit { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; min-width: 60px; }
+        .t-num { font-size: 1.8rem; display: block; color: var(--gold-glow); font-weight: 700; }
+        .t-txt { font-size: 0.6rem; opacity: 0.6; }
+
+        /* Estilos para Clima y Detalles VIP */
+        .weather-info { font-size: 1.2rem; font-weight: 600; color: white; margin: 10px 0; }
+        .family-tag { font-family: 'Cinzel'; color: var(--gold-glow); font-size: 1.4rem; margin-top: 10px; }
+
+        .rsvp-footer { padding: 60px 20px; background: linear-gradient(to bottom, var(--dark-garden), #064e3b); }
         .btn-confirm {
-            display: inline-block; padding: 18px 45px; background: var(--verde-bosque);
-            color: white; text-decoration: none; font-weight: 600; border-radius: 50px;
-            letter-spacing: 2px; transition: all 0.3s ease; margin-top: 30px;
-            font-size: 0.85rem; text-transform: uppercase;
-            box-shadow: 0 8px 15px rgba(27, 48, 34, 0.3);
-            border: 2px solid transparent;
+            background: white; color: black; padding: 20px; border-radius: 50px;
+            display: block; text-decoration: none; font-weight: 800; font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
         }
-        .btn-confirm:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 20px rgba(27, 48, 34, 0.4);
-            background: #25422e;
-        }
-        .btn-confirm:active { transform: translateY(-1px); }
-
-        /* FOOTER */
-        .footer-promo { padding: 60px 20px; text-align: center; background: #fff; border-top: 1px solid #f0f0f0; }
-        .footer-initials { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--verde-bosque); display: block; margin-bottom: 10px; }
-        .footer-collection { font-size: 0.7rem; letter-spacing: 4px; color: #999; display: block; margin-bottom: 8px; }
-        .footer-link { font-size: 0.85rem; color: #444; text-decoration: none; }
-        .footer-link b { color: var(--dorado); }
     </style>
 </head>
-<body id="global-body" oncontextmenu="return false;">
+<body oncontextmenu="return false;" onclick="initAudio()">
 
-    <a id="btn-home" href="#" class="btn-back">⬅ VOLVER</a>
+    <a href="javascript:history.back()" class="btn-back-vip">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        REGRESAR
+    </a>
 
-    <section class="hero" id="bg-portada">
-        <div class="hero-content">
-            <p style="letter-spacing: 6px; font-size: 0.8rem;">NUESTRA BODA</p>
-            <h1>Mario y Ester</h1>
-            <p id="hero-fecha" style="font-size: 1.1rem; margin: 20px 0; font-weight: 300; letter-spacing: 2px;"></p>
-            <div class="countdown">
-                <div class="count-box"><span id="d">00</span><small>DÍAS</small></div>
-                <div class="count-box"><span id="h">00</span><small>HRS</small></div>
-                <div class="count-box"><span id="m">00</span><small>MIN</small></div>
-                <div class="count-box"><span id="s">00</span><small>SEG</small></div>
+    <div class="glow" style="top: 10%; left: -50px;"></div>
+    <div class="glow" style="bottom: 20%; right: -50px;"></div>
+
+    <div id="music-pill" onclick="toggleMusic()">
+        <span id="m-status">▶</span>
+        <span style="font-size: 0.7rem; font-weight: bold; letter-spacing: 1px;">MÚSICA</span>
+    </div>
+
+    <audio id="track" loop>
+        <source src="https://www.dropbox.com/scl/fi/80hypdxkg24wx6x7oael2/En-Tus-Manos-Se-or.mp3?rlkey=j4di62c9sgj4txgwbpikcngp3&raw=1" type="audio/mpeg">
+    </audio>
+
+    <div class="app-wrapper">
+        
+        <div class="secure-layer">
+            <div class="hero-v3">
+                <div class="hero-info">
+                    <span class="xv-tag">MIS QUINCE AÑOS</span>
+                    <h1 class="main-name">ISABELLA</h1>
+                    <p style="letter-spacing: 4px; font-size: 0.9rem;">24 . OCT . 2026</p>
+                </div>
             </div>
         </div>
-    </section>
 
-    <section class="section">
-        <h2 class="title">Nuestra Historia</h2>
-        <p id="msg-novios" style="font-style: italic; color: #666; font-size: 1.05rem;"></p>
-        <img id="g1" src="" class="single-photo">
-    </section>
-
-    <section class="section">
-        <h2 class="title">Nuestros Padres</h2>
-        <div class="info-box">
-            <p style="margin-bottom: 20px;"><b>De Ella:</b><br><span id="p-ella"></span></p>
-            <p><b>De Él:</b><br><span id="p-el"></span></p>
-        </div>
-        <h2 class="title">Padrinos</h2>
-        <div class="info-box">
-            <p><span id="padrinos-val"></span></p>
-        </div>
-    </section>
-
-    <section class="section" style="background-color: #f4f1ec; max-width: 100%;">
-        <div style="max-width: 700px; margin: auto;">
-            <h2 class="title">Dónde y Cuándo</h2>
-            <div class="info-box">
-                <h3 style="font-family: 'Playfair Display'; color: var(--dorado);">Ceremonia Religiosa</h3>
-                <p id="loc-iglesia"></p>
+        <div class="glass-card">
+            <h2 class="role" style="color: var(--gold-glow); margin-bottom: 15px;">Faltan solo...</h2>
+            <div class="timer-v3">
+                <div class="t-unit"><span class="t-num" id="d">00</span><span class="t-txt">DÍAS</span></div>
+                <div class="t-unit"><span class="t-num" id="h">00</span><span class="t-txt">HRS</span></div>
+                <div class="t-unit"><span class="t-num" id="m">00</span><span class="t-txt">MIN</span></div>
+                <div class="t-unit"><span class="t-num" id="s">00</span><span class="t-txt">SEG</span></div>
             </div>
-            <div class="info-box">
-                <h3 style="font-family: 'Playfair Display'; color: var(--dorado);">Recepción</h3>
-                <p id="loc-recepcion"></p>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+Isabella&dates=20261024T170000Z/20261025T020000Z" target="_blank" class="btn-emerald" style="background: transparent; border-color: var(--gold-glow); color: var(--gold-glow);">AGREGAR AL CALENDARIO</a>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="section-title">Mi Sueño Mágico</h2>
+            <div class="secure-layer">
+                <img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1" class="img-rounded">
+            </div>
+            <p style="font-weight: 200; line-height: 1.8; font-style: italic; margin-top: 20px;">
+                "Bajo la luz de las estrellas, comienzo una nueva etapa. Gracias por ser parte de este jardín de ilusiones."
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <p class="role">Invitación Especial para:</p>
+            <h2 class="family-tag">Familia Martínez López</h2>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Lugares reservados: <b>4</b></p>
+        </div>
+
+        <div class="glass-card" style="text-align: left;">
+            <p class="role" style="color: var(--gold-glow); margin-bottom: 20px;">Corte de Honor</p>
+            <div class="person-tag">
+                <p class="role">Mis Padres</p>
+                <p class="p-name">Roberto Martínez & Lucía Ferré</p>
+            </div>
+            <div class="person-tag">
+                <p class="role">Mis Padrinos</p>
+                <p class="p-name">Julián Soto & María Elena Paz</p>
             </div>
         </div>
-    </section>
 
-    <section class="section">
-        <h2 class="title">Lluvia de Regalos</h2>
-        <p>Su presencia es nuestro mayor regalo, pero si desean tener un detalle con nosotros:</p>
-        <div style="padding: 40px; border: 1px solid var(--dorado); background: white; margin-top: 30px;">
-            <img id="sobre-img" src="" class="sobre-img">
-            <p><b id="b-nom"></b></p>
-            <p>CLABE: <span id="b-clabe" style="letter-spacing: 1px;"></span></p>
-            <p>A nombre de: <span id="b-tit"></span></p>
+        <div class="glass-card">
+            <h2 class="section-title">Itinerario</h2>
+            <div style="text-align: left; padding: 10px 0;">
+                <p>✨ <b>17:00 HRS</b> - Misa de Acción de Gracias</p>
+                <p>🍸 <b>19:00 HRS</b> - Cóctel de Bienvenida</p>
+                <p>💃 <b>20:00 HRS</b> - Entrada y Vals</p>
+                <p>🍽️ <b>21:00 HRS</b> - Cena de Gala</p>
+            </div>
         </div>
-    </section>
 
-    <section class="section" style="background: var(--verde-bosque); color: white; max-width: 100%;">
-        <h2 class="title" style="color: white; border-color: white;">Confirmación</h2>
-        <p style="opacity: 0.9;">Sería un honor contar con tu presencia.</p>
-        <a id="go-rsvp" href="#" class="btn-confirm">Confirmar Asistencia</a>
-    </section>
+        <div class="glass-card">
+            <p class="role">Celebración Eucarística</p>
+            <h2 style="font-family: 'Cinzel'; margin: 10px 0;">Parroquia del Prado</h2>
+            <p>17:00 Horas</p>
+            <a href="https://maps.app.goo.gl/..." class="btn-emerald">VER UBICACIÓN MISA</a>
+        </div>
 
-    <footer class="footer-promo">
-        <span class="footer-initials">M & E</span>
-        <span class="footer-collection">MI GRAN DIA COLECCION</span>
-        <a href="https://migrandia.mx" target="_blank" class="footer-link">Creado por <b>migrandia.mx</b></a>
-    </footer>
+        <div class="glass-card">
+            <div class="secure-layer">
+                <img src="https://www.dropbox.com/scl/fi/x8aif8za8u6dbfyqvxx6k/xv3.jpg?rlkey=0gnog533q3fpm5xl0ouxmhrou&raw=1" class="img-rounded">
+            </div>
+            <p class="role" style="margin-top: 15px;">Gran Gala</p>
+            <h2 style="font-family: 'Cinzel'; margin: 10px 0;">Salón Terraza Real</h2>
+            <p>20:00 Horas</p>
+            <a href="https://maps.app.goo.gl/..." class="btn-emerald">VER UBICACIÓN RECEPCIÓN</a>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="section-title" style="font-size: 1.8rem;">Hospedaje</h2>
+            <p class="role">Hotel Recomendado</p>
+            <h2 style="font-family: 'Cinzel'; margin: 10px 0; font-size: 1.2rem;">Hotel Gran Gardenia</h2>
+            <a href="https://maps.app.goo.gl/..." class="btn-emerald" style="background: #1e293b;">VER HOTEL</a>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="section-title" style="font-size: 1.8rem;">El Clima</h2>
+            <p class="role">Pronóstico para el gran día</p>
+            <div class="weather-info">☀️ 26°C - Despejado</div>
+            <p style="font-size: 0.75rem; opacity: 0.8;">Ideal para una noche bajo las estrellas.</p>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="section-title">Detalles</h2>
+            <p class="role">Código de Vestimenta</p>
+            <p><b>FORMAL / GALA</b></p>
+            <hr style="opacity: 0.1; margin: 20px 0;">
+            <p class="role">Lluvia de Sobres</p>
+            <p>Tu presencia es mi mejor regalo, pero si deseas tener un detalle, contaremos con lluvia de sobres en la recepción.</p>
+        </div>
+
+        <div class="rsvp-footer">
+            <h2 class="section-title" style="color: white; font-size: 3rem;">¿Vienes?</h2>
+            <p style="margin-bottom: 30px; opacity: 0.8;">Confirma tu asistencia antes del 10 de octubre</p>
+            <a href="https://wa.me/521234567890?text=Hola!%20Confirmo%20mi%20asistencia%20a%20los%20XV%20de%20Isabella" class="btn-confirm">CONFIRMAR POR WHATSAPP</a>
+        </div>
+
+    </div>
 
     <script>
-        // CARGAR DATOS
-        document.getElementById('btn-home').href = CONFIG.url_pagina_principal;
-        document.getElementById('global-body').style.backgroundImage = `url('${CONFIG.url_fondo_global}')`;
-        document.getElementById('bg-portada').style.backgroundImage = `url('${CONFIG.url_fondo_portada}')`;
-        
-        document.getElementById('msg-novios').innerText = CONFIG.mensaje_novios;
-        document.getElementById('g1').src = CONFIG.foto_historia;
-        document.getElementById('sobre-img').src = CONFIG.url_imagen_sobre;
+        var track = document.getElementById('track');
+        var mStatus = document.getElementById('m-status');
+        var playing = false;
 
-        const dateObj = new Date(CONFIG.fecha_boda);
-        document.getElementById('hero-fecha').innerText = dateObj.toLocaleDateString('es-ES', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
-
-        document.getElementById('p-ella').innerText = CONFIG.padres_novia;
-        document.getElementById('p-el').innerText = CONFIG.padres_novio;
-        document.getElementById('padrinos-val').innerText = CONFIG.padrinos;
-
-        document.getElementById('loc-iglesia').innerText = CONFIG.texto_ubicacion_iglesia;
-        document.getElementById('loc-recepcion').innerText = CONFIG.texto_ubicacion_recepcion;
-
-        document.getElementById('b-nom').innerText = CONFIG.banco;
-        document.getElementById('b-clabe').innerText = CONFIG.clabe;
-        document.getElementById('b-tit').innerText = CONFIG.titular;
-        document.getElementById('go-rsvp').href = CONFIG.url_whatsapp_rsvp;
-
-        // CONTADOR
-        const target = new Date(CONFIG.fecha_boda).getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const d = target - now;
-            if (d > 0) {
-                document.getElementById('d').innerText = Math.floor(d / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-                document.getElementById('h').innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                document.getElementById('m').innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                document.getElementById('s').innerText = Math.floor((d % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        function initAudio() {
+            if (!playing) {
+                track.play().catch(e => console.log("Audio play pending"));
+                playing = true;
+                mStatus.innerText = "⏸";
             }
-        }, 1000);
+        }
+
+        function toggleMusic() {
+            playing = true;
+            if (track.paused) {
+                track.play(); mStatus.innerText = "⏸";
+            } else {
+                track.pause(); mStatus.innerText = "▶";
+            }
+        }
+
+        function timer() {
+            const end = new Date("Oct 24, 2026 17:00:00").getTime();
+            const now = new Date().getTime();
+            const d = end - now;
+
+            if (d > 0) {
+                document.getElementById('d').innerText = Math.floor(d / (1000*60*60*24));
+                document.getElementById('h').innerText = Math.floor((d % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2, '0');
+                document.getElementById('m').innerText = Math.floor((d % (1000*60*60)) / (1000*60)).toString().padStart(2, '0');
+                document.getElementById('s').innerText = Math.floor((d % (1000*60)) / 1000).toString().padStart(2, '0');
+            }
+        }
+        setInterval(timer, 1000);
+
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123 || 
+               (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83 || e.keyCode == 67 || e.keyCode == 73 || e.keyCode == 74)) ||
+               (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))) {
+                return false;
+            }
+        };
+
+        document.addEventListener('dragstart', function (e) { e.preventDefault(); }, false);
     </script>
 </body>
 </html>
