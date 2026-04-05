@@ -4,304 +4,226 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Mis XV | Isabella VIP</title>
-    <meta property="og:title" content="Mis XV | Isabella">
-    <meta property="og:description" content="Te invito a mi sueño mágico. ¡Acompáñame a celebrar mis XV años!">
-    <meta property="og:image" content="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1">
+    <title>Mis XV Años - Ariel</title>
+    <meta property="og:title" content="Mis XV Años - Ariel">
+    <meta property="og:description" content="¡Acompáñame a celebrar mi gran día! 25.10.2026">
+    <meta property="og:image" content="https://www.dropbox.com/scl/fi/379btmuabvlok9b7ioshb/file_00000000219871fd9cc6e8b8540ad9eb.png?rlkey=g74qqufgozuh07rqjgpqrmfy7&raw=1">
     <meta property="og:type" content="website">
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Dancing+Script:wght@600&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/scrollreveal"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
+
     <style>
         :root {
-            --emerald: #064e3b;
-            --dark-garden: #020617;
-            --gold-glow: #fbbf24;
-            --glass: rgba(255, 255, 255, 0.07);
-            --ancho-max: 480px;
+            --oro: #b8926a;
+            --negro: #1a1a1a;
+            --crema: #fdfaf5;
+            --fondo-papel: url('https://www.dropbox.com/scl/fi/v1i7m0j4jubo8w8bpyd29/fondo-textura-papel-blanco_23-2148171221.jpg?rlkey=1spniqjgkcur44hfdi9o18jid&raw=1');
         }
 
-        body {
-            margin: 0; padding: 0; background-color: #000; color: #e2e8f0;
-            font-family: 'Montserrat', sans-serif; text-align: center;
-            -webkit-user-select: none; user-select: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+        body { font-family: 'Montserrat', sans-serif; background-image: var(--fondo-papel); background-attachment: fixed; color: #333; overflow-x: hidden; }
+        img { -webkit-user-drag: none; pointer-events: none; max-width: 100%; height: auto; }
 
-        .app-wrapper {
-            max-width: var(--ancho-max); margin: 0 auto;
-            background-color: var(--dark-garden); position: relative;
-            min-height: 100vh; overflow-x: hidden; border: 1px solid #1e293b;
-        }
-
-        /* BOTONES FLOTANTES */
-        .music-btn, .back-btn { 
-            position: fixed; top: 20px; z-index: 1000; 
-            background: rgba(6, 78, 59, 0.6); backdrop-filter: blur(10px);
-            border: 1px solid var(--gold-glow); border-radius: 50%; 
-            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; text-decoration: none; font-size: 1.1rem; 
-        }
+        .music-btn, .back-btn { position: fixed; top: 20px; z-index: 1000; background: white; border: 1px solid var(--oro); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; font-size: 1.2rem; }
         .music-btn { right: 20px; }
-        .back-btn { left: 20px; color: white; }
+        .back-btn { left: 20px; color: var(--oro); }
 
-        /* PORTADA */
-        .hero-v3 {
-            height: 85vh;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1') center center no-repeat;
-            background-size: cover; clip-path: polygon(0 0, 100% 0, 100% 92%, 0% 100%);
-            display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 20%;
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://www.dropbox.com/scl/fi/379btmuabvlok9b7ioshb/file_00000000219871fd9cc6e8b8540ad9eb.png?rlkey=g74qqufgozuh07rqjgpqrmfy7&raw=1');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;
         }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-style: italic; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero p { letter-spacing: 4px; font-weight: 300; margin-bottom: 20px; }
 
-        .hero-info h1 { font-family: 'Cinzel', serif; font-size: 3.2rem; margin: 10px 0; color: white; }
-        .xv-tag { background: var(--gold-glow); color: black; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; letter-spacing: 2px; }
+        .timer { display: flex; gap: 8px; }
+        .t-box { background: rgba(0,0,0,0.5); padding: 12px; border-radius: 5px; min-width: 65px; border: 1px solid rgba(255,255,255,0.2); }
+        .t-box span { display: block; font-size: 1.6rem; font-weight: bold; color: var(--oro); }
+        .t-box small { font-size: 0.6rem; text-transform: uppercase; }
 
-        /* CONTADOR */
-        .timer-grid { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
-        .t-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; min-width: 65px; border: 1px solid rgba(251, 191, 36, 0.2); }
-        .t-num { font-size: 1.8rem; display: block; color: var(--gold-glow); font-weight: 700; }
-        .t-txt { font-size: 0.6rem; opacity: 0.6; text-transform: uppercase; }
+        .sec { padding: 50px 20px; text-align: center; max-width: 800px; margin: auto; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--negro); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* TARJETAS DE CRISTAL */
-        .glass-card {
-            background: var(--glass); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1); margin: 20px;
-            padding: 30px 20px; border-radius: 24px; position: relative;
-        }
+        .grid-family { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card-family { background: rgba(255,255,255,0.6); padding: 25px; border-radius: 8px; border: 1px solid #eee; }
+        .card-family h4 { color: var(--oro); margin-bottom: 10px; font-family: 'Playfair Display', serif; }
 
-        .section-title { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--gold-glow); margin-bottom: 20px; }
-        .role { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8; margin-bottom: 5px; }
+        .swiper { width: 100%; max-width: 450px; height: 450px; border-radius: 15px; margin-top: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+        .swiper-button-next, .swiper-button-prev { color: var(--oro) !important; }
 
-        /* BOTONES CON FOTO (IGUAL A BODA) */
-        .loc-card { background: rgba(255,255,255,0.03); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); margin-top: 15px; }
-        .loc-img { width: 100%; height: 180px; object-fit: cover; }
-        .btn-action { 
-            display: block; background: var(--emerald); color: white; padding: 16px; 
-            text-decoration: none; font-weight: bold; font-size: 0.8rem; letter-spacing: 1px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
+        .btn-container { display: flex; justify-content: center; width: 100%; margin: 15px 0; flex-direction: column; align-items: center; }
+        .btn { display: inline-block; padding: 16px 40px; background: var(--negro); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; border-bottom: 4px solid var(--oro); font-size: 0.9rem; transition: 0.3s; }
+        .btn-cal { background: #4285F4; border-bottom-color: #357ae8; padding: 12px 25px; font-size: 0.8rem; margin-top: 10px; }
 
-        /* GALERÍA */
-        .swiper { width: 90%; border-radius: 20px; margin: 20px auto; }
-        .swiper-slide img { width: 100%; height: 400px; object-fit: cover; }
+        .vestimenta-img { width: 120px; mix-blend-mode: multiply; margin-bottom: 15px; }
 
-        /* CLIMA */
-        .weather-display { font-size: 3rem; margin: 10px 0; }
-        .temp-val { font-size: 2.5rem; font-weight: bold; color: var(--gold-glow); }
+        .confirm-sec { background: var(--crema); padding: 50px 20px; border-top: 1px solid #eee; }
+        .btn-confirm { display: inline-block; padding: 18px 50px; background: var(--negro); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; border-bottom: 4px solid var(--oro); margin-top: 15px; }
+        
+        .attendance-selector { margin-bottom: 10px; }
+        .attendance-selector label { display: block; font-size: 0.8rem; font-weight: bold; color: var(--oro); margin-bottom: 8px; text-transform: uppercase; }
+        .attendance-selector select { padding: 10px 20px; border-radius: 10px; border: 1px solid var(--oro); background: white; font-family: 'Montserrat'; font-weight: bold; }
 
-        /* FOOTER */
-        .rsvp-footer { padding: 60px 20px; background: linear-gradient(to bottom, var(--dark-garden), #064e3b); }
-        .btn-confirm {
-            background: white; color: black; padding: 20px; border-radius: 50px;
-            display: block; text-decoration: none; font-weight: 800; font-size: 1rem;
-            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
-        }
-
-        select { 
-            width: 100%; padding: 15px; border-radius: 12px; background: #1e293b; 
-            color: white; border: 1px solid var(--gold-glow); margin-bottom: 15px; font-family: 'Montserrat';
-        }
-
-        .glow {
-            position: absolute; width: 150px; height: 150px;
-            background: var(--emerald); filter: blur(100px);
-            border-radius: 50%; z-index: 0; opacity: 0.4; pointer-events: none;
-        }
+        .footer-brand { padding: 50px 20px; text-align: center; }
+        .footer-link { text-decoration: none; color: #999; font-size: 0.7rem; letter-spacing: 1px; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div class="app-wrapper">
-        <a href="javascript:history.back()" class="back-btn">⬅️</a>
-        <div class="music-btn" onclick="toggleMusica()"><span id="m-status">▶️</span></div>
-        
-        <audio id="bg-music" loop>
-            <source src="https://www.dropbox.com/scl/fi/80hypdxkg24wx6x7oael2/En-Tus-Manos-Se-or.mp3?rlkey=j4di62c9sgj4txgwbpikcngp3&raw=1" type="audio/mpeg">
-        </audio>
+    <a href="javascript:history.back()" class="back-btn">⬅️</a>
+    <div class="music-btn" id="music-trigger" onclick="toggleMusica(event)"><span id="m-status">▶️</span></div>
+    <audio id="bg-music" loop>
+        <source src="https://www.dropbox.com/scl/fi/80hypdxkg24wx6x7oael2/En-Tus-Manos-Se-or.mp3?rlkey=j4di62c9sgj4txgwbpikcngp3&raw=1" type="audio/mpeg">
+    </audio>
 
-        <div class="glow" style="top: 20%; right: -50px;"></div>
+    <header class="hero">
+        <h1>Mis XV Años Ariel</h1>
+        <p>¡CELEBREMOS JUNTOS! | 25.10.2026</p>
+        <div class="timer">
+            <div class="t-box"><span id="days">00</span><small>Días</small></div>
+            <div class="t-box"><span id="hours">00</span><small>Hrs</small></div>
+            <div class="t-box"><span id="mins">00</span><small>Min</small></div>
+            <div class="t-box"><span id="secs">00</span><small>Seg</small></div>
+        </div>
+    </header>
 
-        <header class="hero-v3">
-            <div class="hero-info">
-                <span class="xv-tag">MIS QUINCE AÑOS</span>
-                <h1>ISABELLA</h1>
-                <p style="letter-spacing: 5px; font-weight: 200;">24 . OCT . 2026</p>
-                
-                <div class="timer-grid">
-                    <div class="t-box"><span class="t-num" id="days">00</span><span class="t-txt">Días</span></div>
-                    <div class="t-box"><span class="t-num" id="hours">00</span><span class="t-txt">Hrs</span></div>
-                    <div class="t-box"><span class="t-num" id="mins">00</span><span class="t-txt">Min</span></div>
-                </div>
-            </div>
-        </header>
-
-        <section class="glass-card reveal">
-            <p class="role" style="color: var(--gold-glow);">Invitación Especial</p>
-            <h2 id="saludo-invitado" style="font-family: 'Cinzel'; font-size: 1.5rem;">Hola, Familia</h2>
-            <p id="pases-texto" style="font-size: 0.9rem; opacity: 0.8;">Hemos reservado un lugar especial para ti.</p>
-        </section>
-
-        <section class="glass-card reveal">
-            <h2 class="section-title">Mi Sueño Mágico</h2>
-            <img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1" style="width:100%; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
-            <p style="font-style: italic; font-weight: 200; margin-top: 15px; line-height: 1.6;">
-                "Bajo la luz de las estrellas, comienzo una nueva etapa. Gracias por ser parte de este jardín de ilusiones."
+    <section class="sec">
+        <div class="reveal">
+            <h2>Un Sueño Hecho Realidad</h2>
+            <p style="font-family:'Cormorant Garamond'; font-size:1.4rem; font-style:italic; margin-bottom:30px;">
+                "Hoy dejo de ser una niña para comenzar una nueva etapa llena de ilusiones y sueños. Agradezco a Dios por la vida y a mis padres por caminar siempre a mi lado."
             </p>
-        </section>
+            <img src="https://www.dropbox.com/scl/fi/zs85m423lx4i76daw0uxj/file_00000000530471fdbb445bac178e63e1.png?rlkey=o0bu5uv9cvvmyl7lj3er8hbfg&raw=1" style="border-radius:15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+        </div>
+    </section>
 
-        <section class="glass-card reveal">
-            <h2 class="section-title">Itinerario</h2>
-            <img src="https://www.dropbox.com/scl/fi/1tpivenwvqyeo89gjffaz/ITINERARIO-3.png?rlkey=ivs4qw5pr81q3mpinllu6j8wc&raw=1" style="width: 80%; mix-blend-mode: screen; filter: brightness(1.5);">
-        </section>
+    <section class="sec">
+        <div class="reveal">
+            <h2>Con la Bendición de mis Padres</h2>
+            <div class="grid-family">
+                <div class="card-family">
+                   <h4>Mis Padres</h4>
+                   <p>Sr. Martin Garcia<br>Sra. Gloria Castillo</p>
+                </div>
+                <div class="card-family">
+                    <h4>Mis Padrinos</h4>
+                   <p>Sr. Juaquin Castañeda<br>Sra. Maria Gutirrez</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section class="glass-card reveal">
-            <h2 class="section-title">Ubicaciones</h2>
+    <section class="sec">
+        <div class="reveal">
+           <h2>¿Dónde y Cuándo?</h2>
+            <div class="card-family" style="margin-bottom:30px;">
+                <img src="https://www.dropbox.com/scl/fi/yg63x0ndbs8xdkvhtw944/Catedral-Toluca-1200x800.png?rlkey=hyhvjs8bhtk9ks9ftuil12j1e&raw=1" style="width:100%; height:180px; object-fit:cover; border-radius:10px;">
+                <h4 style="margin-top:15px;">Misa de Acción de Gracias</h4>
+               <p>Catedral de Toluca, Edo. Méx.</p>
+                <div class="btn-container">
+                    <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/EgoyMDI2MDMzMS4wIKXMDSoASAFQAw" target="_blank" class="btn">VER UBICACIÓN</a>
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+Años+Ariel&dates=20261025T230000Z/20261026T040000Z&location=Catedral+de+Toluca&sf=true&output=xml" target="_blank" class="btn btn-cal">AGREGAR AL CALENDARIO</a>
+                </div>
+            </div>
+            <div class="card-family">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=400" style="width:100%; height:180px; object-fit:cover; border-radius:10px;">
+                <h4 style="margin-top:15px;">Recepción</h4>
+                <p>Hacienda San José, Edo. Méx.</p>
+                <div class="btn-container">
+                    <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/EgoyMDI2MDMzMS4wIKXMDSoASAFQAw" target="_blank" class="btn">VER UBICACIÓN</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="reveal">
+            <h2>Mesa de Regalos</h2>
+            <p style="margin-bottom:20px;">Tu presencia es mi mejor regalo, pero si deseas tener un detalle conmigo, puedes hacerlo a través de:</p>
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:25px;">
+                <a href="https://www.liverpool.com.mx" target="_blank"><img src="https://websinergia.com.mx/blog/wp-content/uploads/2016/07/liverpool-face.png" style="width:120px;"></a>
+                <a href="https://www.amazon.com.mx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" style="width:120px;"></a>
+            </div>
+            <div style="padding:20px; border:1px solid var(--oro); border-radius:10px;">
+                <h4>Lluvia de Sobres</h4>
+                <p>Contaremos con una urna para sobres el día del evento o si prefieres transferencia:<br><strong>BBVA: 0123 4567 8901</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="reveal">
+            <img src="https://www.dropbox.com/scl/fi/iuule5a8x3prthsldm6h7/CODIGO-DE-VESTIMENTA-2.png?rlkey=xk7d7zvhdu65si9ecq25cgbfw&raw=1" class="vestimenta-img">
+            <h2>Código de Vestimenta</h2>
+            <p><strong>FORMAL</strong></p>
+            <p><small>Se reserva el color de la festejada.</small></p>
+        </div>
+    </section>
+
+    <section class="confirm-sec">
+        <div class="reveal" style="text-align: center;">
+            <h2>¡Confirma tu Asistencia!</h2>
+            <p>Espero contar con tu presencia en este día tan especial.</p>
             
-            <div class="loc-card">
-                <img src="https://www.dropbox.com/scl/fi/yg63x0ndbs8xdkvhtw944/Catedral-Toluca-1200x800.png?rlkey=hyhvjs8bhtk9ks9ftuil12j1e&raw=1" class="loc-img">
-                <div style="padding: 15px;">
-                    <p class="role">Ceremonia Religiosa</p>
-                    <h3 style="font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 10px;">Parroquia del Prado</h3>
-                    <p style="font-size: 0.8rem; margin-bottom: 15px;">17:00 Horas</p>
+            <div class="btn-container" style="margin-top: 25px;">
+                <div class="attendance-selector">
+                   <label>Número de Invitados:</label>
+                    <select id="num-asistentes">
+                        <option value="1">1 Persona</option>
+                        <option value="2">2 Personas</option>
+                        <option value="3">3 Personas</option>
+                        <option value="4">4 Personas</option>
+                        <option value="5">5 Personas</option>
+                    </select>
                 </div>
-                <a href="https://maps.google.com" target="_blank" class="btn-action">VER UBICACIÓN</a>
-                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=XV+Isabella&dates=20261024T170000Z/20261024T183000Z" target="_blank" class="btn-action" style="background: transparent; border-top: 1px solid rgba(255,255,255,0.1); color: var(--gold-glow);">AGREGAR AL CALENDARIO</a>
+                <a href="javascript:void(0)" onclick="enviarWhatsApp()" class="btn-confirm">CONFIRMAR ASISTENCIA</a>
             </div>
 
-            <div class="loc-card">
-                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=400" class="loc-img">
-                <div style="padding: 15px;">
-                    <p class="role">Recepción</p>
-                    <h3 style="font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 10px;">Salón Terraza Real</h3>
-                    <p style="font-size: 0.8rem; margin-bottom: 15px;">20:00 Horas</p>
-                </div>
-                <a href="https://maps.google.com" target="_blank" class="btn-action">VER UBICACIÓN RECEPCIÓN</a>
-            </div>
-        </section>
+            <p style="margin-top:20px;"><small>FAVOR DE CONFIRMAR ANTES DEL 01.10.2026</small></p>
+        </div>
+    </section>
 
-        <section class="reveal">
-            <h2 class="section-title">Momentos</h2>
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1"></div>
-                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/x8aif8za8u6dbfyqvxx6k/xv3.jpg?rlkey=0gnog533q3fpm5xl0ouxmhrou&raw=1"></div>
-                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1"></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="glass-card reveal">
-            <h2 class="section-title" style="font-size: 1.8rem;">El Clima</h2>
-            <p class="role">Pronóstico en tiempo real</p>
-            <div id="weather-custom">
-                <div class="weather-display" id="w-icon">☀️</div>
-                <div class="temp-val" id="w-temp">--°C</div>
-                <p id="w-desc" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">Cargando...</p>
-            </div>
-        </section>
-
-        <section class="glass-card reveal">
-            <h2 class="section-title">Detalles</h2>
-            <div style="margin-bottom: 25px;">
-                <p class="role">Código de Vestimenta</p>
-                <p><b>FORMAL / GALA</b></p>
-            </div>
-            <div style="padding: 20px; border: 1px dashed var(--gold-glow); border-radius: 15px;">
-                <p class="role">Lluvia de Sobres</p>
-                <p style="font-size: 0.9rem;">Tu presencia es mi mejor regalo, pero si deseas tener un detalle, contaremos con un buzón para sobres en la entrada.</p>
-            </div>
-        </section>
-
-        <section class="rsvp-footer">
-            <div class="reveal">
-                <h2 class="section-title" style="color: white; font-size: 3rem;">¿Vienes?</h2>
-                <p style="margin-bottom: 25px; opacity: 0.8;">Confirma tu asistencia antes del 10 de octubre</p>
-                
-                <label class="role">¿Cuántos asistirán?</label>
-                <select id="num-asistentes">
-                    <option value="1">1 Persona</option>
-                    <option value="2">2 Personas</option>
-                    <option value="3">3 Personas</option>
-                    <option value="4">4 Personas</option>
-                    <option value="5">5 Personas</option>
-                </select>
-
-                <a href="javascript:void(0)" onclick="enviarWhatsApp()" class="btn-confirm">CONFIRMAR POR WHATSAPP</a>
-                <p style="margin-top: 20px; font-size: 0.7rem; letter-spacing: 2px;">MI GRAN DÍA COLECCIÓN</p>
-            </div>
-        </section>
-
-    </div>
+    <footer class="footer-brand">
+        <div style="font-family:'Playfair Display'; font-size: 2.5rem; color: var(--oro);">A</div>
+        <p style="letter-spacing:3px; font-weight:bold;">MI GRAN DÍA COLECCIÓN</p>
+        <a href="https://migrandia.mx" target="_blank" class="footer-link">creado por migrandia.mx</a>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // LÓGICA DE MÚSICA
         const music = document.getElementById("bg-music");
         const mStatus = document.getElementById("m-status");
-        
-        function toggleMusica() {
-            if (music.paused) { music.play(); mStatus.innerText = "🔊"; }
+
+        function toggleMusica(event) {
+            event.stopPropagation();
+            if (music.paused) { music.play(); mStatus.innerText = "🔊"; } 
             else { music.pause(); mStatus.innerText = "🔇"; }
         }
 
-        // PERSONALIZACIÓN VIP POR URL
-        function checkVIP() {
-            const params = new URLSearchParams(window.location.search);
-            const nombre = params.get('n');
-            const cupo = params.get('c');
-
-            if(nombre) {
-                document.getElementById('saludo-invitado').innerText = "¡Hola, " + decodeURIComponent(nombre) + "!";
-            }
-            if(cupo) {
-                document.getElementById('pases-texto').innerText = "Hemos reservado " + cupo + " pases para ustedes.";
-                document.getElementById('num-asistentes').value = cupo;
-            }
-        }
-
-        // WHATSAPP
         function enviarWhatsApp() {
-            const phone = "529911105456"; 
-            const name = new URLSearchParams(window.location.search).get('n') || "Invitado";
-            const guests = document.getElementById('num-asistentes').value;
-            const text = encodeURIComponent(`¡Hola! Confirmo la asistencia de ${name} para ${guests} personas a los XV de Isabella. ✨`);
-            window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
+            const numeroTel = "525654252153";
+            const numPersonas = document.getElementById("num-asistentes").value;
+            const mensaje = encodeURIComponent(
+                "¡Hola! Confirmo mi asistencia para " + numPersonas + " personas a los XV Años de Ariel. ¡Ahí nos vemos!"
+            );
+            window.open("https://wa.me/" + numeroTel + "?text=" + mensaje, "_blank");
         }
 
-        // CLIMA API
-        async function loadWeather() {
-            try {
-                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=21.0167&longitude=-89.1167&current_weather=true&timezone=auto");
-                const data = await res.json();
-                const temp = Math.round(data.current_weather.temperature);
-                const code = data.current_weather.weathercode;
-                const icons = { 0: ["Despejado", "☀️"], 1: ["Nublado", "🌤️"], 3: ["Nublado", "☁️"], 61: ["Lluvia", "🌧️"] };
-                const [desc, icon] = icons[code] || ["Despejado", "☀️"];
-                document.getElementById('w-temp').innerText = temp + "°C";
-                document.getElementById('w-icon').innerText = icon;
-                document.getElementById('w-desc').innerText = desc;
-            } catch (e) { console.log("Weather error"); }
-        }
+        ScrollReveal().reveal('.reveal', { distance: '40px', duration: 1000, delay: 200, origin: 'bottom' });
 
-        // INITS
-        const swiper = new Swiper(".mySwiper", { loop: true, autoplay: { delay: 3000 } });
-        ScrollReveal().reveal('.reveal', { distance: '30px', duration: 1000, origin: 'bottom', delay: 200 });
-
-        // TIMER
+        const target = new Date("Oct 25, 2026 17:00:00").getTime();
         setInterval(() => {
-            const target = new Date("Oct 24, 2026 17:00:00").getTime();
             const now = new Date().getTime();
             const d = target - now;
             document.getElementById("days").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2,'0');
-            document.getElementById("mins").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2,'0');
+            document.getElementById("hours").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("mins").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("secs").innerText = Math.floor((d % (1000 * 60)) / 1000);
         }, 1000);
-
-        window.onload = () => { checkVIP(); loadWeather(); };
-
-        // SEGURIDAD
-        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
     </script>
 </body>
 </html>
