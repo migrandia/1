@@ -53,23 +53,22 @@
 
         .swiper { width: 100%; max-width: 450px; height: 450px; border-radius: 15px; margin-top: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
-        .swiper-button-next, .swiper-button-prev { color: var(--oro) !important; }
+        .swiper-button-next, .swiper-button-prev { color: var(--oro) !important; font-weight: bold; }
 
         .btn-container { display: flex; justify-content: center; width: 100%; margin: 15px 0; flex-direction: column; align-items: center; }
         .btn { display: inline-block; padding: 16px 40px; background: var(--negro); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; border-bottom: 4px solid var(--oro); font-size: 0.9rem; transition: 0.3s; }
-        .btn-cal { background: #4285F4; border-bottom-color: #357ae8; padding: 12px 25px; font-size: 0.8rem; margin-top: 10px; }
+        
+        .confirm-sec { background: var(--crema); padding: 50px 20px; border-top: 1px solid #eee; }
+        .btn-confirm { display: inline-block; padding: 18px 50px; background: var(--negro); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; border-bottom: 4px solid var(--oro); margin-top: 15px; }
 
         .vestimenta-img { width: 120px; mix-blend-mode: multiply; margin-bottom: 15px; }
 
-        .confirm-sec { background: var(--crema); padding: 50px 20px; border-top: 1px solid #eee; }
-        .btn-confirm { display: inline-block; padding: 18px 50px; background: var(--negro); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; border-bottom: 4px solid var(--oro); margin-top: 15px; }
-        
         .attendance-selector { margin-bottom: 10px; }
         .attendance-selector label { display: block; font-size: 0.8rem; font-weight: bold; color: var(--oro); margin-bottom: 8px; text-transform: uppercase; }
-        .attendance-selector select { padding: 10px 20px; border-radius: 10px; border: 1px solid var(--oro); background: white; font-family: 'Montserrat'; font-weight: bold; }
+        .attendance-selector select { padding: 10px 20px; border-radius: 10px; border: 1px solid var(--oro); background: white; font-family: 'Montserrat'; font-weight: bold; color: var(--negro); }
 
         .footer-brand { padding: 50px 20px; text-align: center; }
-        .footer-link { text-decoration: none; color: #999; font-size: 0.7rem; letter-spacing: 1px; }
+        .footer-link { text-decoration: none; color: #999; font-size: 0.7rem; letter-spacing: 1px; display: inline-block; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -93,9 +92,9 @@
 
     <section class="sec">
         <div class="reveal">
-            <h2>Un Sueño Hecho Realidad</h2>
+            <h2>Mis XV Años</h2>
             <p style="font-family:'Cormorant Garamond'; font-size:1.4rem; font-style:italic; margin-bottom:30px;">
-                "Hoy dejo de ser una niña para comenzar una nueva etapa llena de ilusiones y sueños. Agradezco a Dios por la vida y a mis padres por caminar siempre a mi lado."
+                "Hoy comienzo una nueva etapa llena de sueños e ilusiones. Agradezco a Dios por este regalo de vida y a mis padres por guiarme con amor."
             </p>
             <img src="https://www.dropbox.com/scl/fi/zs85m423lx4i76daw0uxj/file_00000000530471fdbb445bac178e63e1.png?rlkey=o0bu5uv9cvvmyl7lj3er8hbfg&raw=1" style="border-radius:15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
         </div>
@@ -106,11 +105,11 @@
             <h2>Con la Bendición de mis Padres</h2>
             <div class="grid-family">
                 <div class="card-family">
-                   <h4>Mis Padres</h4>
+                   <h4>Padres</h4>
                    <p>Sr. Martin Garcia<br>Sra. Gloria Castillo</p>
                 </div>
                 <div class="card-family">
-                    <h4>Mis Padrinos</h4>
+                    <h4>Padrinos</h4>
                    <p>Sr. Juaquin Castañeda<br>Sra. Maria Gutirrez</p>
                 </div>
             </div>
@@ -119,14 +118,35 @@
 
     <section class="sec">
         <div class="reveal">
-           <h2>¿Dónde y Cuándo?</h2>
+            <h2>Itinerario</h2>
+            <img src="https://www.dropbox.com/scl/fi/1tpivenwvqyeo89gjffaz/ITINERARIO-3.png?rlkey=ivs4qw5pr81q3mpinllu6j8wc&raw=1" style="mix-blend-mode: multiply;">
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="reveal">
+            <h2>Mis Momentos</h2>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/gpf7arkczi5v3y9hxfjte/file_00000000189c71fdbc7b6ac47bb70337.png?rlkey=p8jpnwypfniwf7lxj25wiq4w2&raw=1"></div>
+                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/ld6s2fdqhmb71fxehdb0k/file_00000000928871fdb8f65567b022409a.png?rlkey=vcl3logvk7fd3yfysmjx0ge6j&raw=1"></div>
+                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/1hgcl93ka69i3fflmyxl3/file_0000000009b471f89a2eae6e6e70937b.png?rlkey=4t37xj2vxayedrv5szm2rjz9y&raw=1"></div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="reveal">
+           <h2>Ubicaciones</h2>
             <div class="card-family" style="margin-bottom:30px;">
                 <img src="https://www.dropbox.com/scl/fi/yg63x0ndbs8xdkvhtw944/Catedral-Toluca-1200x800.png?rlkey=hyhvjs8bhtk9ks9ftuil12j1e&raw=1" style="width:100%; height:180px; object-fit:cover; border-radius:10px;">
                 <h4 style="margin-top:15px;">Misa de Acción de Gracias</h4>
                <p>Catedral de Toluca, Edo. Méx.</p>
                 <div class="btn-container">
                     <a href="https://www.google.com/maps/place/Ciudad+de+M%C3%A9xico,+CDMX/EgoyMDI2MDMzMS4wIKXMDSoASAFQAw" target="_blank" class="btn">VER UBICACIÓN</a>
-                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+Años+Ariel&dates=20261025T230000Z/20261026T040000Z&location=Catedral+de+Toluca&sf=true&output=xml" target="_blank" class="btn btn-cal">AGREGAR AL CALENDARIO</a>
                 </div>
             </div>
             <div class="card-family">
@@ -143,87 +163,8 @@
     <section class="sec">
         <div class="reveal">
             <h2>Mesa de Regalos</h2>
-            <p style="margin-bottom:20px;">Tu presencia es mi mejor regalo, pero si deseas tener un detalle conmigo, puedes hacerlo a través de:</p>
-            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:25px;">
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
                 <a href="https://www.liverpool.com.mx" target="_blank"><img src="https://websinergia.com.mx/blog/wp-content/uploads/2016/07/liverpool-face.png" style="width:120px;"></a>
                 <a href="https://www.amazon.com.mx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" style="width:120px;"></a>
             </div>
-            <div style="padding:20px; border:1px solid var(--oro); border-radius:10px;">
-                <h4>Lluvia de Sobres</h4>
-                <p>Contaremos con una urna para sobres el día del evento o si prefieres transferencia:<br><strong>BBVA: 0123 4567 8901</strong></p>
-            </div>
-        </div>
-    </section>
-
-    <section class="sec">
-        <div class="reveal">
-            <img src="https://www.dropbox.com/scl/fi/iuule5a8x3prthsldm6h7/CODIGO-DE-VESTIMENTA-2.png?rlkey=xk7d7zvhdu65si9ecq25cgbfw&raw=1" class="vestimenta-img">
-            <h2>Código de Vestimenta</h2>
-            <p><strong>FORMAL</strong></p>
-            <p><small>Se reserva el color de la festejada.</small></p>
-        </div>
-    </section>
-
-    <section class="confirm-sec">
-        <div class="reveal" style="text-align: center;">
-            <h2>¡Confirma tu Asistencia!</h2>
-            <p>Espero contar con tu presencia en este día tan especial.</p>
-            
-            <div class="btn-container" style="margin-top: 25px;">
-                <div class="attendance-selector">
-                   <label>Número de Invitados:</label>
-                    <select id="num-asistentes">
-                        <option value="1">1 Persona</option>
-                        <option value="2">2 Personas</option>
-                        <option value="3">3 Personas</option>
-                        <option value="4">4 Personas</option>
-                        <option value="5">5 Personas</option>
-                    </select>
-                </div>
-                <a href="javascript:void(0)" onclick="enviarWhatsApp()" class="btn-confirm">CONFIRMAR ASISTENCIA</a>
-            </div>
-
-            <p style="margin-top:20px;"><small>FAVOR DE CONFIRMAR ANTES DEL 01.10.2026</small></p>
-        </div>
-    </section>
-
-    <footer class="footer-brand">
-        <div style="font-family:'Playfair Display'; font-size: 2.5rem; color: var(--oro);">A</div>
-        <p style="letter-spacing:3px; font-weight:bold;">MI GRAN DÍA COLECCIÓN</p>
-        <a href="https://migrandia.mx" target="_blank" class="footer-link">creado por migrandia.mx</a>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        const music = document.getElementById("bg-music");
-        const mStatus = document.getElementById("m-status");
-
-        function toggleMusica(event) {
-            event.stopPropagation();
-            if (music.paused) { music.play(); mStatus.innerText = "🔊"; } 
-            else { music.pause(); mStatus.innerText = "🔇"; }
-        }
-
-        function enviarWhatsApp() {
-            const numeroTel = "525654252153";
-            const numPersonas = document.getElementById("num-asistentes").value;
-            const mensaje = encodeURIComponent(
-                "¡Hola! Confirmo mi asistencia para " + numPersonas + " personas a los XV Años de Ariel. ¡Ahí nos vemos!"
-            );
-            window.open("https://wa.me/" + numeroTel + "?text=" + mensaje, "_blank");
-        }
-
-        ScrollReveal().reveal('.reveal', { distance: '40px', duration: 1000, delay: 200, origin: 'bottom' });
-
-        const target = new Date("Oct 25, 2026 17:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const d = target - now;
-            document.getElementById("days").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("mins").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("secs").innerText = Math.floor((d % (1000 * 60)) / 1000);
-        }, 1000);
-    </script>
-</body>
-</html>
+            <div style="padding:20px; border:1
