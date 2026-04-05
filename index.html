@@ -11,6 +11,8 @@
     <meta property="og:type" content="website">
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Dancing+Script:wght@600&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <style>
         :root {
@@ -24,277 +26,282 @@
         body {
             margin: 0; padding: 0; background-color: #000; color: #e2e8f0;
             font-family: 'Montserrat', sans-serif; text-align: center;
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
-            -webkit-touch-callout: none;
-        }
-
-        .btn-back-vip {
-            position: fixed; top: 20px; left: 20px; z-index: 1001;
-            background: rgba(2, 6, 23, 0.5); backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(251, 191, 36, 0.4);
-            color: white; padding: 10px 18px; border-radius: 50px;
-            text-decoration: none; font-size: 0.75rem; font-weight: 600;
-            letter-spacing: 2px; display: flex; align-items: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4); transition: 0.3s ease;
+            -webkit-user-select: none; user-select: none;
         }
 
         .app-wrapper {
             max-width: var(--ancho-max); margin: 0 auto;
             background-color: var(--dark-garden); position: relative;
-            min-height: 100vh; overflow: hidden; border: 1px solid #1e293b;
+            min-height: 100vh; overflow-x: hidden; border: 1px solid #1e293b;
         }
 
-        .secure-layer { position: relative; display: inline-block; width: 100%; }
-        .secure-layer::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 10; background: rgba(0,0,0,0);
+        /* BOTONES FLOTANTES */
+        .music-btn, .back-btn { 
+            position: fixed; top: 20px; z-index: 1000; 
+            background: rgba(6, 78, 59, 0.6); backdrop-filter: blur(10px);
+            border: 1px solid var(--gold-glow); border-radius: 50%; 
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; text-decoration: none; font-size: 1.1rem; 
         }
+        .music-btn { right: 20px; }
+        .back-btn { left: 20px; color: white; }
 
-        .glow {
-            position: absolute; width: 150px; height: 150px;
-            background: var(--emerald); filter: blur(100px);
-            border-radius: 50%; z-index: 1; opacity: 0.4; pointer-events: none;
-        }
-
-        #music-pill {
-            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
-            background: rgba(6, 78, 59, 0.6); backdrop-filter: blur(15px);
-            border: 1px solid var(--gold-glow); padding: 10px 20px; border-radius: 50px;
-            display: flex; align-items: center; gap: 10px; cursor: pointer;
-        }
-
+        /* PORTADA */
         .hero-v3 {
-            height: 80vh;
-            background: url('https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1') center center no-repeat;
-            background-size: cover; clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
-            position: relative;
+            height: 85vh;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1') center center no-repeat;
+            background-size: cover; clip-path: polygon(0 0, 100% 0, 100% 92%, 0% 100%);
+            display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 20%;
         }
 
-        .hero-info {
-            position: absolute; bottom: 15%; width: 100%; padding: 20px;
-            box-sizing: border-box; background: linear-gradient(to top, var(--dark-garden), transparent);
-            z-index: 2;
-        }
+        .hero-info h1 { font-family: 'Cinzel', serif; font-size: 3.2rem; margin: 10px 0; color: white; }
+        .xv-tag { background: var(--gold-glow); color: black; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; letter-spacing: 2px; }
 
-        .xv-tag {
-            background: var(--gold-glow); color: black; padding: 5px 15px;
-            border-radius: 20px; font-size: 0.7rem; font-weight: bold; letter-spacing: 2px;
-        }
+        /* CONTADOR */
+        .timer-grid { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .t-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; min-width: 65px; border: 1px solid rgba(251, 191, 36, 0.2); }
+        .t-num { font-size: 1.8rem; display: block; color: var(--gold-glow); font-weight: 700; }
+        .t-txt { font-size: 0.6rem; opacity: 0.6; text-transform: uppercase; }
 
-        h1.main-name { font-family: 'Cinzel', serif; font-size: 2.8rem; margin: 15px 0 0; color: white; }
-
+        /* TARJETAS DE CRISTAL */
         .glass-card {
             background: var(--glass); backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1); margin: 20px;
-            padding: 30px 20px; border-radius: 24px; position: relative; z-index: 2;
+            padding: 30px 20px; border-radius: 24px; position: relative;
         }
 
         .section-title { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--gold-glow); margin-bottom: 20px; }
-        .img-rounded { width: 100%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); display: block; -webkit-user-drag: none; }
+        .role { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8; margin-bottom: 5px; }
 
-        .person-tag { border-left: 3px solid var(--gold-glow); padding-left: 15px; text-align: left; margin-bottom: 15px; }
-        .role { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8; }
-        .p-name { font-size: 1.1rem; font-weight: 600; color: white; margin: 5px 0; }
-
-        .btn-emerald {
-            display: block; background: var(--emerald); color: white; padding: 18px;
-            border-radius: 16px; text-decoration: none; font-weight: bold;
-            margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem;
-            letter-spacing: 1px;
+        /* BOTONES CON FOTO (IGUAL A BODA) */
+        .loc-card { background: rgba(255,255,255,0.03); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); margin-top: 15px; }
+        .loc-img { width: 100%; height: 180px; object-fit: cover; }
+        .btn-action { 
+            display: block; background: var(--emerald); color: white; padding: 16px; 
+            text-decoration: none; font-weight: bold; font-size: 0.8rem; letter-spacing: 1px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .timer-v3 { display: flex; justify-content: center; gap: 10px; }
-        .t-unit { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; min-width: 60px; }
-        .t-num { font-size: 1.8rem; display: block; color: var(--gold-glow); font-weight: 700; }
-        .t-txt { font-size: 0.6rem; opacity: 0.6; }
+        /* GALERÍA */
+        .swiper { width: 90%; border-radius: 20px; margin: 20px auto; }
+        .swiper-slide img { width: 100%; height: 400px; object-fit: cover; }
 
-        /* Estilos para Clima y Detalles VIP */
-        .weather-info { font-size: 1.2rem; font-weight: 600; color: white; margin: 10px 0; }
-        .family-tag { font-family: 'Cinzel'; color: var(--gold-glow); font-size: 1.4rem; margin-top: 10px; }
+        /* CLIMA */
+        .weather-display { font-size: 3rem; margin: 10px 0; }
+        .temp-val { font-size: 2.5rem; font-weight: bold; color: var(--gold-glow); }
 
+        /* FOOTER */
         .rsvp-footer { padding: 60px 20px; background: linear-gradient(to bottom, var(--dark-garden), #064e3b); }
         .btn-confirm {
             background: white; color: black; padding: 20px; border-radius: 50px;
             display: block; text-decoration: none; font-weight: 800; font-size: 1rem;
             box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
         }
+
+        select { 
+            width: 100%; padding: 15px; border-radius: 12px; background: #1e293b; 
+            color: white; border: 1px solid var(--gold-glow); margin-bottom: 15px; font-family: 'Montserrat';
+        }
+
+        .glow {
+            position: absolute; width: 150px; height: 150px;
+            background: var(--emerald); filter: blur(100px);
+            border-radius: 50%; z-index: 0; opacity: 0.4; pointer-events: none;
+        }
     </style>
 </head>
-<body oncontextmenu="return false;" onclick="initAudio()">
-
-    <a href="javascript:history.back()" class="btn-back-vip">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        REGRESAR
-    </a>
-
-    <div class="glow" style="top: 10%; left: -50px;"></div>
-    <div class="glow" style="bottom: 20%; right: -50px;"></div>
-
-    <div id="music-pill" onclick="toggleMusic()">
-        <span id="m-status">▶</span>
-        <span style="font-size: 0.7rem; font-weight: bold; letter-spacing: 1px;">MÚSICA</span>
-    </div>
-
-    <audio id="track" loop>
-        <source src="https://www.dropbox.com/scl/fi/80hypdxkg24wx6x7oael2/En-Tus-Manos-Se-or.mp3?rlkey=j4di62c9sgj4txgwbpikcngp3&raw=1" type="audio/mpeg">
-    </audio>
+<body oncontextmenu="return false;">
 
     <div class="app-wrapper">
+        <a href="javascript:history.back()" class="back-btn">⬅️</a>
+        <div class="music-btn" onclick="toggleMusica()"><span id="m-status">▶️</span></div>
         
-        <div class="secure-layer">
-            <div class="hero-v3">
-                <div class="hero-info">
-                    <span class="xv-tag">MIS QUINCE AÑOS</span>
-                    <h1 class="main-name">ISABELLA</h1>
-                    <p style="letter-spacing: 4px; font-size: 0.9rem;">24 . OCT . 2026</p>
+        <audio id="bg-music" loop>
+            <source src="https://www.dropbox.com/scl/fi/80hypdxkg24wx6x7oael2/En-Tus-Manos-Se-or.mp3?rlkey=j4di62c9sgj4txgwbpikcngp3&raw=1" type="audio/mpeg">
+        </audio>
+
+        <div class="glow" style="top: 20%; right: -50px;"></div>
+
+        <header class="hero-v3">
+            <div class="hero-info">
+                <span class="xv-tag">MIS QUINCE AÑOS</span>
+                <h1>ISABELLA</h1>
+                <p style="letter-spacing: 5px; font-weight: 200;">24 . OCT . 2026</p>
+                
+                <div class="timer-grid">
+                    <div class="t-box"><span class="t-num" id="days">00</span><span class="t-txt">Días</span></div>
+                    <div class="t-box"><span class="t-num" id="hours">00</span><span class="t-txt">Hrs</span></div>
+                    <div class="t-box"><span class="t-num" id="mins">00</span><span class="t-txt">Min</span></div>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <div class="glass-card">
-            <h2 class="role" style="color: var(--gold-glow); margin-bottom: 15px;">Faltan solo...</h2>
-            <div class="timer-v3">
-                <div class="t-unit"><span class="t-num" id="d">00</span><span class="t-txt">DÍAS</span></div>
-                <div class="t-unit"><span class="t-num" id="h">00</span><span class="t-txt">HRS</span></div>
-                <div class="t-unit"><span class="t-num" id="m">00</span><span class="t-txt">MIN</span></div>
-                <div class="t-unit"><span class="t-num" id="s">00</span><span class="t-txt">SEG</span></div>
-            </div>
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+Isabella&dates=20261024T170000Z/20261025T020000Z" target="_blank" class="btn-emerald" style="background: transparent; border-color: var(--gold-glow); color: var(--gold-glow);">AGREGAR AL CALENDARIO</a>
-        </div>
+        <section class="glass-card reveal">
+            <p class="role" style="color: var(--gold-glow);">Invitación Especial</p>
+            <h2 id="saludo-invitado" style="font-family: 'Cinzel'; font-size: 1.5rem;">Hola, Familia</h2>
+            <p id="pases-texto" style="font-size: 0.9rem; opacity: 0.8;">Hemos reservado un lugar especial para ti.</p>
+        </section>
 
-        <div class="glass-card">
+        <section class="glass-card reveal">
             <h2 class="section-title">Mi Sueño Mágico</h2>
-            <div class="secure-layer">
-                <img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1" class="img-rounded">
-            </div>
-            <p style="font-weight: 200; line-height: 1.8; font-style: italic; margin-top: 20px;">
+            <img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1" style="width:100%; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+            <p style="font-style: italic; font-weight: 200; margin-top: 15px; line-height: 1.6;">
                 "Bajo la luz de las estrellas, comienzo una nueva etapa. Gracias por ser parte de este jardín de ilusiones."
             </p>
-        </div>
+        </section>
 
-        <div class="glass-card">
-            <p class="role">Invitación Especial para:</p>
-            <h2 class="family-tag">Familia Martínez López</h2>
-            <p style="font-size: 0.8rem; margin-top: 10px;">Lugares reservados: <b>4</b></p>
-        </div>
-
-        <div class="glass-card" style="text-align: left;">
-            <p class="role" style="color: var(--gold-glow); margin-bottom: 20px;">Corte de Honor</p>
-            <div class="person-tag">
-                <p class="role">Mis Padres</p>
-                <p class="p-name">Roberto Martínez & Lucía Ferré</p>
-            </div>
-            <div class="person-tag">
-                <p class="role">Mis Padrinos</p>
-                <p class="p-name">Julián Soto & María Elena Paz</p>
-            </div>
-        </div>
-
-        <div class="glass-card">
+        <section class="glass-card reveal">
             <h2 class="section-title">Itinerario</h2>
-            <div style="text-align: left; padding: 10px 0;">
-                <p>✨ <b>17:00 HRS</b> - Misa de Acción de Gracias</p>
-                <p>🍸 <b>19:00 HRS</b> - Cóctel de Bienvenida</p>
-                <p>💃 <b>20:00 HRS</b> - Entrada y Vals</p>
-                <p>🍽️ <b>21:00 HRS</b> - Cena de Gala</p>
+            <img src="https://www.dropbox.com/scl/fi/1tpivenwvqyeo89gjffaz/ITINERARIO-3.png?rlkey=ivs4qw5pr81q3mpinllu6j8wc&raw=1" style="width: 80%; mix-blend-mode: screen; filter: brightness(1.5);">
+        </section>
+
+        <section class="glass-card reveal">
+            <h2 class="section-title">Ubicaciones</h2>
+            
+            <div class="loc-card">
+                <img src="https://www.dropbox.com/scl/fi/yg63x0ndbs8xdkvhtw944/Catedral-Toluca-1200x800.png?rlkey=hyhvjs8bhtk9ks9ftuil12j1e&raw=1" class="loc-img">
+                <div style="padding: 15px;">
+                    <p class="role">Ceremonia Religiosa</p>
+                    <h3 style="font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 10px;">Parroquia del Prado</h3>
+                    <p style="font-size: 0.8rem; margin-bottom: 15px;">17:00 Horas</p>
+                </div>
+                <a href="https://maps.google.com" target="_blank" class="btn-action">VER UBICACIÓN</a>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=XV+Isabella&dates=20261024T170000Z/20261024T183000Z" target="_blank" class="btn-action" style="background: transparent; border-top: 1px solid rgba(255,255,255,0.1); color: var(--gold-glow);">AGREGAR AL CALENDARIO</a>
             </div>
-        </div>
 
-        <div class="glass-card">
-            <p class="role">Celebración Eucarística</p>
-            <h2 style="font-family: 'Cinzel'; margin: 10px 0;">Parroquia del Prado</h2>
-            <p>17:00 Horas</p>
-            <a href="https://maps.app.goo.gl/..." class="btn-emerald">VER UBICACIÓN MISA</a>
-        </div>
-
-        <div class="glass-card">
-            <div class="secure-layer">
-                <img src="https://www.dropbox.com/scl/fi/x8aif8za8u6dbfyqvxx6k/xv3.jpg?rlkey=0gnog533q3fpm5xl0ouxmhrou&raw=1" class="img-rounded">
+            <div class="loc-card">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=400" class="loc-img">
+                <div style="padding: 15px;">
+                    <p class="role">Recepción</p>
+                    <h3 style="font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 10px;">Salón Terraza Real</h3>
+                    <p style="font-size: 0.8rem; margin-bottom: 15px;">20:00 Horas</p>
+                </div>
+                <a href="https://maps.google.com" target="_blank" class="btn-action">VER UBICACIÓN RECEPCIÓN</a>
             </div>
-            <p class="role" style="margin-top: 15px;">Gran Gala</p>
-            <h2 style="font-family: 'Cinzel'; margin: 10px 0;">Salón Terraza Real</h2>
-            <p>20:00 Horas</p>
-            <a href="https://maps.app.goo.gl/..." class="btn-emerald">VER UBICACIÓN RECEPCIÓN</a>
-        </div>
+        </section>
 
-        <div class="glass-card">
-            <h2 class="section-title" style="font-size: 1.8rem;">Hospedaje</h2>
-            <p class="role">Hotel Recomendado</p>
-            <h2 style="font-family: 'Cinzel'; margin: 10px 0; font-size: 1.2rem;">Hotel Gran Gardenia</h2>
-            <a href="https://maps.app.goo.gl/..." class="btn-emerald" style="background: #1e293b;">VER HOTEL</a>
-        </div>
+        <section class="reveal">
+            <h2 class="section-title">Momentos</h2>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1"></div>
+                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/x8aif8za8u6dbfyqvxx6k/xv3.jpg?rlkey=0gnog533q3fpm5xl0ouxmhrou&raw=1"></div>
+                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1"></div>
+                </div>
+            </div>
+        </section>
 
-        <div class="glass-card">
+        <section class="glass-card reveal">
             <h2 class="section-title" style="font-size: 1.8rem;">El Clima</h2>
-            <p class="role">Pronóstico para el gran día</p>
-            <div class="weather-info">☀️ 26°C - Despejado</div>
-            <p style="font-size: 0.75rem; opacity: 0.8;">Ideal para una noche bajo las estrellas.</p>
-        </div>
+            <p class="role">Pronóstico en tiempo real</p>
+            <div id="weather-custom">
+                <div class="weather-display" id="w-icon">☀️</div>
+                <div class="temp-val" id="w-temp">--°C</div>
+                <p id="w-desc" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">Cargando...</p>
+            </div>
+        </section>
 
-        <div class="glass-card">
+        <section class="glass-card reveal">
             <h2 class="section-title">Detalles</h2>
-            <p class="role">Código de Vestimenta</p>
-            <p><b>FORMAL / GALA</b></p>
-            <hr style="opacity: 0.1; margin: 20px 0;">
-            <p class="role">Lluvia de Sobres</p>
-            <p>Tu presencia es mi mejor regalo, pero si deseas tener un detalle, contaremos con lluvia de sobres en la recepción.</p>
-        </div>
+            <div style="margin-bottom: 25px;">
+                <p class="role">Código de Vestimenta</p>
+                <p><b>FORMAL / GALA</b></p>
+            </div>
+            <div style="padding: 20px; border: 1px dashed var(--gold-glow); border-radius: 15px;">
+                <p class="role">Lluvia de Sobres</p>
+                <p style="font-size: 0.9rem;">Tu presencia es mi mejor regalo, pero si deseas tener un detalle, contaremos con un buzón para sobres en la entrada.</p>
+            </div>
+        </section>
 
-        <div class="rsvp-footer">
-            <h2 class="section-title" style="color: white; font-size: 3rem;">¿Vienes?</h2>
-            <p style="margin-bottom: 30px; opacity: 0.8;">Confirma tu asistencia antes del 10 de octubre</p>
-            <a href="https://wa.me/521234567890?text=Hola!%20Confirmo%20mi%20asistencia%20a%20los%20XV%20de%20Isabella" class="btn-confirm">CONFIRMAR POR WHATSAPP</a>
-        </div>
+        <section class="rsvp-footer">
+            <div class="reveal">
+                <h2 class="section-title" style="color: white; font-size: 3rem;">¿Vienes?</h2>
+                <p style="margin-bottom: 25px; opacity: 0.8;">Confirma tu asistencia antes del 10 de octubre</p>
+                
+                <label class="role">¿Cuántos asistirán?</label>
+                <select id="num-asistentes">
+                    <option value="1">1 Persona</option>
+                    <option value="2">2 Personas</option>
+                    <option value="3">3 Personas</option>
+                    <option value="4">4 Personas</option>
+                    <option value="5">5 Personas</option>
+                </select>
+
+                <a href="javascript:void(0)" onclick="enviarWhatsApp()" class="btn-confirm">CONFIRMAR POR WHATSAPP</a>
+                <p style="margin-top: 20px; font-size: 0.7rem; letter-spacing: 2px;">MI GRAN DÍA COLECCIÓN</p>
+            </div>
+        </section>
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        var track = document.getElementById('track');
-        var mStatus = document.getElementById('m-status');
-        var playing = false;
+        // LÓGICA DE MÚSICA
+        const music = document.getElementById("bg-music");
+        const mStatus = document.getElementById("m-status");
+        
+        function toggleMusica() {
+            if (music.paused) { music.play(); mStatus.innerText = "🔊"; }
+            else { music.pause(); mStatus.innerText = "🔇"; }
+        }
 
-        function initAudio() {
-            if (!playing) {
-                track.play().catch(e => console.log("Audio play pending"));
-                playing = true;
-                mStatus.innerText = "⏸";
+        // PERSONALIZACIÓN VIP POR URL
+        function checkVIP() {
+            const params = new URLSearchParams(window.location.search);
+            const nombre = params.get('n');
+            const cupo = params.get('c');
+
+            if(nombre) {
+                document.getElementById('saludo-invitado').innerText = "¡Hola, " + decodeURIComponent(nombre) + "!";
+            }
+            if(cupo) {
+                document.getElementById('pases-texto').innerText = "Hemos reservado " + cupo + " pases para ustedes.";
+                document.getElementById('num-asistentes').value = cupo;
             }
         }
 
-        function toggleMusic() {
-            playing = true;
-            if (track.paused) {
-                track.play(); mStatus.innerText = "⏸";
-            } else {
-                track.pause(); mStatus.innerText = "▶";
-            }
+        // WHATSAPP
+        function enviarWhatsApp() {
+            const phone = "529911105456"; 
+            const name = new URLSearchParams(window.location.search).get('n') || "Invitado";
+            const guests = document.getElementById('num-asistentes').value;
+            const text = encodeURIComponent(`¡Hola! Confirmo la asistencia de ${name} para ${guests} personas a los XV de Isabella. ✨`);
+            window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
         }
 
-        function timer() {
-            const end = new Date("Oct 24, 2026 17:00:00").getTime();
+        // CLIMA API
+        async function loadWeather() {
+            try {
+                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=21.0167&longitude=-89.1167&current_weather=true&timezone=auto");
+                const data = await res.json();
+                const temp = Math.round(data.current_weather.temperature);
+                const code = data.current_weather.weathercode;
+                const icons = { 0: ["Despejado", "☀️"], 1: ["Nublado", "🌤️"], 3: ["Nublado", "☁️"], 61: ["Lluvia", "🌧️"] };
+                const [desc, icon] = icons[code] || ["Despejado", "☀️"];
+                document.getElementById('w-temp').innerText = temp + "°C";
+                document.getElementById('w-icon').innerText = icon;
+                document.getElementById('w-desc').innerText = desc;
+            } catch (e) { console.log("Weather error"); }
+        }
+
+        // INITS
+        const swiper = new Swiper(".mySwiper", { loop: true, autoplay: { delay: 3000 } });
+        ScrollReveal().reveal('.reveal', { distance: '30px', duration: 1000, origin: 'bottom', delay: 200 });
+
+        // TIMER
+        setInterval(() => {
+            const target = new Date("Oct 24, 2026 17:00:00").getTime();
             const now = new Date().getTime();
-            const d = end - now;
+            const d = target - now;
+            document.getElementById("days").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2,'0');
+            document.getElementById("mins").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2,'0');
+        }, 1000);
 
-            if (d > 0) {
-                document.getElementById('d').innerText = Math.floor(d / (1000*60*60*24));
-                document.getElementById('h').innerText = Math.floor((d % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2, '0');
-                document.getElementById('m').innerText = Math.floor((d % (1000*60*60)) / (1000*60)).toString().padStart(2, '0');
-                document.getElementById('s').innerText = Math.floor((d % (1000*60)) / 1000).toString().padStart(2, '0');
-            }
-        }
-        setInterval(timer, 1000);
+        window.onload = () => { checkVIP(); loadWeather(); };
 
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || 
-               (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83 || e.keyCode == 67 || e.keyCode == 73 || e.keyCode == 74)) ||
-               (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))) {
-                return false;
-            }
-        };
-
-        document.addEventListener('dragstart', function (e) { e.preventDefault(); }, false);
+        // SEGURIDAD
+        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
     </script>
 </body>
 </html>
