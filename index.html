@@ -24,6 +24,7 @@
             text-align: center;
         }
 
+        /* CABECERA */
         .header-album {
             background: linear-gradient(-45deg, #fef1f8, #ffffff, #ffe4f0);
             background-size: 400% 400%;
@@ -51,6 +52,7 @@
 
         h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--oro); margin: 0; }
 
+        /* SECCIÓN CHAT */
         .chat-container {
             background: white;
             margin: 20px 10px;
@@ -92,19 +94,26 @@
             font-size: 0.8rem; position: relative;
         }
 
+        /* GALERÍA */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 5px; padding: 10px; margin-bottom: 100px;
         }
         .photo-item { aspect-ratio: 1/1; background: #eee; border-radius: 5px; overflow: hidden; position: relative; }
         .photo-item img { width: 100%; height: 100%; object-fit: cover; }
-        .tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.4); color: white; font-size: 0.5rem; padding: 2px 0; }
+        .tag { 
+            position: absolute; bottom: 0; width: 100%; 
+            background: rgba(0,0,0,0.6); color: white; 
+            font-size: 0.6rem; padding: 4px 0; font-weight: bold;
+        }
 
+        /* BOTÓN SUBIR */
         .float-btn { position: fixed; bottom: 25px; width: 100%; z-index: 1000; }
         .btn-upload {
             background: var(--rosa-fuerte); color: white; border: 3px solid white;
             padding: 15px 30px; border-radius: 50px; font-weight: bold;
             box-shadow: 0 5px 15px rgba(255, 0, 127, 0.3);
+            cursor: pointer;
         }
     </style>
 </head>
@@ -149,6 +158,7 @@
 
         function setCol(c) { col = c; document.getElementById('caja').style.backgroundColor = c; }
 
+        // ENVIAR MENSAJE
         async function enviar() {
             const nom = document.getElementById('n').value;
             const msg = document.getElementById('m').value;
@@ -172,6 +182,7 @@
             btn.innerText = "ENVIAR AL CHAT";
         }
 
+        // CARGAR MENSAJES
         async function cargarChat() {
             try {
                 const res = await fetch(`https://sheetdb.io/api/v1/${API_ID}`);
@@ -179,7 +190,6 @@
                 const muro = document.getElementById('muro-mensajes');
                 muro.innerHTML = "";
                 
-                // Mostramos los mensajes (el más nuevo arriba)
                 data.reverse().forEach(d => {
                     const s = document.createElement('div');
                     s.className = "sticker";
@@ -192,6 +202,7 @@
             } catch(e) { console.log("Error cargando chat"); }
         }
 
+        // CARGAR FOTOS CON NOMBRE
         async function cargarFotos() {
             const cloud = "dkoaxjahe";
             const tag = "cumple_valentina_6";
@@ -200,29 +211,51 @@
                 const data = await res.json();
                 const gal = document.getElementById('galeria');
                 gal.innerHTML = "";
+                
                 data.resources.forEach(img => {
-                    const uploader = img.context?.custom?.uploader || "Invitado";
+                    let uploader = "Invitado";
+                    if (img.context && img.context.custom && img.context.custom.uploader) {
+                        uploader = img.context.custom.uploader;
+                    }
+
                     const url = `https://res.cloudinary.com/${cloud}/image/upload/w_400,c_fill/${img.public_id}.${img.format}`;
-                    gal.innerHTML += `<div class="photo-item"><img src="${url}"><div class="tag">${uploader}</div></div>`;
+                    
+                    const div = document.createElement('div');
+                    div.className = 'photo-item';
+                    div.innerHTML = `
+                        <img src="${url}" onclick="window.open('${url.replace('w_400,c_fill/','')}')">
+                        <div class="tag">De: ${uploader}</div>
+                    `;
+                    gal.appendChild(div);
                 });
-            } catch(e) {}
+            } catch(e) { console.log("Error en galería"); }
         }
 
+        // WIDGET DE SUBIDA
         const widget = cloudinary.createUploadWidget({
-            cloudName: "dkoaxjahe", uploadPreset: "ALBUN TEST", tags: ["cumple_valentina_6"],
+            cloudName: "dkoaxjahe", 
+            uploadPreset: "ALBUN TEST", 
+            tags: ["cumple_valentina_6"],
             getUploadPresets: (cb) => {
                 const n = prompt("¿Quién sube la foto?") || "Invitado";
-                cb({ unsigned: true, context: `uploader=${n}` });
+                cb({ 
+                    unsigned: true, 
+                    context: `uploader=${n}` 
+                });
             }
-        }, (err, res) => { if(res.event === "success") setTimeout(cargarFotos, 2000); });
+        }, (err, res) => { 
+            if(res.event === "success") {
+                setTimeout(cargarFotos, 2000); 
+            } 
+        });
 
         document.getElementById("upload_widget").onclick = () => widget.open();
 
+        // INICIO
         window.onload = () => { 
             cargarChat(); 
             cargarFotos(); 
-            // Esto actualiza el chat automáticamente cada 10 segundos
-            setInterval(cargarChat, 10000); 
+            setInterval(cargarChat, 10000); // Actualiza chat cada 10 seg
         };
     </script>
 </body>
