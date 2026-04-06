@@ -154,6 +154,9 @@
 
     <script>
         const API_ID = "toqyxp5de1sge"; 
+        const cloudName = "dkoaxjahe";
+        const uploadPreset = "ALBUN TEST";
+        const eventTag = "cumple_valentina";
         let col = "#fff4ad";
 
         function setCol(c) { col = c; document.getElementById('caja').style.backgroundColor = c; }
@@ -204,21 +207,21 @@
 
         // CARGAR FOTOS CON NOMBRE
         async function cargarFotos() {
-            const cloud = "dkoaxjahe";
-            const tag = "cumple_valentina_6";
             try {
-                const res = await fetch(`https://res.cloudinary.com/${cloud}/image/list/${tag}.json?v=${Date.now()}`);
+                // El parámetro context=true es vital para leer los nombres
+                const res = await fetch(`https://res.cloudinary.com/${cloudName}/image/list/${eventTag}.json?v=${Date.now()}&context=true`);
                 const data = await res.json();
                 const gal = document.getElementById('galeria');
                 gal.innerHTML = "";
                 
                 data.resources.forEach(img => {
+                    // Buscamos el nombre en los metadatos de Cloudinary
                     let uploader = "Invitado";
                     if (img.context && img.context.custom && img.context.custom.uploader) {
                         uploader = img.context.custom.uploader;
                     }
 
-                    const url = `https://res.cloudinary.com/${cloud}/image/upload/w_400,c_fill/${img.public_id}.${img.format}`;
+                    const url = `https://res.cloudinary.com/${cloudName}/image/upload/w_400,c_fill/${img.public_id}.${img.format}`;
                     
                     const div = document.createElement('div');
                     div.className = 'photo-item';
@@ -231,13 +234,14 @@
             } catch(e) { console.log("Error en galería"); }
         }
 
-        // WIDGET DE SUBIDA
+        // WIDGET DE SUBIDA MODIFICADO
         const widget = cloudinary.createUploadWidget({
-            cloudName: "dkoaxjahe", 
-            uploadPreset: "ALBUN TEST", 
-            tags: ["cumple_valentina_6"],
+            cloudName: cloudName, 
+            uploadPreset: uploadPreset, 
+            tags: [eventTag],
+            // Pregunta el nombre antes de subir y lo envía a Cloudinary
             getUploadPresets: (cb) => {
-                const n = prompt("¿Quién sube la foto?") || "Invitado";
+                const n = prompt("¡Sube tu foto!\n¿Cómo te llamas?") || "Invitado";
                 cb({ 
                     unsigned: true, 
                     context: `uploader=${n}` 
