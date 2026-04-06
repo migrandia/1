@@ -12,7 +12,6 @@
             --oro: #d4af37;
             --oro-brillante: #f9e29d;
             --azul-noche: #0a192f;
-            --blanco-cristal: rgba(255, 255, 255, 0.9);
             --ancho-max: 480px;
         }
 
@@ -75,6 +74,7 @@
             text-transform: uppercase; border-radius: 30px; width: 80%;
         }
         .btn-gold { background: var(--oro); color: var(--azul-noche); font-weight: bold; border: none; }
+        .btn-dark { background: var(--azul-noche); color: white; border: 1px solid var(--azul-noche); font-weight: bold; width: 100% !important; margin-top: 15px; }
 
         /* CONTADOR */
         .countdown { display: flex; justify-content: space-around; margin: 20px 0; }
@@ -158,20 +158,26 @@
 
         <section style="background: var(--oro); color: var(--azul-noche);">
             <h2 class="title-sec" style="color: var(--azul-noche);">Obsequios</h2>
-            <p>Tu presencia es mi mejor regalo, pero si deseas tener un detalle:</p>
-            <div style="border: 1px solid var(--azul-noche); padding: 15px; border-radius: 10px; margin-top: 15px;">
+            <p>Vuestra presencia es lo más importante, pero si deseas tener un detalle:</p>
+            <a href="https://www.amazon.com.mx/wedding" target="_blank" class="btn btn-dark">MESA DE REGALOS AMAZON</a>
+            <div style="margin: 30px auto; width: 50px; height: 1px; background: rgba(10, 25, 47, 0.3);"></div>
+            <div style="border: 1px solid var(--azul-noche); padding: 15px; border-radius: 10px;">
                 <b>LLUVIA DE SOBRES</b><br>
-                <p>Banco: BBVA <br> CLABE: 0123 4567 8901 2345 67</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">
+                    Banco: <b>BBVA México</b><br> 
+                    CLABE: <b>0123 4567 8901 2345 67</b><br>
+                    Titular: <b>Luciana Victoria V.</b>
+                </p>
             </div>
         </section>
 
         <section>
             <h2 class="title-sec">Confirmación</h2>
-            <a href="https://wa.me/123456789" class="btn btn-gold">Confirmar por WhatsApp</a>
+            <a href="https://wa.me/123456789?text=Hola!%20Confirmo%20mi%20asistencia%20a%20tus%20XV" class="btn btn-gold">Confirmar por WhatsApp</a>
         </section>
 
         <footer class="footer-promo">
-            <div class="footer-initials">L & V</div>
+            <div class="footer-initials">L - V</div>
             <div style="letter-spacing: 2px; font-size: 0.6rem; color: var(--oro);">MI GRAN DIA COLECCION</div>
             <a href="https://migrandia.mx" target="_blank" class="footer-link">Diseño por <b>migrandia.mx</b></a>
         </footer>
@@ -180,18 +186,32 @@
     <script>
         const music = document.getElementById('bg-music');
         const mBtn = document.getElementById('m-btn');
+        let musicStarted = false;
 
         function toggleMusic() {
             if (music.paused) {
                 music.play();
                 mBtn.innerText = "⏸";
+                musicStarted = true;
             } else {
                 music.pause();
                 mBtn.innerText = "▶";
             }
         }
 
-        // Contador
+        // FUNCIÓN AUTO-PLAY AL BAJAR (SCROLL)
+        window.addEventListener('scroll', function() {
+            if (!musicStarted && window.pageYOffset > 50) {
+                music.play().then(() => {
+                    mBtn.innerText = "⏸";
+                    musicStarted = true;
+                }).catch(err => {
+                    // Si el navegador bloquea el auto-play, espera a un clic
+                    console.log("Interacción requerida para audio");
+                });
+            }
+        });
+
         const target = new Date("October 24, 2026 17:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
