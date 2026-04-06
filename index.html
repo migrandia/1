@@ -29,7 +29,6 @@
             user-select: none;
         }
 
-        /* Permitir selección solo en inputs para que los invitados escriban */
         input, textarea {
             -webkit-user-select: text;
             -moz-user-select: text;
@@ -121,7 +120,7 @@
             gap: 5px; padding: 10px; margin-bottom: 100px;
         }
         .photo-item { aspect-ratio: 1/1; background: #eee; border-radius: 5px; overflow: hidden; position: relative; }
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; } /* Seguridad de imagen removida */
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
         .tag { 
             position: absolute; bottom: 0; width: 100%; 
             background: rgba(0,0,0,0.6); color: white; 
@@ -181,7 +180,8 @@
     </div>
 
     <script>
-        const API_ID = "toqyxp5de1sge"; 
+        // CONFIGURACIÓN
+        const SCRIPT_URL = "TU_URL_DE_APPS_SCRIPT_AQUI"; // <--- PEGA TU URL DE GOOGLE AQUÍ
         const cloudName = "dkoaxjahe";
         const uploadPreset = "ALBUN TEST";
         const eventTag = "cumple_valentina_6";
@@ -207,7 +207,7 @@
             setTimeout(() => { clickCount = 0; }, 1000);
         }
 
-        // 3. DESCARGAR FOTOS
+        // 3. DESCARGAR FOTOS (MASIVO)
         async function descargarFotos() {
             alert("Iniciando descarga masiva...");
             const res = await fetch(`https://res.cloudinary.com/${cloudName}/image/list/${eventTag}.json`);
@@ -222,50 +222,62 @@
             });
         }
 
-        // 4. BORRAR CHAT
-        async function borrarChat() {
-            if(confirm("¿Seguro que quieres limpiar el muro?")){
-                const p = prompt("Password:");
-                if(p === "1234") { // Cambia tu clave aquí
-                    await fetch(`https://sheetdb.io/api/v1/${API_ID}/all`, { method: 'DELETE' });
-                    location.reload();
-                } else { alert("Incorrecto"); }
-            }
+        // 4. BORRAR CHAT (ESTA FUNCIÓN REQUIERE AJUSTE EN APPS SCRIPT SI SE DESEA USAR)
+        function borrarChat() {
+            alert("Para borrar el chat, limpia las filas manualmente en tu Google Sheet.");
         }
 
-        // 5. LOGICA CHAT
+        // 5. LOGICA CHAT (NUEVA CON GOOGLE APPS SCRIPT)
         async function enviar() {
             const nom = document.getElementById('n').value;
             const msg = document.getElementById('m').value;
             if(!nom || !msg) return alert("Faltan datos");
+            
             const btn = document.querySelector('.btn-enviar');
             btn.innerText = "Enviando...";
-            await fetch(`https://sheetdb.io/api/v1/${API_ID}`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({data: [{"Nombre": nom, "Mensaje": msg, "Color": col}]})
-            });
-            document.getElementById('m').value = "";
-            btn.innerText = "ENVIAR AL CHAT";
-            cargarChat();
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Necesario para Google Script
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({"Nombre": nom, "Mensaje": msg, "Color": col})
+                });
+                
+                // Como 'no-cors' no da respuesta, limpiamos y cargamos tras un pequeño delay
+                setTimeout(() => {
+                    document.getElementById('m').value = "";
+                    btn.innerText = "ENVIAR AL CHAT";
+                    cargarChat();
+                }, 1000);
+
+            } catch (error) {
+                console.error("Error al enviar:", error);
+                btn.innerText = "REINTENTAR";
+            }
         }
 
         async function cargarChat() {
-            const res = await fetch(`https://sheetdb.io/api/v1/${API_ID}`);
-            const data = await res.json();
-            const muro = document.getElementById('muro-mensajes');
-            muro.innerHTML = "";
-            data.reverse().forEach(d => {
-                const s = document.createElement('div');
-                s.className = "sticker";
-                s.style.backgroundColor = d.Color || "#fff4ad";
-                s.style.transform = `rotate(${Math.random()*6-3}deg)`;
-                s.innerHTML = `<strong>${d.Nombre}:</strong><p>${d.Mensaje}</p>`;
-                muro.appendChild(s);
-            });
+            try {
+                const res = await fetch(SCRIPT_URL);
+                const data = await res.json();
+                const muro = document.getElementById('muro-mensajes');
+                muro.innerHTML = "";
+                
+                // Invertimos el orden para que los nuevos salgan arriba
+                data.reverse().forEach(d => {
+                    if(!d.Nombre) return;
+                    const s = document.createElement('div');
+                    s.className = "sticker";
+                    s.style.backgroundColor = d.Color || "#fff4ad";
+                    s.style.transform = `rotate(${Math.random()*6-3}deg)`;
+                    s.innerHTML = `<strong>${d.Nombre}:</strong><p>${d.Mensaje}</p>`;
+                    muro.appendChild(s);
+                });
+            } catch (e) { console.log("Cargando mensajes..."); }
         }
 
-        // 6. LOGICA GALERIA ACTUALIZADA PARA VER Y DESCARGAR
+        // 6. LOGICA GALERIA
         async function cargarFotos() {
             const res = await fetch(`https://res.cloudinary.com/${cloudName}/image/list/${eventTag}.json?v=${Date.now()}`);
             const data = await res.json();
@@ -292,7 +304,11 @@
 
         document.getElementById("upload_widget").onclick = () => widget.open();
 
-        window.onload = () => { cargarChat(); cargarFotos(); setInterval(cargarChat, 15000); };
+        window.onload = () => { 
+            cargarChat(); 
+            cargarFotos(); 
+            setInterval(cargarChat, 30000); // Actualiza cada 30 segundos para ahorrar batería
+        };
     </script>
 </body>
 </html>
