@@ -209,7 +209,7 @@
         async function cargarFotos() {
             try {
                 // El parámetro context=true es vital para leer los nombres
-                const res = await fetch(`https://res.cloudinary.com/${cloudName}/image/list/${eventTag}.json?v=${Date.now()}&context=true`);
+                const res = await fetch(`https://res.cloudinary.com/${cloudName}/image/list/${eventTag}.json?v=${Date.now()}`);
                 const data = await res.json();
                 const gal = document.getElementById('galeria');
                 gal.innerHTML = "";
@@ -234,16 +234,15 @@
             } catch(e) { console.log("Error en galería"); }
         }
 
-        // WIDGET DE SUBIDA MODIFICADO
+        // WIDGET DE SUBIDA CON PETICIÓN DE NOMBRE OBLIGATORIA
         const widget = cloudinary.createUploadWidget({
             cloudName: cloudName, 
             uploadPreset: uploadPreset, 
             tags: [eventTag],
-            // Pregunta el nombre antes de subir y lo envía a Cloudinary
-            getUploadPresets: (cb) => {
-                const n = prompt("¡Sube tu foto!\n¿Cómo te llamas?") || "Invitado";
+            // Esto obliga al navegador a pedir el nombre antes de procesar la subida
+            prepareUploadParams: (cb, params) => {
+                const n = prompt("¿Quién sube la foto?") || "Invitado";
                 cb({ 
-                    unsigned: true, 
                     context: `uploader=${n}` 
                 });
             }
