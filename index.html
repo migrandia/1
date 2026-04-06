@@ -41,7 +41,7 @@
         .hero-v3 {
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1') center center no-repeat;
-            background-size: cover; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 60px;
+            background-size: cover; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 40px;
         }
         h1.main-name { font-family: 'Cinzel', serif; font-size: 3.2rem; color: white; margin: 10px 0; letter-spacing: 5px; }
         
@@ -49,6 +49,14 @@
         .t-unit { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; min-width: 70px; }
         .t-num { font-size: 1.6rem; display: block; color: var(--gold-glow); font-weight: 700; }
         .t-txt { font-size: 0.6rem; opacity: 0.6; letter-spacing: 1px; }
+
+        .btn-calendar {
+            display: inline-block; margin-top: 20px; padding: 10px 20px;
+            border: 1px solid var(--gold-glow); border-radius: 30px;
+            color: var(--gold-glow); text-decoration: none; font-size: 0.7rem;
+            letter-spacing: 2px; font-weight: bold; background: rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
 
         .glass-card {
             background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -110,6 +118,12 @@
                 <div class="t-unit"><span class="t-num" id="hours">00</span><span class="t-txt">HRS</span></div>
                 <div class="t-unit"><span class="t-num" id="mins">00</span><span class="t-txt">MIN</span></div>
                 <div class="t-unit" style="border-color: var(--gold-glow);"><span class="t-num" id="secs">00</span><span class="t-txt">SEG</span></div>
+            </div>
+
+            <div>
+                <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+Isabella&dates=20261024T230000Z/20261025T050000Z&details=¡Te+espero+para+celebrar+mis+XV+años!&location=Toluca,+Estado+de+México&sf=true&output=xml" target="_blank" class="btn-calendar">
+                    📅 AGENDAR EN GOOGLE
+                </a>
             </div>
         </div>
 
@@ -250,7 +264,6 @@
             else { track.pause(); mStatus.innerText = "▶"; }
         }
 
-        // Lógica del contador corregida (IDs coinciden con el HTML)
         const target = new Date("Oct 24, 2026 17:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
