@@ -72,16 +72,20 @@
             border: 1px solid var(--oro); color: var(--oro-brillante);
             text-decoration: none; font-size: 0.75rem; letter-spacing: 2px;
             text-transform: uppercase; border-radius: 30px; width: 80%;
+            box-sizing: border-box; /* Asegura que el padding no ensanche el botón */
         }
         .btn-gold { background: var(--oro); color: var(--azul-noche); font-weight: bold; border: none; }
+        
         .btn-dark { 
             background: var(--azul-noche); 
             color: white; 
             border: 1px solid var(--azul-noche); 
             font-weight: bold; 
             width: 100% !important; 
-            margin: 15px auto 0 auto; 
+            max-width: 100%;
+            margin: 15px auto; 
             display: block;
+            box-sizing: border-box;
         }
 
         /* CONTADOR */
@@ -168,10 +172,12 @@
             <h2 class="title-sec" style="color: var(--azul-noche);">Obsequios</h2>
             <p>Vuestra presencia es lo más importante, pero si deseas tener un detalle:</p>
             
-            <img src="https://www.dropbox.com/scl/fi/d3txwhihvct8hrlyt0iir/PLATO.png?rlkey=nn0nu7dc7qzb1sx7phsyem680&raw=1" style="width: 40px; filter: brightness(0.2); margin-bottom: 10px;">
+            <img src="https://www.dropbox.com/scl/fi/d3txwhihvct8hrlyt0iir/PLATO.png?rlkey=nn0nu7dc7qzb1sx7phsyem680&raw=1" style="width: 40px; filter: brightness(0.2); margin: 0 auto 10px auto; display: block;">
             
             <a href="https://www.amazon.com.mx/wedding" target="_blank" class="btn btn-dark">MESA DE REGALOS AMAZON</a>
+            
             <div style="margin: 30px auto; width: 50px; height: 1px; background: rgba(10, 25, 47, 0.3);"></div>
+            
             <div style="border: 1px solid var(--azul-noche); padding: 15px; border-radius: 10px;">
                 <b>LLUVIA DE SOBRES</b><br>
                 <p style="font-size: 0.9rem; margin-top: 10px;">
