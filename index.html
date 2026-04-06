@@ -16,7 +16,6 @@
             --fondo-chat: #fdf2f5;
         }
 
-        /* PROTECCIÓN: Evitar selección de texto */
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0; padding: 0;
@@ -36,7 +35,6 @@
             user-select: text;
         }
 
-        /* CABECERA */
         .header-album {
             background: linear-gradient(-45deg, #fef1f8, #ffffff, #ffe4f0);
             background-size: 400% 400%;
@@ -64,7 +62,6 @@
 
         h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--oro); margin: 0; cursor: pointer; }
 
-        /* PANEL ADMINISTRADOR OCULTO */
         #admin-panel {
             display: none;
             background: #5a4a42; color: white;
@@ -77,7 +74,6 @@
             padding: 10px; margin: 5px; border-radius: 8px; cursor: pointer; font-weight: bold;
         }
 
-        /* SECCIÓN CHAT */
         .chat-container {
             background: white;
             margin: 20px 10px;
@@ -114,7 +110,6 @@
             font-size: 0.8rem; position: relative; color: #333;
         }
 
-        /* GALERÍA */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 5px; padding: 10px; margin-bottom: 100px;
@@ -128,7 +123,6 @@
             pointer-events: none;
         }
 
-        /* BOTÓN SUBIR */
         .float-btn { position: fixed; bottom: 25px; width: 100%; z-index: 1000; }
         .btn-upload {
             background: var(--rosa-fuerte); color: white; border: 3px solid white;
@@ -150,8 +144,7 @@
     <div id="admin-panel">
         <h3 style="margin-top:0;">Panel Administrativo</h3>
         <button class="btn-admin" onclick="descargarFotos()">📥 Descargar Todo</button>
-        <button class="btn-admin" onclick="borrarChat()" style="background:#ff007f;">🗑️ Borrar Chat</button>
-        <p style="font-size:10px; color:#ccc;">Vuelve a tocar el nombre para cerrar</p>
+        <p style="font-size:10px; color:#ccc;">Limpia el Excel para borrar el chat</p>
     </div>
 
     <div class="chat-container">
@@ -180,23 +173,18 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN
-        const SCRIPT_URL = "TU_URL_DE_APPS_SCRIPT_AQUI"; // <--- PEGA TU URL DE GOOGLE AQUÍ
+        // CONFIGURACIÓN FINAL ILIMITADA
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiASf0ZJ6xrBfUoj4ikrePzS7Yvl6Gs8YD-qljUVvOoELbMexjo604o7LR13MA/exec";
         const cloudName = "dkoaxjahe";
         const uploadPreset = "ALBUN TEST";
         const eventTag = "cumple_valentina_6";
         let col = "#fff4ad";
         let clickCount = 0;
 
-        // 1. PROTECCIÓN DE CLIC DERECHO Y TECLAS
         document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
-        };
-
+        
         function setCol(c) { col = c; document.getElementById('caja').style.backgroundColor = c; }
 
-        // 2. PANEL ADMINISTRADOR (TRIPLE CLIC)
         function detectarTripleClic() {
             clickCount++;
             if (clickCount === 3) {
@@ -207,27 +195,6 @@
             setTimeout(() => { clickCount = 0; }, 1000);
         }
 
-        // 3. DESCARGAR FOTOS (MASIVO)
-        async function descargarFotos() {
-            alert("Iniciando descarga masiva...");
-            const res = await fetch(`https://res.cloudinary.com/${cloudName}/image/list/${eventTag}.json`);
-            const data = await res.json();
-            data.resources.forEach((img, i) => {
-                const a = document.createElement('a');
-                a.href = `https://res.cloudinary.com/${cloudName}/image/upload/${img.public_id}.${img.format}`;
-                a.download = `Valentina_Foto_${i}`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            });
-        }
-
-        // 4. BORRAR CHAT (ESTA FUNCIÓN REQUIERE AJUSTE EN APPS SCRIPT SI SE DESEA USAR)
-        function borrarChat() {
-            alert("Para borrar el chat, limpia las filas manualmente en tu Google Sheet.");
-        }
-
-        // 5. LOGICA CHAT (NUEVA CON GOOGLE APPS SCRIPT)
         async function enviar() {
             const nom = document.getElementById('n').value;
             const msg = document.getElementById('m').value;
@@ -237,23 +204,19 @@
             btn.innerText = "Enviando...";
 
             try {
+                // El modo no-cors es necesario para Google Scripts
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // Necesario para Google Script
-                    headers: {'Content-Type': 'application/json'},
+                    mode: 'no-cors',
                     body: JSON.stringify({"Nombre": nom, "Mensaje": msg, "Color": col})
                 });
-                
-                // Como 'no-cors' no da respuesta, limpiamos y cargamos tras un pequeño delay
-                setTimeout(() => {
-                    document.getElementById('m').value = "";
-                    btn.innerText = "ENVIAR AL CHAT";
-                    cargarChat();
-                }, 1000);
 
-            } catch (error) {
-                console.error("Error al enviar:", error);
-                btn.innerText = "REINTENTAR";
+                document.getElementById('m').value = "";
+                btn.innerText = "ENVIAR AL CHAT";
+                setTimeout(cargarChat, 1000); // Recargar después de enviar
+            } catch (e) {
+                alert("Error al enviar, intenta de nuevo.");
+                btn.innerText = "ENVIAR AL CHAT";
             }
         }
 
@@ -263,10 +226,7 @@
                 const data = await res.json();
                 const muro = document.getElementById('muro-mensajes');
                 muro.innerHTML = "";
-                
-                // Invertimos el orden para que los nuevos salgan arriba
                 data.reverse().forEach(d => {
-                    if(!d.Nombre) return;
                     const s = document.createElement('div');
                     s.className = "sticker";
                     s.style.backgroundColor = d.Color || "#fff4ad";
@@ -274,10 +234,9 @@
                     s.innerHTML = `<strong>${d.Nombre}:</strong><p>${d.Mensaje}</p>`;
                     muro.appendChild(s);
                 });
-            } catch (e) { console.log("Cargando mensajes..."); }
+            } catch (e) { console.log("Cargando..."); }
         }
 
-        // 6. LOGICA GALERIA
         async function cargarFotos() {
             const res = await fetch(`https://res.cloudinary.com/${cloudName}/image/list/${eventTag}.json?v=${Date.now()}`);
             const data = await res.json();
@@ -307,7 +266,7 @@
         window.onload = () => { 
             cargarChat(); 
             cargarFotos(); 
-            setInterval(cargarChat, 30000); // Actualiza cada 30 segundos para ahorrar batería
+            setInterval(cargarChat, 30000); // Actualiza cada 30 segundos
         };
     </script>
 </body>
