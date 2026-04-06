@@ -3,182 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis XV | Isabella</title>
+    <title>Mis XV | Isabella VIP</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Dancing+Script:wght@600&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
             --emerald: #064e3b;
             --dark-garden: #020617;
             --gold-glow: #fbbf24;
-            --glass: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.07);
             --ancho-max: 480px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
-        body { background-color: #000; color: #e2e8f0; font-family: 'Montserrat', sans-serif; text-align: center; }
-
-        .app-wrapper { max-width: var(--ancho-max); margin: 0 auto; background-color: var(--dark-garden); position: relative; min-height: 100vh; border: 1px solid #1e293b; box-shadow: 0 0 40px rgba(0,0,0,0.9); }
-        
-        /* BOTÓN DE MÚSICA TIPO CÁPSULA FLOTANTE */
-        #music-control { 
-            position: fixed; bottom: 30px; right: 20px; z-index: 9999; 
-            background: rgba(6, 78, 59, 0.9); backdrop-filter: blur(10px); 
-            border: 2px solid var(--gold-glow); padding: 12px 20px; 
-            border-radius: 50px; cursor: pointer; color: white; 
-            font-size: 0.7rem; font-weight: 800; display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        body {
+            margin: 0; padding: 0; background-color: #000; color: #e2e8f0;
+            font-family: 'Montserrat', sans-serif; text-align: center;
+            -webkit-user-select: none; user-select: none;
         }
 
-        /* PORTADA */
-        .hero-v3 { height: 95vh; background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.8)), url('https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1') center center no-repeat; background-size: cover; display: flex; align-items: flex-end; padding-bottom: 60px; }
-        .hero-info { width: 100%; padding: 20px; z-index: 2; }
-        h1.main-name { font-family: 'Cinzel', serif; font-size: 3.5rem; color: white; margin-bottom: 10px; }
-        
-        /* CONTADOR DE 4 BLOQUES (CON SEGUNDOS) */
-        .timer-v3 { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
-        .t-unit { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); padding: 12px 5px; border-radius: 12px; min-width: 75px; backdrop-filter: blur(5px); }
-        .t-num { font-size: 1.6rem; display: block; color: var(--gold-glow); font-weight: 700; font-family: 'Montserrat'; }
-        .t-txt { font-size: 0.55rem; opacity: 0.7; letter-spacing: 1px; font-weight: 600; }
+        .app-wrapper {
+            max-width: var(--ancho-max); margin: 0 auto;
+            background-color: var(--dark-garden); position: relative;
+            min-height: 100vh; border: 1px solid #1e293b;
+        }
 
-        /* SECCIONES GLASS */
-        .glass-card { background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); margin: 20px; padding: 35px 20px; border-radius: 24px; }
+        /* MÚSICA TIPO CÁPSULA XV */
+        #music-pill {
+            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+            background: rgba(6, 78, 59, 0.8); backdrop-filter: blur(15px);
+            border: 1px solid var(--gold-glow); padding: 10px 20px; border-radius: 50px;
+            display: flex; align-items: center; gap: 10px; cursor: pointer; color: white;
+        }
+
+        /* HERO XV */
+        .hero-v3 {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1') center center no-repeat;
+            background-size: cover; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 60px;
+        }
+
+        h1.main-name { font-family: 'Cinzel', serif; font-size: 3.2rem; color: white; margin: 10px 0; letter-spacing: 5px; }
+        
+        /* CONTADOR XV */
+        .timer-v3 { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .t-unit { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; min-width: 70px; }
+        .t-num { font-size: 1.6rem; display: block; color: var(--gold-glow); font-weight: 700; }
+        .t-txt { font-size: 0.6rem; opacity: 0.6; letter-spacing: 1px; }
+
+        /* CARDS GLASS */
+        .glass-card {
+            background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1); margin: 25px 20px;
+            padding: 35px 20px; border-radius: 28px;
+        }
+
         .section-title { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--gold-glow); margin-bottom: 25px; }
-        
-        .img-loc { width: 100%; height: 200px; object-fit: cover; border-radius: 18px; margin-bottom: 15px; border: 1.5px solid rgba(251, 191, 36, 0.3); }
-        .btn-action { display: block; background: var(--emerald); color: white; padding: 18px; border-radius: 14px; text-decoration: none; font-weight: bold; font-size: 0.85rem; margin-top: 15px; letter-spacing: 1px; }
-        .btn-calendar { background: transparent; border: 1.5px solid var(--gold-glow); color: var(--gold-glow); margin-top: 30px; padding: 12px 25px; border-radius: 50px; display: inline-block; font-size: 0.75rem; text-decoration: none; font-weight: 600; }
+        .img-rounded { width: 100%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
 
-        .role { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold-glow); margin-bottom: 5px; font-weight: bold; }
+        /* ESTILO FAMILIA/GRID */
+        .grid-honor { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .person-tag { border-left: 3px solid var(--gold-glow); padding-left: 15px; text-align: left; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 0 15px 15px 0; }
+        .role { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-glow); font-weight: bold; }
+        .p-name { font-size: 1.1rem; color: white; margin-top: 5px; }
+
+        .btn-emerald {
+            display: block; background: var(--emerald); color: white; padding: 18px;
+            border-radius: 15px; text-decoration: none; font-weight: bold; font-size: 0.85rem;
+            margin-top: 15px; border: 1px solid var(--gold-glow); letter-spacing: 1px;
+        }
+
+        /* SWIPER XV */
+        .swiper { width: 100%; height: 350px; border-radius: 20px; margin-top: 10px; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* CLIMA */
+        .weather-box { background: white; border-radius: 20px; padding: 25px; margin-top: 10px; color: #333; }
+
+        /* SELECTOR ASISTENTES */
+        .attendance-selector { margin: 20px 0; }
+        .attendance-selector select { 
+            padding: 12px; width: 100%; border-radius: 12px; border: 1px solid var(--gold-glow); 
+            background: var(--dark-garden); color: white; font-family: 'Montserrat';
+        }
+
+        .forbidden-circles { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+        .circle { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #ddd; position: relative; }
+        .circle::after { content: ''; position: absolute; width: 100%; height: 2px; background: red; top: 50%; left: 0; transform: rotate(-45deg); }
+        .c-white { background: white; } .c-black { background: black; } .c-red { background: red; }
     </style>
 </head>
-<body onclick="startMusic()">
+<body onclick="initAudio()">
 
-    <div id="music-control" onclick="toggleMusic(event)">
-        <span id="m-icon">▶</span>
-        <span id="m-text">REPRODUCIR MÚSICA</span>
+    <div id="music-pill" onclick="toggleMusic(event)">
+        <span id="m-status">▶</span>
+        <span style="font-size: 0.7rem; font-weight: bold; letter-spacing: 1px;">MÚSICA</span>
     </div>
 
-    <audio id="track" loop preload="auto">
+    <audio id="track" loop>
         <source src="https://www.dropbox.com/scl/fi/80hypdxkg24wx6x7oael2/En-Tus-Manos-Se-or.mp3?rlkey=j4di62c9sgj4txgwbpikcngp3&raw=1" type="audio/mpeg">
     </audio>
 
     <div class="app-wrapper">
         
         <div class="hero-v3">
-            <div class="hero-info">
-                <p style="letter-spacing: 4px; font-size: 0.7rem; color: var(--gold-glow); margin-bottom: 5px;">ESTÁS INVITADO A LOS</p>
-                <h1 class="main-name">ISABELLA</h1>
-                <p style="letter-spacing: 6px; font-size: 0.9rem; font-weight: 200;">24 DE OCTUBRE 2026</p>
-                
-                <div class="timer-v3" id="timer">
-                    <div class="t-unit"><span class="t-num" id="days">00</span><span class="t-txt">DÍAS</span></div>
-                    <div class="t-unit"><span class="t-num" id="hours">00</span><span class="t-txt">HORAS</span></div>
-                    <div class="t-unit"><span class="t-num" id="mins">00</span><span class="t-txt">MINS</span></div>
-                    <div class="t-unit" style="border-color: var(--gold-glow);"><span class="t-num" id="secs">00</span><span class="t-txt">SEGS</span></div>
-                </div>
+            <p style="letter-spacing: 6px; font-size: 0.8rem;">BIENVENIDOS A LOS XV DE</p>
+            <h1 class="main-name">ISABELLA</h1>
+            <p style="letter-spacing: 4px; font-size: 0.9rem; font-weight: 200;">24 . OCTUBRE . 2026</p>
+            
+            <div class="timer-v3">
+                <div class="t-unit"><span class="t-num" id="d">00</span><span class="t-txt">DÍAS</span></div>
+                <div class="t-unit"><span class="t-num" id="h">00</span><span class="t-txt">HRS</span></div>
+                <div class="t-unit"><span class="t-num" id="m">00</span><span class="t-txt">MIN</span></div>
+                <div class="t-unit" style="border-color: var(--gold-glow);"><span class="t-num" id="s">00</span><span class="t-txt">SEG</span></div>
+            </div>
+        </div>
 
-                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+Años+Isabella&dates=20261024T170000Z/20261025T020000Z&details=¡Te+espero+en+mi+fiesta!&location=Salón+Magnolia" 
-                   target="_blank" class="btn-calendar">📅 AGENDAR EN CALENDAR</a>
+        <div class="glass-card reveal">
+            <h2 class="section-title">Mi Sueño Mágico</h2>
+            <p style="font-family:'Dancing Script'; font-size:1.6rem; font-style:italic; margin-bottom:25px; color: white;">
+                "Bajo la luz de las estrellas, comienzo una nueva etapa. Gracias por ser parte de este jardín de ilusiones."
+            </p>
+            <img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1" class="img-rounded">
+            <h3 style="color:var(--gold-glow); font-family:'Cinzel'; font-size: 0.9rem;">"Donde hay ilusión, hay vida."</h3>
+        </div>
+
+        <div class="glass-card reveal">
+            <h2 class="section-title">Nuestra Familia</h2>
+            <div class="grid-honor">
+                <div class="person-tag">
+                    <p class="role">Mis Padres</p>
+                    <p class="p-name">Roberto Martínez & Lucía Ferré</p>
+                </div>
+                <div class="person-tag">
+                    <p class="role">Mis Padrinos</p>
+                    <p class="p-name">Julián Soto & María Elena Paz</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card reveal">
+            <h2 class="section-title">Itinerario</h2>
+            <img src="https://www.dropbox.com/scl/fi/1tpivenwvqyeo89gjffaz/ITINERARIO-3.png?rlkey=ivs4qw5pr81q3mpinllu6j8wc&raw=1" style="width: 100%; filter: brightness(1.2) hue-rotate(90deg);">
+        </div>
+
+        <div class="glass-card reveal">
+            <h2 class="section-title">Momentos</h2>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1"></div>
+                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1"></div>
+                    <div class="swiper-slide"><img src="https://www.dropbox.com/scl/fi/x8aif8za8u6dbfyqvxx6k/xv3.jpg?rlkey=0gnog533q3fpm5xl0ouxmhrou&raw=1"></div>
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
         </div>
 
         <div class="glass-card reveal">
             <h2 class="section-title">Ubicaciones</h2>
-            
-            <div style="margin-bottom: 45px;">
+            <div style="margin-bottom:40px;">
                 <p class="role">Ceremonia Religiosa</p>
-                <img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1" class="img-loc">
-                <h3 style="font-family:'Cinzel'; margin-bottom: 5px;">Parroquia del Prado</h3>
-                <p style="font-size:0.8rem; opacity: 0.8;">Calle Principal #123, Centro Histórico.</p>
-                <a href="https://maps.app.goo.gl/uXyRz" target="_blank" class="btn-action">VER UBICACIÓN</a>
+                <img src="https://www.dropbox.com/scl/fi/tmehprhryocd8vr9hfphl/xv2.jpg?rlkey=nzdubrk5wd1cg68gpbnck9r5t&raw=1" class="img-rounded">
+                <h3 style="font-family:'Cinzel'">Parroquia del Prado</h3>
+                <p style="font-size:0.8rem; opacity:0.7">Calle Principal #123, Centro Histórico.</p>
+                <a href="https://maps.google.com" class="btn-emerald">VER MAPA MISA</a>
+                <a href="https://calendar.google.com" class="btn-emerald" style="background:transparent; font-size:0.7rem; border-radius:50px; padding:10px;">AGREGAR A CALENDARIO</a>
             </div>
-
             <div>
                 <p class="role">Recepción</p>
-                <img src="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1" class="img-loc">
-                <h3 style="font-family:'Cinzel'; margin-bottom: 5px;">Salón Magnolia</h3>
-                <p style="font-size:0.8rem; opacity: 0.8;">Av. Las Flores #456, Jardines.</p>
-                <a href="https://maps.app.goo.gl/uXyRz" target="_blank" class="btn-action">VER UBICACIÓN</a>
+                <img src="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1" class="img-rounded">
+                <h3 style="font-family:'Cinzel'">Salón Magnolia</h3>
+                <p style="font-size:0.8rem; opacity:0.7">Av. Las Flores #456, Jardines de la Paz.</p>
+                <a href="https://maps.google.com" class="btn-emerald">VER MAPA RECEPCIÓN</a>
             </div>
         </div>
 
         <div class="glass-card reveal">
             <h2 class="section-title">Hospedaje</h2>
-            <p style="font-size: 0.85rem; line-height: 1.6; margin-bottom: 25px;">Hemos seleccionado el mejor lugar para tu descanso tras la celebración:</p>
-            <div style="background: rgba(255,255,255,0.04); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
-                <h3 style="font-family:'Cinzel'; color: var(--gold-glow); font-size: 1.1rem;">HOTEL EMERALD PLAZA</h3>
-                <p style="font-size: 0.75rem; margin: 15px 0;">Contamos con bloqueo de habitaciones bajo el nombre:<br><b>"XV ISABELLA"</b></p>
-                <a href="tel:5500000000" class="btn-action" style="background: transparent; border: 1px solid white;">LLAMAR A RESERVAR</a>
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop" class="img-rounded">
+            <h3 style="font-family:'Cinzel'; color:var(--gold-glow)">HOTEL EMERALD PLAZA</h3>
+            <p style="font-size:0.75rem; margin:15px 0">Tarifa especial mencionando:<br><b>"XV ISABELLA"</b></p>
+            <a href="tel:5500000000" class="btn-emerald" style="background:transparent; border:1px solid white">LLAMAR PARA RESERVAR</a>
+        </div>
+
+        <div class="glass-card reveal">
+            <h2 class="section-title">Mesa de Regalos</h2>
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; filter: brightness(2) grayscale(1);">
+                <img src="https://websinergia.com.mx/blog/wp-content/uploads/2016/07/liverpool-face.png" width="90">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" width="90">
+            </div>
+            <div style="margin-top:30px; padding:20px; border:1px solid var(--gold-glow); border-radius:15px; background: rgba(255,255,255,0.03);">
+                <p class="role">Lluvia de Sobres</p>
+                <p style="font-size:0.8rem; margin-top:10px;">Su presencia es mi regalo, pero si desean un detalle, contaremos con un buzón o transferencia:</p>
+                <p style="font-weight:bold; color:var(--gold-glow); margin-top:10px;">CLABE: 0123 4567 8901</p>
             </div>
         </div>
 
-        <div class="glass-card reveal" style="border: 1px solid var(--gold-glow); background: rgba(6, 78, 59, 0.1);">
-            <h2 class="section-title">Confirmación</h2>
-            <p style="font-size: 0.85rem; margin-bottom: 25px;">Tu presencia hará que mi sueño sea completo. Por favor confirma antes del 10.10.2026</p>
-            <a href="https://wa.me/525654252153?text=Hola!+Confirmo+mi+asistencia+a+los+XV+de+Isabella" target="_blank" class="btn-action" style="background: #25d366; font-size: 1rem; border: none; color: black; font-weight: 800;">CONFIRMAR POR WHATSAPP</a>
+        <div class="glass-card reveal">
+            <h2 class="section-title">Dress Code</h2>
+            <img src="https://www.dropbox.com/scl/fi/iuule5a8x3prthsldm6h7/CODIGO-DE-VESTIMENTA-2.png?rlkey=xk7d7zvhdu65si9ecq25cgbfw&raw=1" width="100" style="filter:invert(1)">
+            <p style="font-weight:bold; letter-spacing:3px; margin-top:10px">FORMAL</p>
+            <div class="forbidden-circles">
+                <div class="circle c-white"></div><div class="circle c-red"></div>
+            </div>
+            <p style="font-size:0.6rem; opacity:0.6; margin-top:10px;">POR FAVOR, EVITAR EL BLANCO Y EL ROJO</p>
         </div>
 
-        <footer style="padding: 60px 20px; opacity: 0.4; font-size: 0.6rem; letter-spacing: 4px;">
-            MI GRAN DÍA • COLECCIÓN DIAMANTE
+        <div class="glass-card reveal">
+            <h2 class="section-title">El Clima</h2>
+            <div class="weather-box">
+                <div style="font-size: 3rem;">☀️</div>
+                <div style="font-size: 2.5rem; font-weight: bold;">24°C</div>
+                <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">Despejado</p>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.7rem; color: var(--gold-glow); font-weight: bold;">TUNKÁS, YUCATÁN</p>
+        </div>
+
+        <div class="glass-card reveal" style="border: 2px solid var(--gold-glow); background: linear-gradient(to bottom, var(--glass), rgba(6, 78, 59, 0.3));">
+            <h2 class="section-title">Confirmación</h2>
+            <p id="saludo-familia" style="font-family:'Cinzel'; font-size: 1.2rem;">¡Hola, Familia!</p>
+            <p id="texto-reserva" style="font-size:0.85rem; margin-top:10px;">Hemos reservado un lugar especial para ustedes.</p>
+            
+            <div class="attendance-selector">
+                <p class="role">Asistentes</p>
+                <select id="num-asistentes">
+                    <option value="1">1 Persona</option>
+                    <option value="2">2 Personas</option>
+                    <option value="3">3 Personas</option>
+                    <option value="4">4 Personas</option>
+                </select>
+            </div>
+
+            <a href="javascript:void(0)" onclick="enviarWhatsApp()" class="btn-emerald" style="background:#25d366; color:black; font-weight:900; border:none; font-size:1rem;">CONFIRMAR ASISTENCIA</a>
+            <p style="margin-top:20px; font-size:0.6rem; letter-spacing:2px;">FAVOR DE CONFIRMAR ANTES DEL 10.10.2026</p>
+        </div>
+
+        <footer style="padding:60px 20px; opacity:0.3; font-size:0.6rem; letter-spacing:4px;">
+            MI GRAN DÍA • DIAMOND COLLECTION
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // LÓGICA DE MÚSICA
-        const audio = document.getElementById("track");
-        const mIcon = document.getElementById("m-icon");
-        const mText = document.getElementById("m-text");
-        let isPlaying = false;
+        // MÚSICA
+        var track = document.getElementById('track');
+        var mStatus = document.getElementById('m-status');
+        var playing = false;
 
-        function startMusic() {
-            if (!isPlaying) {
-                audio.play().then(() => {
-                    isPlaying = true;
-                    mIcon.innerText = "II";
-                    mText.innerText = "PAUSAR MÚSICA";
-                }).catch(() => {});
+        function initAudio() {
+            if (!playing) {
+                track.play().then(() => { playing = true; mStatus.innerText = "II"; }).catch(e => {});
             }
         }
 
         function toggleMusic(e) {
             e.stopPropagation();
-            if (audio.paused) {
-                audio.play();
-                mIcon.innerText = "II";
-                mText.innerText = "PAUSAR MÚSICA";
-                isPlaying = true;
-            } else {
-                audio.pause();
-                mIcon.innerText = "▶";
-                mText.innerText = "REPRODUCIR MÚSICA";
-            }
+            if (track.paused) { track.play(); mStatus.innerText = "II"; }
+            else { track.pause(); mStatus.innerText = "▶"; }
         }
 
-        // LÓGICA DEL CONTADOR (FUNCIONAL CON SEGUNDOS)
-        const targetDate = new Date("Oct 24, 2026 17:00:00").getTime();
-
-        const updateTimer = () => {
+        // CONTADOR
+        const target = new Date("Oct 24, 2026 17:00:00").getTime();
+        function updateTimer() {
             const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            if (difference > 0) {
-                const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((difference % (1000 * 60)) / 1000);
-
-                document.getElementById("days").innerText = d < 10 ? '0' + d : d;
-                document.getElementById("hours").innerText = h < 10 ? '0' + h : h;
-                document.getElementById("mins").innerText = m < 10 ? '0' + m : m;
-                document.getElementById("secs").innerText = s < 10 ? '0' + s : s;
+            const d = target - now;
+            if (d > 0) {
+                document.getElementById('d').innerText = Math.floor(d / (1000*60*60*24));
+                document.getElementById('h').innerText = Math.floor((d % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2, '0');
+                document.getElementById('m').innerText = Math.floor((d % (1000*60*60)) / (1000*60)).toString().padStart(2, '0');
+                document.getElementById('s').innerText = Math.floor((d % (1000*60)) / 1000).toString().padStart(2, '0');
             }
-        };
-
+        }
         setInterval(updateTimer, 1000);
-        updateTimer(); // Ejecución inmediata
+
+        // SWIPER
+        new Swiper(".mySwiper", {
+            effect: "cards",
+            grabCursor: true,
+            pagination: { el: ".swiper-pagination" },
+        });
+
+        // WHATSAPP
+        function enviarWhatsApp() {
+            const num = document.getElementById('num-asistentes').value;
+            const msg = `¡Hola Isabella! Confirmo mi asistencia con ${num} personas. ¡Ahí nos vemos!`;
+            window.open(`https://wa.me/525654252153?text=${encodeURIComponent(msg)}`, '_blank');
+        }
 
         ScrollReveal().reveal('.reveal', { distance: '40px', duration: 1200, origin: 'bottom', interval: 200 });
     </script>
