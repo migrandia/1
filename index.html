@@ -16,7 +16,6 @@
             --fondo-chat: #fdf2f5;
         }
 
-        /* PROTECCIÓN: Evitar selección de texto */
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0; padding: 0;
@@ -24,20 +23,11 @@
             color: var(--texto);
             text-align: center;
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
 
-        /* Permitir selección solo en inputs para que los invitados escriban */
-        input, textarea {
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
-        }
+        input, textarea { user-select: text; -webkit-user-select: text; }
 
-        /* CABECERA */
         .header-album {
             background: linear-gradient(-45deg, #fef1f8, #ffffff, #ffe4f0);
             background-size: 400% 400%;
@@ -60,12 +50,13 @@
             outline: 2px solid var(--oro);
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
         }
-        .foto-portada img { width: 100%; height: 100%; object-fit: cover; }
+        .foto-portada img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
-        h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--oro); margin: 0; cursor: pointer; }
+        h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--oro); margin: 0; }
 
-        /* PANEL ADMINISTRADOR OCULTO */
+        /* PANEL ADMINISTRADOR */
         #admin-panel {
             display: none;
             background: #5a4a42; color: white;
@@ -75,10 +66,9 @@
         }
         .btn-admin {
             background: var(--oro); color: white; border: none;
-            padding: 10px; margin: 5px; border-radius: 8px; cursor: pointer; font-weight: bold;
+            padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem;
         }
 
-        /* SECCIÓN CHAT */
         .chat-container {
             background: white;
             margin: 20px 10px;
@@ -115,20 +105,18 @@
             font-size: 0.8rem; position: relative; color: #333;
         }
 
-        /* GALERÍA */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 5px; padding: 10px; margin-bottom: 100px;
         }
         .photo-item { aspect-ratio: 1/1; background: #eee; border-radius: 5px; overflow: hidden; position: relative; }
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; }
         .tag { 
             position: absolute; bottom: 0; width: 100%; 
             background: rgba(0,0,0,0.6); color: white; 
             font-size: 0.6rem; padding: 4px 0; font-weight: bold;
         }
 
-        /* BOTÓN SUBIR */
         .float-btn { position: fixed; bottom: 25px; width: 100%; z-index: 1000; }
         .btn-upload {
             background: var(--rosa-fuerte); color: white; border: 3px solid white;
@@ -137,21 +125,21 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <div class="header-album">
-        <div class="foto-portada">
+        <div class="foto-portada" onclick="detectarTripleClic()">
             <img src="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1">
         </div>
-        <h1 onclick="detectarTripleClic()">Valentina</h1>
+        <h1>Valentina</h1>
         <p style="letter-spacing: 2px; font-size: 0.7rem; font-weight: bold;">MURO DE RECUERDOS</p>
     </div>
 
     <div id="admin-panel">
-        <h3 style="margin-top:0;">Panel Administrativo</h3>
-        <button class="btn-admin" onclick="descargarFotos()">📥 Descargar Todo</button>
-        <button class="btn-admin" onclick="borrarChat()" style="background:#ff007f;">🗑️ Borrar Chat</button>
-        <p style="font-size:10px; color:#ccc;">Vuelve a tocar el nombre para cerrar</p>
+        <h3 style="margin-top:0; color:var(--oro);">Panel de Anfitriona</h3>
+        <p>Se descargará un solo archivo ZIP con todas las fotos del muro.</p>
+        <button class="btn-admin" onclick="descargarZipCloudinary()">📥 DESCARGAR TODAS LAS FOTOS (ZIP)</button>
+        <p style="font-size:10px; color:#ccc; margin-top:15px;">Toca la foto de Valentina 3 veces para cerrar.</p>
     </div>
 
     <div class="chat-container">
@@ -172,125 +160,4 @@
         <div id="muro-mensajes"></div>
     </div>
 
-    <h2 style="font-family: 'Great Vibes'; font-size: 2.5rem;">Galería en Vivo</h2>
-    <div class="gallery-grid" id="galeria"></div>
-
-    <div class="float-btn">
-        <button id="upload_widget" class="btn-upload">📸 SUBIR FOTO</button>
-    </div>
-
-    <script>
-        const API_ID = "toqyxp5de1sge"; 
-        const cloudName = "dkoaxjahe";
-        const uploadPreset = "ALBUN TEST";
-        const eventTag = "cumple_valentina_6";
-        let col = "#fff4ad";
-        let clickCount = 0;
-
-        // 1. PROTECCIÓN DE CLIC DERECHO Y TECLAS
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
-        };
-
-        function setCol(c) { col = c; document.getElementById('caja').style.backgroundColor = c; }
-
-        // 2. PANEL ADMINISTRADOR (TRIPLE CLIC)
-        function detectarTripleClic() {
-            clickCount++;
-            if (clickCount === 3) {
-                const p = document.getElementById('admin-panel');
-                p.style.display = (p.style.display === 'block') ? 'none' : 'block';
-                clickCount = 0;
-            }
-            setTimeout(() => { clickCount = 0; }, 1000);
-        }
-
-        // 3. DESCARGAR FOTOS
-        async function descargarFotos() {
-            alert("Iniciando descarga masiva...");
-            const res = await fetch(`https://res.cloudinary.com/${cloudName}/image/list/${eventTag}.json`);
-            const data = await res.json();
-            data.resources.forEach((img, i) => {
-                const a = document.createElement('a');
-                a.href = `https://res.cloudinary.com/${cloudName}/image/upload/${img.public_id}.${img.format}`;
-                a.download = `Valentina_Foto_${i}`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            });
-        }
-
-        // 4. BORRAR CHAT
-        async function borrarChat() {
-            if(confirm("¿Seguro que quieres limpiar el muro?")){
-                const p = prompt("Password:");
-                if(p === "1234") { // Cambia tu clave aquí
-                    await fetch(`https://sheetdb.io/api/v1/${API_ID}/all`, { method: 'DELETE' });
-                    location.reload();
-                } else { alert("Incorrecto"); }
-            }
-        }
-
-        // 5. LOGICA CHAT
-        async function enviar() {
-            const nom = document.getElementById('n').value;
-            const msg = document.getElementById('m').value;
-            if(!nom || !msg) return alert("Faltan datos");
-            const btn = document.querySelector('.btn-enviar');
-            btn.innerText = "Enviando...";
-            await fetch(`https://sheetdb.io/api/v1/${API_ID}`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({data: [{"Nombre": nom, "Mensaje": msg, "Color": col}]})
-            });
-            document.getElementById('m').value = "";
-            btn.innerText = "ENVIAR AL CHAT";
-            cargarChat();
-        }
-
-        async function cargarChat() {
-            const res = await fetch(`https://sheetdb.io/api/v1/${API_ID}`);
-            const data = await res.json();
-            const muro = document.getElementById('muro-mensajes');
-            muro.innerHTML = "";
-            data.reverse().forEach(d => {
-                const s = document.createElement('div');
-                s.className = "sticker";
-                s.style.backgroundColor = d.Color || "#fff4ad";
-                s.style.transform = `rotate(${Math.random()*6-3}deg)`;
-                s.innerHTML = `<strong>${d.Nombre}:</strong><p>${d.Mensaje}</p>`;
-                muro.appendChild(s);
-            });
-        }
-
-        // 6. LOGICA GALERIA
-        async function cargarFotos() {
-            const res = await fetch(`https://res.cloudinary.com/${cloudName}/image/list/${eventTag}.json?v=${Date.now()}`);
-            const data = await res.json();
-            const gal = document.getElementById('galeria');
-            gal.innerHTML = "";
-            data.resources.forEach(img => {
-                let uploader = img.context?.custom?.uploader || "Invitado";
-                const url = `https://res.cloudinary.com/${cloudName}/image/upload/w_400,c_fill/${img.public_id}.${img.format}`;
-                const div = document.createElement('div');
-                div.className = 'photo-item';
-                div.innerHTML = `<img src="${url}"><div class="tag">De: ${uploader}</div>`;
-                gal.appendChild(div);
-            });
-        }
-
-        const widget = cloudinary.createUploadWidget({
-            cloudName: cloudName, uploadPreset: uploadPreset, tags: [eventTag],
-            prepareUploadParams: (cb, params) => {
-                const n = prompt("¿Tu nombre?") || "Invitado";
-                cb({ context: `uploader=${n}` });
-            }
-        }, (err, res) => { if(res.event === "success") setTimeout(cargarFotos, 2000); });
-
-        document.getElementById("upload_widget").onclick = () => widget.open();
-
-        window.onload = () => { cargarChat(); cargarFotos(); setInterval(cargarChat, 15000); };
-    </script>
-</body>
-</html>
+    <h2 style="font-family: 'Great Vibes'; font-size:
