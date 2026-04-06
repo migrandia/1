@@ -24,7 +24,6 @@
             text-align: center;
         }
 
-        /* PORTADA ANIMADA */
         .header-album {
             background: linear-gradient(-45deg, #fef1f8, #ffffff, #ffe4f0);
             background-size: 400% 400%;
@@ -52,7 +51,6 @@
 
         h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--oro); margin: 0; }
 
-        /* SECCIÓN TIPO CHAT / MURO */
         .chat-container {
             background: white;
             margin: 20px 10px;
@@ -82,7 +80,6 @@
             padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;
         }
 
-        /* DONDE SE VEN LOS MENSAJES */
         #muro-mensajes {
             display: flex; flex-wrap: wrap; justify-content: center;
             gap: 15px; margin-top: 25px; max-height: 400px; overflow-y: auto;
@@ -93,10 +90,8 @@
             width: 130px; min-height: 130px; padding: 12px;
             text-align: left; box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
             font-size: 0.8rem; position: relative;
-            transform: rotate(-2deg);
         }
 
-        /* GALERÍA */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 5px; padding: 10px; margin-bottom: 100px;
@@ -105,10 +100,7 @@
         .photo-item img { width: 100%; height: 100%; object-fit: cover; }
         .tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.4); color: white; font-size: 0.5rem; padding: 2px 0; }
 
-        /* BOTÓN FLOTANTE */
-        .float-btn {
-            position: fixed; bottom: 25px; width: 100%; z-index: 1000;
-        }
+        .float-btn { position: fixed; bottom: 25px; width: 100%; z-index: 1000; }
         .btn-upload {
             background: var(--rosa-fuerte); color: white; border: 3px solid white;
             padding: 15px 30px; border-radius: 50px; font-weight: bold;
@@ -141,8 +133,7 @@
             <button class="btn-enviar" onclick="enviar()">ENVIAR AL CHAT</button>
         </div>
 
-        <div id="muro-mensajes">
-            </div>
+        <div id="muro-mensajes"></div>
     </div>
 
     <h2 style="font-family: 'Great Vibes'; font-size: 2.5rem;">Galería en Vivo</h2>
@@ -153,12 +144,11 @@
     </div>
 
     <script>
-        const API_ID = "toqyxp5de1sge"; // <--- PON TU ID DE SHEETDB AQUÍ
+        const API_ID = "toqyxp5de1sge"; 
         let col = "#fff4ad";
 
         function setCol(c) { col = c; document.getElementById('caja').style.backgroundColor = c; }
 
-        // ENVIAR AL CHAT (Escribe en el Excel)
         async function enviar() {
             const nom = document.getElementById('n').value;
             const msg = document.getElementById('m').value;
@@ -168,36 +158,40 @@
             btn.innerText = "Enviando...";
             
             try {
-                await fetch(`https://sheetdb.io/api/v1/${API_ID}`, {
+                const response = await fetch(`https://sheetdb.io/api/v1/${API_ID}`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({data: [{"Nombre": nom, "Mensaje": msg, "Color": col}]})
                 });
-                document.getElementById('m').value = "";
-                cargarChat(); // Recargar para ver el nuevo
+                
+                if(response.ok) {
+                    document.getElementById('m').value = "";
+                    cargarChat(); 
+                }
             } catch(e) { alert("Error al enviar"); }
             btn.innerText = "ENVIAR AL CHAT";
         }
 
-        // CARGAR EL CHAT (Lee del Excel)
         async function cargarChat() {
             try {
                 const res = await fetch(`https://sheetdb.io/api/v1/${API_ID}`);
                 const data = await res.json();
                 const muro = document.getElementById('muro-mensajes');
                 muro.innerHTML = "";
+                
+                // Mostramos los mensajes (el más nuevo arriba)
                 data.reverse().forEach(d => {
                     const s = document.createElement('div');
                     s.className = "sticker";
-                    s.style.backgroundColor = d.Color;
+                    s.style.backgroundColor = d.Color || "#fff4ad";
                     s.style.transform = `rotate(${Math.random()*6-3}deg)`;
+                    s.style.margin = "10px";
                     s.innerHTML = `<strong>${d.Nombre}:</strong><p>${d.Mensaje}</p>`;
                     muro.appendChild(s);
                 });
-            } catch(e) {}
+            } catch(e) { console.log("Error cargando chat"); }
         }
 
-        // FOTOS CON NOMBRE
         async function cargarFotos() {
             const cloud = "dkoaxjahe";
             const tag = "cumple_valentina_6";
@@ -224,9 +218,12 @@
 
         document.getElementById("upload_widget").onclick = () => widget.open();
 
-        // Cargar todo al inicio y actualizar chat cada 15 segundos
-        window.onload = () => { cargarChat(); cargarFotos(); };
-        setInterval(cargarChat, 15000); 
+        window.onload = () => { 
+            cargarChat(); 
+            cargarFotos(); 
+            // Esto actualiza el chat automáticamente cada 10 segundos
+            setInterval(cargarChat, 10000); 
+        };
     </script>
 </body>
 </html>
