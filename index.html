@@ -203,19 +203,28 @@
             const btn = document.querySelector('.btn-enviar');
             btn.innerText = "Enviando...";
 
+            // CAMBIO CLAVE: Usar URLSearchParams para asegurar que Google reciba los datos
+            const data = new URLSearchParams();
+            data.append('Nombre', nom);
+            data.append('Mensaje', msg);
+            data.append('Color', col);
+
             try {
-                // El modo no-cors es necesario para Google Scripts
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({"Nombre": nom, "Mensaje": msg, "Color": col})
+                    mode: 'no-cors', // Google Apps Script requiere esto
+                    body: data
                 });
 
+                // Limpiamos la caja
                 document.getElementById('m').value = "";
                 btn.innerText = "ENVIAR AL CHAT";
-                setTimeout(cargarChat, 1000); // Recargar después de enviar
+                
+                // Esperamos 2 segundos y recargamos para ver el mensaje nuevo
+                setTimeout(cargarChat, 2000); 
             } catch (e) {
-                alert("Error al enviar, intenta de nuevo.");
+                console.error(e);
+                alert("Error al enviar. Revisa tu conexión.");
                 btn.innerText = "ENVIAR AL CHAT";
             }
         }
@@ -234,7 +243,7 @@
                     s.innerHTML = `<strong>${d.Nombre}:</strong><p>${d.Mensaje}</p>`;
                     muro.appendChild(s);
                 });
-            } catch (e) { console.log("Cargando..."); }
+            } catch (e) { console.log("Cargando chat..."); }
         }
 
         async function cargarFotos() {
@@ -266,7 +275,7 @@
         window.onload = () => { 
             cargarChat(); 
             cargarFotos(); 
-            setInterval(cargarChat, 30000); // Actualiza cada 30 segundos
+            setInterval(cargarChat, 30000); 
         };
     </script>
 </body>
