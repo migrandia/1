@@ -22,13 +22,13 @@
             background-color: #fef1f8;
             color: var(--texto);
             text-align: center;
+            /* Evitar selección de texto */
             -webkit-user-select: none;
             user-select: none;
         }
 
         input, textarea { user-select: text; -webkit-user-select: text; }
 
-        /* --- SECCIÓN CORREGIDA: SIN FILTRO OSCURO --- */
         .header-album {
             background-image: url('https://www.dropbox.com/scl/fi/clsf8su5ditx2r9y1ayk2/FONDO-DE-ALBUN-DE-XV-A-OS-2.jpg?rlkey=ibvipesihp806pa89vnph7322&raw=1');
             background-size: cover;
@@ -37,8 +37,6 @@
             border-bottom: 4px double var(--oro);
             position: relative;
         }
-
-        /* Se eliminó el bloque .header-album::before que oscurecía la foto */
 
         .foto-portada, h1, .header-album p {
             position: relative;
@@ -53,7 +51,6 @@
             outline: 2px solid var(--oro);
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            cursor: pointer;
         }
         .foto-portada img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -63,7 +60,6 @@
             color: var(--oro); 
             margin: 0; 
             cursor: pointer; 
-            /* Sombra de texto para asegurar legibilidad sobre fondo claro */
             text-shadow: 2px 2px 4px rgba(0,0,0,0.4); 
         }
 
@@ -89,7 +85,7 @@
 
         .input-box {
             background: #fff4ad; padding: 15px; border-radius: 15px;
-            max-width: 350px; margin: 0 auto; transition: background 0.3s;
+            max-width: 350px; margin: 0 auto;
         }
         .input-box input, .input-box textarea {
             width: 90%; border: none; background: transparent; 
@@ -137,9 +133,7 @@
 
     <div class="header-album">
         <div class="foto-portada">
-            <a href="#" target="_blank">
-                <img src="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1">
-            </a>
+            <img src="https://www.dropbox.com/scl/fi/nm44i882g13044o8idz6k/xv1.jpg?rlkey=wn8xf4ne3yp5fz4vkzpsvbz4p&raw=1">
         </div>
         <h1 onclick="detectarTripleClic()">Valentina</h1>
         <p style="letter-spacing: 2px; font-size: 0.7rem; font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">MURO DE RECUERDOS</p>
@@ -147,12 +141,11 @@
 
     <div id="admin-panel">
         <h3 style="margin-top:0;">Panel Administrativo</h3>
-        <button class="btn-admin" onclick="descargarFotos()">📥 Descargar Todo</button>
-        <p style="font-size:10px; color:#ccc;">Limpia el Excel para borrar el chat</p>
+        <button class="btn-admin" onclick="location.reload()">🔄 Actualizar</button>
+        <p style="font-size:10px; color:#ccc;">Usa el Excel para gestionar mensajes</p>
     </div>
 
     <div class="chat-container">
-        <p style="font-size: 0.7rem; font-weight: bold;">ELIGE UN COLOR Y DEJA TU MENSAJE:</p>
         <div class="color-selector">
             <div class="dot" onclick="setCol('#fff4ad')" style="background:#fff4ad;"></div>
             <div class="dot" onclick="setCol('#ffcfdf')" style="background:#ffcfdf;"></div>
@@ -186,6 +179,13 @@
 
         function setCol(c) { col = c; document.getElementById('caja').style.backgroundColor = c; }
 
+        // --- PROTECCIÓN CONTRA COPIA DE CÓDIGO ---
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) return false; // Bloquear F12
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Bloquear Ctrl+U
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Bloquear Ctrl+Shift+I
+        };
+
         function detectarTripleClic() {
             clickCount++;
             if (clickCount === 3) {
@@ -200,28 +200,18 @@
             const nom = document.getElementById('n').value;
             const msg = document.getElementById('m').value;
             if(!nom || !msg) return alert("Faltan datos");
-            
             const btn = document.querySelector('.btn-enviar');
             btn.innerText = "Enviando...";
-
             const data = new URLSearchParams();
             data.append('Nombre', nom);
             data.append('Mensaje', msg);
             data.append('Color', col);
-
             try {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: data
-                });
+                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: data });
                 document.getElementById('m').value = "";
                 btn.innerText = "ENVIAR MENSAJE";
                 setTimeout(cargarChat, 2000); 
-            } catch (e) {
-                alert("Error al enviar");
-                btn.innerText = "ENVIAR MENSAJE";
-            }
+            } catch (e) { alert("Error al enviar"); btn.innerText = "ENVIAR MENSAJE"; }
         }
 
         async function cargarChat() {
@@ -260,7 +250,10 @@
         }
 
         const widget = cloudinary.createUploadWidget({
-            cloudName: cloudName, uploadPreset: uploadPreset, tags: [eventTag],
+            cloudName: cloudName, 
+            uploadPreset: uploadPreset, 
+            tags: [eventTag],
+            clientAllowedFormats: ["png", "jpg", "jpeg"], // Solo imágenes permitidas
             prepareUploadParams: (cb, params) => {
                 const n = prompt("¿Tu nombre?") || "Invitado";
                 cb({ context: `uploader=${n}` });
